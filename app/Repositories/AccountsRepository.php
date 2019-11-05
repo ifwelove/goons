@@ -2,7 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\SysAdmin as Account;
+//use App\Models\SysAdmin as Account;
+use App\User as Account;
 
 class AccountsRepository extends Repository
 {
