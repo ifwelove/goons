@@ -16,6 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+//        dump(Auth::user()->toArray());
         return view('index');
     }
 

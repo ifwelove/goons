@@ -38,20 +38,20 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function username()
-    {
-        return 'username';
-    }
-
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            $this->username() => 'required|string',
-            'password'        => 'required|string',
-            'captcha'         => 'required|captcha',
-        ], [
-            'captcha.required' => trans('validation.captcha.required'),
-            'captcha.captcha'  => trans('validation.captcha.error'),
-        ]);
-    }
+//    public function username()
+//    {
+//        return 'username';
+//    }
+//
+//    protected function validateLogin(Request $request)
+//    {
+//        $request->validate([
+//            $this->username() => 'required|string',
+//            'password'        => 'required|string',
+//            'captcha'         => 'required|captcha',
+//        ], [
+//            'captcha.required' => trans('validation.captcha.required'),
+//            'captcha.captcha'  => trans('validation.captcha.error'),
+//        ]);
+//    }
 }

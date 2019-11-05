@@ -1,7 +1,8 @@
 <?php
 
 use App\Models\Permission;
-use App\Models\SysAdmin as User;
+//use App\Models\SysAdmin as User;
+use App\User;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 

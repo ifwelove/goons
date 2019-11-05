@@ -25,18 +25,25 @@
                         <form action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="username">{{ __('backend.username') }}</label>
-                                <input class="form-control @if($errors->has('username')) is-invalid @endif" type="text" id="username" name="username" value="flydove" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />
-                                @if($errors->has('username'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('username') }}</strong>
+{{--                                <label for="username">{{ __('backend.username') }}</label>--}}
+{{--                                <input class="form-control @if($errors->has('username')) is-invalid @endif" type="text" id="username" name="username" value="admin@test.com" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />--}}
+{{--                                @if($errors->has('username'))--}}
+{{--                                <span class="invalid-feedback" role="alert">--}}
+{{--                                    <strong>{{ $errors->first('username') }}</strong>--}}
+{{--                                </span>--}}
+{{--                                @endif--}}
+                                <label for="email">{{ __('backend.username') }}</label>
+                                <input class="form-control @if($errors->has('email')) is-invalid @endif" type="text" id="email" name="email" value="admin@test.com" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />
+                                @if($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
                                 </span>
                                 @endif
                             </div>
                             <div class="form-group mb-3">
                                 <label for="password">{{ __('backend.password') }}</label>
                                 <div class="input-group">
-                                    <input class="form-control @if($errors->has('password')) is-invalid @endif" type="password" name="password" id="password" value="123456" placeholder="{{ __('backend.message.enter_your_password') }}">
+                                    <input class="form-control @if($errors->has('password')) is-invalid @endif" type="password" name="password" id="password" value="password" placeholder="{{ __('backend.message.enter_your_password') }}">
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary waves-effect waves-light" id="passwordBtn" type="button">{{ __('backend.display') }}</button>
                                     </div>

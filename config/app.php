@@ -149,7 +149,7 @@ return [
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-        //        Illuminate\Hashing\HashServiceProvider::class,
+                Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ViewServiceProvider::class,
-        App\Providers\MD5HashServiceProvider::class,
+//        App\Providers\MD5HashServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class
 
     ],
