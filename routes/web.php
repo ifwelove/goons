@@ -50,3 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('home', 'DashboardController@index');
     Route::get('/', 'DashboardController@index');
 });
+
+Route::resource('programs', 'ProgramController');
+Route::resource('news', 'NewsController');
+Route::resource('pushs', 'PushController');
+Route::resource('categories', 'CategoryController');

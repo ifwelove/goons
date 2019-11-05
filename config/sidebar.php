@@ -29,7 +29,7 @@ return [
         'roles' => \App\Models\Role::ADMIN,
         'icon'  => 'remixicon-dashboard-line',
         'slug'  => '節目分類管理',
-        'route'  => 'accounts.index',
+        'route'  => 'categories.index',
 //        'items' => [
 //            'user'  => [
 //                'slug' => '使用者管理',
@@ -54,7 +54,7 @@ return [
         'roles' => \App\Models\Role::implodeAll(),
         'icon'  => 'remixicon-mail-open-line',
         'slug'  => '節目內容管理',
-        'route'  => 'accounts.index',
+        'route'  => 'programs.index',
 //        'items' => [
 //            'user'  => [
 //                'slug' => '電子郵件發送',
@@ -79,7 +79,7 @@ return [
         'roles' => \App\Models\Role::implodeAll(),
         'icon'  => 'remixicon-discuss-line',
         'slug'  => '最新消息管理',
-        'route'  => 'accounts.index',
+        'route'  => 'news.index',
 //        'items' => [
 //            'message' => [
 //                'slug' => '簡訊發送',
@@ -101,7 +101,7 @@ return [
         'icon'  => 'remixicon-rocket-2-line',
         'badge' => 'Hot',
         'slug'  => '推播管理',
-        'route'  => 'accounts.index',
+        'route'  => 'pushs.index',
 //        'items' => [
 //            'category'    => [
 //                'slug' => '分類標籤管理',

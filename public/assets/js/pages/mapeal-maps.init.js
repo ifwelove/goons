@@ -477,7 +477,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/feixin/temp/test3/feixin_client/resources/js/pages/mapeal-maps.init.js */"./resources/js/pages/mapeal-maps.init.js");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goons/resources/js/pages/mapeal-maps.init.js */"./resources/js/pages/mapeal-maps.init.js");
 
 
 /***/ })

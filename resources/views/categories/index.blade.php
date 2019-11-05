@@ -18,13 +18,6 @@
                 <h4 class="page-title">{{ __('backend.list.account') }}</h4>
             </div>
         </div>
-        <div class="col-12">
-            <h1>
-                <a class="btn btn-success waves-effect" href="{{ route('accounts.create') }}" role="button">
-                    {{ __('backend.create.account') }}
-                </a>
-            </h1>
-        </div>
     </div>
 @endsection
 
@@ -48,35 +41,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($accounts as $account)
-                                    <tr>
-                                        <td>{{ $account->id }}</td>
-                                        <td>{{ $account->username }}</td>
-                                        <td>{{ $account->roles()->pluck('name')->implode(' ') }}</td>
-                                        <td>{{ $account->create_datetime }}</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <a class="btn btn-success waves-effect" href="{{ route('accounts.edit', $account->id) }}" role="button">
-                                                        <i class="fa fa-wrench mr-1"></i>
-                                                        {{ __('backend.edit') }}
-                                                    </a>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['accounts.destroy', $account->id] ]) !!}
-                                                    {!! Form::button('<i class="fa fa-trash mr-1"></i>' . __('backend.delete'), ['type' => 'submit', 'class' => 'btn btn-danger confirm']) !!}
-                                                    {!! Form::close() !!}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
                                 </tbody>
                             </table>
                         </div> <!-- end .table-responsive-->
                     </div> <!-- end card-body -->
                     <div class="card-body">
-                        {{ $accounts->links('pagination.system') }}
                     </div>
                 </div> <!-- end card -->
             </div> <!-- end col -->

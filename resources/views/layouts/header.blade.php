@@ -6,7 +6,7 @@
                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                    <img src="{{ URL::asset('assets/images/users/user.jpg') }}" alt="user-image" class="rounded-circle">
                    <span class="pro-user-name ml-1">
-                   {{ Auth::user()->username }}
+{{--                   {{ Auth::user()->username }}--}}
                    </span>
                </a>
            </li>

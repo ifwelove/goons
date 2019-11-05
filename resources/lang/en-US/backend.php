@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site.title' => 'Flydove',
+    'site.title' => '',
     'site.lang'  => 'English',
     'dashboard'  => 'Dashboard',
     'search'     => 'Search',

@@ -4,7 +4,7 @@
                <ul class="metismenu" id="side-menu">
                    <li class="menu-title">{{ __('backend.navigation') }}</li>
                    @foreach (config('sidebar') as $main)
-                   @hasanyrole( $main['roles'] )
+{{--                   @hasanyrole( $main['roles'] )--}}
                    <li>
                        <a href="{{ route($main['route']) }}" class="waves-effect">
                            <i class="{{ $main['icon'] }}"></i>
@@ -25,7 +25,7 @@
 {{--                           @endforeach--}}
 {{--                       </ul>--}}
                    </li>
-                   @endhasanyrole
+{{--                   @endhasanyrole--}}
                    @endforeach
                </ul>
            </div>

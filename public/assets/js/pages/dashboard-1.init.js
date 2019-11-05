@@ -209,11 +209,11 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ponpon/ponpon/feixin/temp/test3/feixin_client/resources/js/pages/dashboard-1.init.js */"./resources/js/pages/dashboard-1.init.js");
-__webpack_require__(/*! /Users/ponpon/ponpon/feixin/temp/test3/feixin_client/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-__webpack_require__(/*! /Users/ponpon/ponpon/feixin/temp/test3/feixin_client/resources/scss/icons.scss */"./resources/scss/icons.scss");
-__webpack_require__(/*! /Users/ponpon/ponpon/feixin/temp/test3/feixin_client/resources/scss/app-rtl.scss */"./resources/scss/app-rtl.scss");
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/feixin/temp/test3/feixin_client/resources/scss/app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! /Users/ponpon/ponpon/goons/resources/js/pages/dashboard-1.init.js */"./resources/js/pages/dashboard-1.init.js");
+__webpack_require__(/*! /Users/ponpon/ponpon/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
+__webpack_require__(/*! /Users/ponpon/ponpon/goons/resources/scss/icons.scss */"./resources/scss/icons.scss");
+__webpack_require__(/*! /Users/ponpon/ponpon/goons/resources/scss/app-rtl.scss */"./resources/scss/app-rtl.scss");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 
 /***/ })

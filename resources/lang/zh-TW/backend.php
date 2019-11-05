@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site.title' => '飛信資訊',
+    'site.title' => '',
     'site.lang'  => '中文',
     'dashboard'  => '儀表板',
     'search'     => '搜尋',
