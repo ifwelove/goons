@@ -23,7 +23,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('news.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('news.edit');
     }
 
     /**

@@ -23,7 +23,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
+        return view('programs.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('programs.edit');
     }
 
     /**

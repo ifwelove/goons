@@ -23,7 +23,7 @@ class PushController extends Controller
      */
     public function create()
     {
-        //
+        return view('pushs.index');
     }
 
     /**
@@ -56,7 +56,7 @@ class PushController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pushs.edit');
     }
 
     /**
