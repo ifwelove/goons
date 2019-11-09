@@ -70,7 +70,6 @@
 															</tr>
 														</tbody>
 												</table>
-												<Program></Program>
 										</div> <!-- end .table-responsive-->
 								</div> <!-- end card-body -->
 						</div> <!-- end card -->
@@ -92,7 +91,6 @@
 <script>
 import Pagination from './Pagination'
 export default {
-	name: 'program-index',
 
 	components: {
 		Pagination

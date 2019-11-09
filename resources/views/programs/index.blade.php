@@ -9,7 +9,7 @@
 
 @section('content')
     <div id="program">
-        <program-index></program-index>
+        <program></program>
     </div>
 @endsection
 
