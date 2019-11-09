@@ -182,63 +182,29 @@ var out = folder.dist_assets + "images";
 mix.copyDirectory(folder.src + "images", out);
 
 mix.sass('resources/scss/bootstrap.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/bootstrap.css");
-mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/icons.css");
-mix.sass('resources/scss/app-rtl.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-rtl.css");
+// mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/icons.css");
+// mix.sass('resources/scss/app-rtl.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-rtl.css");
 mix.sass('resources/scss/app.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app.css");
 
 //copying demo pages related assets
-var app_pages_assets = {
-    js: [
-        folder.src + "js/pages/dashboard-1.init.js",
-            folder.src + "js/pages/dashboard-2.init.js",
-            folder.src + "js/pages/toastr.init.js",
-            folder.src + "js/pages/jquery.chat.js",
-            folder.src + "js/pages/jquery.todo.js",
-            folder.src + "js/pages/widgets.init.js",
-            folder.src + "js/pages/kanban.init.js",
-            folder.src + "js/pages/sweet-alerts.init.js",
-            folder.src + "js/pages/nestable.init.js",
-            folder.src + "js/pages/treeview.init.js",
-            folder.src + "js/pages/range-sliders.init.js",
-            folder.src + "js/pages/form-advanced.init.js",
-            folder.src + "js/pages/form-validation.init.js",
-            folder.src + "js/pages/form-pickers.init.js",
-            folder.src + "js/pages/form-summernote.init.js",
-            folder.src + "js/pages/form-wizard.init.js",
-            folder.src + "js/pages/form-quilljs.init.js",
-            folder.src + "js/pages/form-fileuploads.init.js",
-            folder.src + "js/pages/form-xeditable.init.js",
-            folder.src + "js/pages/datatables.init.js",
-            folder.src + "js/pages/tabledit.init.js",
-            folder.src + "js/pages/responsive-table.init.js",
-            folder.src + "js/pages/tablesaw.init.js",
-            folder.src + "js/pages/foo-tables.init.js",
-            folder.src + "js/pages/flot.init.js",
-            folder.src + "js/pages/apexcharts.init.js",
-            folder.src + "js/pages/morris.init.js",
-            folder.src + "js/pages/chartjs.init.js",
-            folder.src + "js/pages/c3.init.js",
-            folder.src + "js/pages/peity.init.js",
-            folder.src + "js/pages/chartist.init.js",
-            folder.src + "js/pages/sparkline.init.js",
-            folder.src + "js/pages/google-maps.init.js",
-            folder.src + "js/pages/vector-maps.init.js",
-            folder.src + "js/pages/mapeal-maps.init.js",
-            folder.src + "js/pages/inbox.js",
-            folder.src + "js/pages/companies.js",
-            folder.src + "js/pages/calendar.init.js",
-            folder.src + "js/pages/tickets.js",
-            folder.src + "js/pages/gallery.init.js",
-            folder.src + "js/pages/coming-soon.init.js",
-            folder.src + "js/pages/tour.init.js",
-    ]
-};
+// var app_pages_assets = {
+//     js: [
+//         folder.src + "js/pages/program.js"
+//     ]
+// };
 
-var out = folder.dist_assets + "js/";
-lodash(app_pages_assets).forEach(function (assets, type) {
-    for (let i = 0; i < assets.length; ++i) {
-        mix.js(assets[i], out + "pages");
-    };
-});
+// var out = folder.dist_assets + "js/";
+// lodash(app_pages_assets).forEach(function (assets, type) {
+//     for (let i = 0; i < assets.length; ++i) {
+//         mix.js(assets[i], out + "pages");
+//     };
+// });
+
 
 mix.combine('resources/js/app.js', folder.dist_assets + "js/app.min.js");
+
+mix
+    .js('resources/js/pages/program.js', 'public/js')
+//     .js('resources/js/main.js', 'public/js')
+
+// mix.extract(['vue', 'lodash', 'axios'])
