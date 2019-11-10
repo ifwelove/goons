@@ -54,10 +54,14 @@
 						<div class="kt-form__actions">
 							<div class="row">
 								<div class="col-2">
+									<button v-if="isEdit" type="reset" class="btn btn-success">刪除</button>
 								</div>
 								<div class="col-10 text-right">
 									<button type="reset" class="btn btn-secondary">取消</button>
-									<button type="reset" class="btn btn-success">新增</button>
+									<template>
+										<button v-if="!isEdit" type="reset" class="btn btn-success">新增</button>
+										<button v-else type="reset" class="btn btn-success">儲存</button>
+									</template>
 								</div>
 							</div>
 						</div>
@@ -71,6 +75,11 @@
 
 <script>
 export default {
+	props: {
+		isEdit: {
+			type: Boolean
+		}
+	}
 
 }
 </script>
