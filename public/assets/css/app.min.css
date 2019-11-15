@@ -784,14 +784,12 @@ body.enlarged {
 }
 
 .page-title-box {
-  background-color: #fff;
   margin: 0 -27px 30px;
   padding: 0 27px;
-  box-shadow: 0 1px 1px rgba(50, 58, 70, 0.1);
 }
 
 .page-title-box .page-title {
-  font-size: 1.1rem;
+  font-size: 2rem;
   margin: 0;
   line-height: 60px;
   color: #323a46;
