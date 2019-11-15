@@ -26,14 +26,14 @@
                             @csrf
                             <div class="form-group mb-3">
 {{--                                <label for="username">{{ __('backend.username') }}</label>--}}
-{{--                                <input class="form-control @if($errors->has('username')) is-invalid @endif" type="text" id="username" name="username" value="admin@test.com" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />--}}
+{{--                                <input class="form-control @if($errors->has('username')) is-invalid @endif" type="text" id="username" name="username" value="" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />--}}
 {{--                                @if($errors->has('username'))--}}
 {{--                                <span class="invalid-feedback" role="alert">--}}
 {{--                                    <strong>{{ $errors->first('username') }}</strong>--}}
 {{--                                </span>--}}
 {{--                                @endif--}}
                                 <label for="email">{{ __('backend.username') }}</label>
-                                <input class="form-control @if($errors->has('email')) is-invalid @endif" type="text" id="email" name="email" value="admin@test.com" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />
+                                <input class="form-control @if($errors->has('email')) is-invalid @endif" type="text" id="email" name="email" value="" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />
                                 @if($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -44,9 +44,6 @@
                                 <label for="password">{{ __('backend.password') }}</label>
                                 <div class="input-group">
                                     <input class="form-control @if($errors->has('password')) is-invalid @endif" type="password" name="password" id="password" value="password" placeholder="{{ __('backend.message.enter_your_password') }}">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary waves-effect waves-light" id="passwordBtn" type="button">{{ __('backend.display') }}</button>
-                                    </div>
                                 </div>
                                 @if($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
@@ -55,18 +52,14 @@
                                 @endif
                             </div>
                             <div class="form-group mb-3">
-                                <label for="captcha">{{ __('backend.captcha') }}</label>
                                 <div class="row">
                                     <div class="col-8">
-                                        <input class="form-control @if($errors->has('captcha')) is-invalid @endif" type="text" name="captcha" id="captcha" placeholder="{{ __('backend.message.enter_your_captcha') }}">
-                                        @if($errors->has('captcha'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('captcha') }}</strong>
-                                        </span>
-                                        @endif
+                                    <div class="kt-checkbox-inline">
+                                        <label class="kt-checkbox">
+                                            <input type="checkbox"> 保持登入（30 天）
+                                            <span></span>
+                                        </label>
                                     </div>
-                                    <div class="col-2">
-                                        <img src="{{ captcha_src() }}" style="cursor: pointer" onclick="this.src='{{ captcha_src() }}'+Math.random()">
                                     </div>
                                 </div>
                             </div>
@@ -88,13 +81,6 @@
             var display = "{{ __('backend.display') }}";
             var none = "{{ __('backend.none') }}";
             var status = true;
-
-            $('#passwordBtn').on('click', function () {
-                status = !status;
-                var btnText = status ? none : display;
-                $(this).text(btnText);
-                $('#password').attr('type', status ? "text" : "password");
-            });
         });
     </script>
 @endsection
