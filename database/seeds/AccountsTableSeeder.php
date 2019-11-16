@@ -21,5 +21,9 @@ class AccountsTableSeeder extends Seeder
         });
         $permission = Permission::find(1)->first();
         $role->givePermissionTo($permission);
+
+        $user = User::find(1);
+        $user->email = 'admin@test.com';
+        $user->save();
     }
 }
