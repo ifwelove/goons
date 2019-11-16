@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProgramsCollection;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use wapmorgan\Mp3Info\Mp3Info;
 
@@ -95,5 +97,15 @@ class ProgramController extends Controller
         // or omit 2nd argument to increase parsing speed
         $audio = new Mp3Info($fileNameb);
         dump($audio);
+    }
+
+    public function programListApi(Request $request)
+    {
+        $input = $request->only(['programID', 'page']);
+        $id = $input['programID'];
+        $programs = Program::where('categories', $id)->paginate(15);
+        ProgramsCollection::wrap('list');
+
+        return new ProgramsCollection($programs);
     }
 }
