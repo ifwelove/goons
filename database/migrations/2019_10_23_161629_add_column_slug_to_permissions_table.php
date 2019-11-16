@@ -25,7 +25,7 @@ class AddColumnSlugToPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('analytics_views', function (Blueprint $table) {
+        Schema::table('permissions', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
     }

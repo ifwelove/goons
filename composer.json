@@ -14,7 +14,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^6.0",
         "mews/captcha": "^3.0",
-        "spatie/laravel-permission": "^3.2"
+        "spatie/laravel-permission": "^3.2",
+        "wapmorgan/mp3info": "^0.0.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
