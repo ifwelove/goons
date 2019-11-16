@@ -1,9 +1,5 @@
 <?php
-
-use App\User;
-use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,5 +13,8 @@ class DatabaseSeeder extends Seeder
          $this->call(RolesTableSeeder::class);
          $this->call(PermissionsTableSeeder::class);
          $this->call(AccountsTableSeeder::class);
+         $this->call(NewsTableSeeder::class);
+         $this->call(CategoriesTableSeeder::class);
+         $this->call(ProgramsTableSeeder::class);
     }
 }

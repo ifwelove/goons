@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::resource('programs', 'ProgramController');
+Route::get('parser', 'ProgramController@parser');
 Route::resource('news', 'NewsController');
 Route::resource('pushs', 'PushController');
 Route::resource('categories', 'CategoryController');
