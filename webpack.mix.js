@@ -204,7 +204,10 @@ mix.sass('resources/scss/app.scss', folder.dist_assets + "css").minify(folder.di
 mix.combine('resources/js/app.js', folder.dist_assets + "js/app.min.js");
 
 mix
-    .js('resources/js/pages/program.js', 'public/js')
-//     .js('resources/js/main.js', 'public/js')
+    .js('resources/js/components/accounts.js', 'public/js')
+    .js('resources/js/components/categories.js', 'public/js')
+    .js('resources/js/components/programs.js', 'public/js')
+    .js('resources/js/components/news.js', 'public/js')
+    .js('resources/js/components/pushes.js', 'public/js')
 
 // mix.extract(['vue', 'lodash', 'axios'])
