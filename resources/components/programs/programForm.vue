@@ -1,5 +1,11 @@
 <template>
 <div class="container-fluid mt-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/programs">節目管理</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ isEdit ? '編輯' : '新增'}}</li>
+    </ol>
+  </nav>
   <div class="row">
     <div class="col-12">
       <div class="kt-portlet">
@@ -7,47 +13,52 @@
         <form class="kt-form kt-form--label-right">
           <div class="kt-portlet__body">
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">姓名:</label>
+              <label class="col-lg-3 col-form-label">節目名稱：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限中英數字">
+                 <select class="my-select selectpicker w-auto mr-2"
+                  v-model="category">
+                    <option value="空中崇拜">空中崇拜</option>
+                    <option value="半邊天">半邊天</option>
+                  </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">帳號:</label>
+              <label class="col-lg-3 col-form-label">單集節目名稱：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限英數字">
+                <input type="text" class="form-control" placeholder="限30個字" maxlength="30">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">密碼:</label>
+              <label class="col-lg-3 col-form-label">主持人：</label>
               <div class="col-lg-6">
-                <input type="password" class="form-control" placeholder="6-12位英數字密碼">
+                <input type="text" class="form-control" placeholder="限15個字" maxlength="15">
               </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 col-form-label">權限管理:</label>
-                <div class="col-lg-6 kt-checkbox-list mt-2 pl-2">
-                  <label class="kt-checkbox">
-                        <input type="checkbox"> 帳號管理
-                        <span></span>
-                    </label>
-                    <label class="kt-checkbox">
-                        <input type="checkbox"> 節目分類
-                        <span></span>
-                    </label>
-                    <label class="kt-checkbox">
-                        <input type="checkbox"> 節目內容
-                        <span></span>
-                    </label>
-                    <label class="kt-checkbox">
-                        <input type="checkbox"> 最新消息
-                        <span></span>
-                    </label>
-                    <label class="kt-checkbox">
-                        <input type="checkbox"> 推播管理
-                        <span></span>
-                    </label>
-                </div>
+              <label class="col-lg-3 col-form-label">音檔位址：</label>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" placeholder="http://">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">指定上架日期：</label>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" id="datepicker_start" readonly="" placeholder="Select date"
+                  v-model="startDate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">指定下架日期：</label>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" id="datepicker_end" readonly="" placeholder="Select date"
+                  v-model="endDate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">單集簡介：</label>
+              <div class="col-lg-6">
+                <textarea class="form-control" placeholder="" maxlength="300"></textarea>
+              </div>
             </div>
           </div>
           <div class="kt-portlet__foot">
@@ -80,6 +91,25 @@ export default {
       type: Boolean
     }
   },
+
+  data () {
+    return {
+      category: '空中崇拜',
+      startDate: '',
+      endDate: ''
+    }
+  },
+
+
+  mounted () {
+    this.$nextTick(() => {
+      $('.my-select').selectpicker();
+      $('#datepicker_start, #datepicker_end').datepicker({
+        format: "yyyy/mm/dd"
+      });
+    })
+  },
+
 
   methods: {
     handleCreate () {

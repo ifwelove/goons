@@ -6,15 +6,13 @@
                 <div class="kt-portlet__body">
                     <div class="kt-portlet__content">
                       <div class="d-flex">
-                      <div class="kt-input-icon kt-input-icon--right w-auto mr-2">
-                        <input type="text" class="form-control" placeholder="搜尋姓名、帳號" id="generalSearch"
-                          v-model="keyword">
-                        <span class="kt-input-icon__icon kt-input-icon__icon--right">
-                          <span><i class="fa fa-search"></i></span>
-                        </span>
-                      </div>
-                      <button type="button" class="btn btn-primary"
-                        @click="handleSearch">查詢</button>
+                        <select class="my-select selectpicker w-auto mr-2"
+                          v-model="category">
+                            <option value="空中崇拜">空中崇拜</option>
+                            <option value="半邊天">半邊天</option>
+                          </select>
+                        <button type="button" class="btn btn-primary"
+                        @click="handleSearch">顯示列表</button>
                       </div>
                     </div>
                 </div>
@@ -23,7 +21,7 @@
             <div class="page-title-box bg-none">
                 <div class="page-title-right">
                     <button type="button" class="btn btn-primary"
-                      @click="handleAddAccount">新增管理帳號</button>
+                      @click="handleAddPrograms">新增節目</button>
                 </div>
                 <h2 class="page-title">節目單集列表</h2>
             </div>
@@ -126,7 +124,8 @@ export default {
     return {
       keyword: '',
       currentPage: 1,
-      programs: []
+      programs: [],
+      category: '空中崇拜'
     }
   },
 
@@ -134,6 +133,12 @@ export default {
     // call api
 
     this.programs = programs
+  },
+
+  mounted () {
+    this.$nextTick(() => {
+      $('.my-select').selectpicker();
+    })
   },
 
   methods: {
@@ -145,7 +150,7 @@ export default {
       console.log('handleSearch', this.keyword)
     },
 
-    handleAddAccount () {
+    handleAddPrograms () {
       location.assign(location.href + '/create')
     }
   }
