@@ -43,7 +43,7 @@
                             <div class="form-group mb-3">
                                 <label for="password">{{ __('backend.password') }}</label>
                                 <div class="input-group">
-                                    <input class="form-control @if($errors->has('password')) is-invalid @endif" type="password" name="password" id="password" value="password" placeholder="{{ __('backend.message.enter_your_password') }}">
+                                    <input class="form-control @if($errors->has('password')) is-invalid @endif" type="password" name="password" id="password" placeholder="{{ __('backend.message.enter_your_password') }}">
                                 </div>
                                 @if($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
