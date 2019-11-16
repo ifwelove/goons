@@ -1,7 +1,11 @@
 {
-    "/js/program.js": "/js/program.js",
+    "/js/accounts.js": "/js/accounts.js",
     "/assets/css/bootstrap.css": "/assets/css/bootstrap.css",
     "/assets/css/app.css": "/assets/css/app.css",
+    "/js/categories.js": "/js/categories.js",
+    "/js/news.js": "/js/news.js",
+    "/js/programs.js": "/js/programs.js",
+    "/js/pushes.js": "/js/pushes.js",
     "/assets/css/bootstrap.min.css": "/assets/css/bootstrap.min.css",
     "/assets/css/app.min.css": "/assets/css/app.min.css",
     "/assets/js/app.min.js": "/assets/js/app.min.js"

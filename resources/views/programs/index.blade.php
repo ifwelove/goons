@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <div id="program">
+    <div id="programs">
         <program></program>
     </div>
 @endsection
@@ -17,5 +17,5 @@
 @endsection
 
 @section('script-bottom')
-    <script src="{{ URL::asset('js/program.js') }}"></script>
+    <script src="{{ URL::asset('js/programs.js') }}"></script>
 @endsection
