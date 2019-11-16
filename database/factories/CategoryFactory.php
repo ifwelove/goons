@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 $factory->define(Category::class, function (Faker $faker) {
     $image = 'https://www.google.com.tw/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png';
     $result = [
-        'type' => rand(0, 2),
+        'type' => rand(0, 1),
         'title' => Str::random(10),
         'sub_title' => Str::random(100),
         'image' => $image,

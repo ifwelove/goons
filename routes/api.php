@@ -18,3 +18,6 @@ use Illuminate\Http\Request;
 //});
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');
+Route::post('programDescription', 'CategoryController@programDescriptionApi');
+Route::post('programList', 'ProgramController@programListApi');
+Route::post('program', 'ProgramController@programApi');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Category as CategoryResource;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -80,5 +82,16 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function programDescriptionApi(Request $request)
+    {
+        $input = $request->only(['programID']);
+        $id = $input['programID'];
+        $category = Category::find($id);
+
+        CategoryResource::withoutWrapping();
+
+        return new CategoryResource($category);
     }
 }
