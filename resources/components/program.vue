@@ -22,7 +22,8 @@
 
             <div class="page-title-box bg-none">
                 <div class="page-title-right">
-                    <button type="button" class="btn btn-primary">新增管理帳號</button>
+                    <button type="button" class="btn btn-primary"
+                      @click="handleAddAccount">新增管理帳號</button>
                 </div>
                 <h2 class="page-title">帳號列表</h2>
             </div>
@@ -59,9 +60,6 @@
                                   </span>
                                 </td>
                                 <td>
-                                  <!-- <button @click="handleEdit(account.id)">
-                                    <i class="fa fa-pen"></i>
-                                  </button> -->
                                   <button type="button" class="btn btn-light btn-circle btn-icon"
                                     @click="handleEdit(account.id)">
                                     <i class="fa fa-pen"></i>
@@ -128,11 +126,15 @@ export default {
 
   methods: {
     handleEdit (id) {
-      console.log('handleEdit', id)
+      location.assign(location.href + `/${id}/edit`)
     },
 
     handleSearch () {
       console.log('handleSearch', this.keyword)
+    },
+
+    handleAddAccount () {
+      location.assign(location.href + '/create')
     }
   }
 

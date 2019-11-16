@@ -59,8 +59,8 @@
                 <div class="col-10 text-right">
                   <button type="reset" class="btn btn-secondary">取消</button>
                   <template>
-                    <button v-if="!isEdit" type="reset" class="btn btn-success">新增</button>
-                    <button v-else type="reset" class="btn btn-success">儲存</button>
+                    <button v-if="!isEdit" type="reset" class="btn btn-success" @click="handleCreate">新增</button>
+                    <button v-else type="reset" class="btn btn-success" @click="handleSave">儲存</button>
                   </template>
                 </div>
               </div>
@@ -78,6 +78,16 @@ export default {
   props: {
     isEdit: {
       type: Boolean
+    }
+  },
+
+  methods: {
+    handleCreate () {
+      location.assign(location.origin + '/programs')
+    },
+
+    handleSave () {
+      location.assign(location.origin + '/programs')
     }
   }
 
