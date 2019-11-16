@@ -11,7 +11,7 @@ class CreateCategoriesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->softDeletes();
-            $table->tinyInteger('type')->unsigned()->default('0');// 1: iOS, 2: Android
+            $table->tinyInteger('type')->unsigned()->default(1);
 			$table->string('title', 50);
 			$table->string('sub_title', 500);
 			$table->string('image', 500);

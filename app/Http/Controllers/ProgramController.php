@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoriesCollection;
 use App\Http\Resources\ProgramsCollection;
+use App\Models\Category;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use wapmorgan\Mp3Info\Mp3Info;
@@ -108,4 +110,28 @@ class ProgramController extends Controller
 
         return new ProgramsCollection($programs);
     }
+
+    public function programApi(Request $request)
+    {
+        $input = $request->only(['programType']);
+        $type = $input['programType'];
+        switch ($type) {
+            case 0:
+                //節目
+                $categories = Category::where('type', 1)->get();
+                break;
+            case 1:
+                //新約
+                $categories = [];
+                break;
+            case 2:
+                //舊約
+                $categories = [];
+                break;
+        }
+        CategoriesCollection::wrap('list');
+//
+        return new CategoriesCollection($categories);
+    }
+
 }
