@@ -6,15 +6,13 @@
                 <div class="kt-portlet__body">
                     <div class="kt-portlet__content">
                       <div class="d-flex">
-                      <div class="kt-input-icon kt-input-icon--right w-auto mr-2">
-                        <input type="text" class="form-control" placeholder="搜尋姓名、帳號" id="generalSearch"
-                          v-model="keyword">
-                        <span class="kt-input-icon__icon kt-input-icon__icon--right">
-                          <span><i class="fa fa-search"></i></span>
-                        </span>
-                      </div>
-                      <button type="button" class="btn btn-primary"
-                        @click="handleSearch">查詢</button>
+                        <select class="my-select selectpicker w-auto mr-2"
+                          v-model="category">
+                            <option value="空中崇拜">空中崇拜</option>
+                            <option value="半邊天">半邊天</option>
+                          </select>
+                        <button type="button" class="btn btn-primary"
+                        @click="handleSearch">顯示列表</button>
                       </div>
                     </div>
                 </div>
@@ -23,9 +21,9 @@
             <div class="page-title-box bg-none">
                 <div class="page-title-right">
                     <button type="button" class="btn btn-primary"
-                      @click="handleAddAccount">新增管理帳號</button>
+                      @click="handleAddPrograms">新增節目</button>
                 </div>
-                <h2 class="page-title">帳號列表</h2>
+                <h2 class="page-title">節目單集列表</h2>
             </div>
         </div>
     </div>
@@ -40,28 +38,34 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>姓名</th>
-                                <th>帳號</th>
-                                <th>狀態</th>
+                                <th>上下架狀態</th>
+                                <th>上架日期</th>
+                                <th>下架日期</th>
+                                <th>單集節目名稱</th>
+                                <th>主持人</th>
+                                <th>音檔位址</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="account in accounts" :key="account.id">
-                                <td>{{ account.id }}</td>
-                                <td>{{ account.name }}</td>
-                                <td>{{ account.account }}</td>
+                              <tr v-for="program in programs" :key="program.id">
+                                <td>{{ program.id }}</td>
                                 <td>
                                   <span class="kt-switch">
                                     <label style="margin-bottom: 0">
-                                    <input type="checkbox" :checked="account.is_active" name="">
+                                    <input type="checkbox" :checked="program.is_published" name="">
                                     <span style="padding: 4px;"></span>
                                     </label>
                                   </span>
                                 </td>
+                                <td>{{ program.published_time }}</td>
+                                <td>{{ program.unpublished_time }}</td>
+                                <td>{{ program.title }}</td>
+                                <td>{{ program.host }}</td>
+                                <td>{{ program.url }}</td>
                                 <td>
                                   <button type="button" class="btn btn-light btn-circle btn-icon"
-                                    @click="handleEdit(account.id)">
+                                    @click="handleEdit(program.id)">
                                     <i class="fa fa-pen"></i>
                                   </button>
                                 </td>
@@ -79,7 +83,7 @@
     <Pagination
       class="mt-5"
       :currentPage="currentPage"
-      :totalPage="accounts.length"
+      :totalPage="programs.length"
       >
     </Pagination>
 
@@ -87,7 +91,29 @@
 </template>
 
 <script>
-import Pagination from './Pagination'
+import Pagination from '../Pagination'
+
+const programs = [
+  {
+    id: 1,
+    title: '我是生命的糧',
+    host: '方華',
+    url: 'http://',
+    is_published: true,
+    published_time: '2019/10/28(四) 06:00',
+    unpublished_time: '2019/11/14(四) 23:59'
+  },
+  {
+    id: 2,
+    title: '你聽「道」後的回應為何',
+    host: '方華',
+    url: 'http://',
+    is_published: false,
+    published_time: '2019/10/28(四) 06:00',
+    unpublished_time: '2019/11/14(四) 23:59'
+  },
+]
+
 export default {
 
   components: {
@@ -98,30 +124,21 @@ export default {
     return {
       keyword: '',
       currentPage: 1,
-      accounts: []
+      programs: [],
+      category: '空中崇拜'
     }
   },
 
   created () {
     // call api
 
-    this.accounts = [
-      {
-        id: 1,
-        name: 'David',
-        account: 'abc123',
-        is_active: true
-      },
-      {
-        id: 2,
-        name: '王小凱',
-        account: 'abc1234',
-        is_active: false
-      }
-    ]
+    this.programs = programs
+  },
 
-
-
+  mounted () {
+    this.$nextTick(() => {
+      $('.my-select').selectpicker();
+    })
   },
 
   methods: {
@@ -133,7 +150,7 @@ export default {
       console.log('handleSearch', this.keyword)
     },
 
-    handleAddAccount () {
+    handleAddPrograms () {
       location.assign(location.href + '/create')
     }
   }

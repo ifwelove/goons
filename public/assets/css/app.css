@@ -2686,10 +2686,6 @@ body.boxed-layout.enlarged .footer {
   font-weight: 500;
 }
 
-.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-  width: 100% !important;
-}
-
 .bootstrap-select .dropdown-toggle:after {
   content: "";
   display: inline-block;
