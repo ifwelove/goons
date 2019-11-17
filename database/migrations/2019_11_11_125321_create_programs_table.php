@@ -10,7 +10,6 @@ class CreateProgramsTable extends Migration {
 		Schema::create('programs', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('categories')->unsigned();
-			$table->integer('sort');
 			$table->string('anchor', 50);
 			$table->string('title', 50);
 			$table->string('sub_title', 500);

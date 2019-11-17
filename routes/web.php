@@ -56,5 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('programs', 'ProgramController');
 Route::get('parser', 'ProgramController@parser');
 Route::resource('news', 'NewsController');
+Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
 Route::resource('pushs', 'PushController');
 Route::resource('categories', 'CategoryController');
+
+Route::match(['get', 'head'], 'share/{program}', 'ShareController@show');
