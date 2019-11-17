@@ -21,8 +21,8 @@ class Programs extends JsonResource
             'date' => $this->start_date,
             'length' => $this->duration,
             'playerURL' => $this->url,
-            'shareURL' => $this->url,
-            'shareText' => $this->url,
+            'shareURL' => config('app.url') . '/share/' . $this->id,
+            'shareText' => $this->title . '一起來收聽吧',
         ];
     }
 }
