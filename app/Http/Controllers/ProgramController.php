@@ -122,15 +122,21 @@ class ProgramController extends Controller
     {
         $input = $request->only(['programType']);
         $type  = $input['programType'];
+        $programs = [];
         switch ($type) {
             case 0:
                 //節目
-//                $categories = Category::where('type', 1)
-//                    ->get();
-                $programs   = Program::with('category')->where('start_date', '<', Carbon::now())
-                    ->where('end_date', '>', Carbon::now())
-                    ->orderBy('sort')
-                    ->get();
+                $categories = Category::orderBy('sort')->get();
+                foreach ($categories as $row) {
+                    $program = Program::with('category')->where('categories', $row->id)
+                        ->where('start_date', '<', Carbon::now())
+                        ->where('end_date', '>', Carbon::now())
+                        ->orderBy('start_date', 'desc')
+                        ->first();
+                    if (!is_null($program)) {
+                        $programs[] = $program;
+                    }
+                }
                 break;
             case 1:
                 //新約
@@ -143,7 +149,7 @@ class ProgramController extends Controller
         };
         CategoriesCollection::wrap('list');
 
-        return new CategoriesCollection($programs);
+        return new CategoriesCollection(collect($programs));
     }
 
 }

@@ -22,9 +22,10 @@ class Categories extends JsonResource
 
         return [
             'id'       => $this->id,
-            'title'       => $this->title,
-            'subTitle' => $this->sub_title,
-            'date'        => $this->start_date,
+            'title'       => $this->category->title,
+            'subTitle' => $this->title,
+//            'date'        => $this->start_date,
+            'date'        => Carbon::create($this->start_date)->timestamp,
             'dateFormat'        => Carbon::create($this->start_date)->format($format),
             'imageURL'    => $this->category->image,
         ];
