@@ -15,4 +15,8 @@ class Program extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories');
+    }
 }

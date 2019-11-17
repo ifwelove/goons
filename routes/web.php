@@ -11,6 +11,8 @@
 |
 */
 
+//Route::get('test', function () {
+//});
 // Auth::routes();
 Auth::routes(['register' => false]);
 

@@ -7,6 +7,7 @@ use App\Http\Resources\ProgramsCollection;
 use App\Models\Category;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use wapmorgan\Mp3Info\Mp3Info;
 
 class ProgramController extends Controller
@@ -34,7 +35,8 @@ class ProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,7 +47,8 @@ class ProgramController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -56,7 +59,8 @@ class ProgramController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -67,8 +71,9 @@ class ProgramController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -79,7 +84,8 @@ class ProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -89,12 +95,12 @@ class ProgramController extends Controller
 
     public function parser()
     {
-//        $fileNamea = storage_path('app/public/bh-191110.mp3');
-//        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-//        $result = file_put_contents($fileNamea, fopen($fileName, 'r'));
-//        dd($result);
+        //        $fileNamea = storage_path('app/public/bh-191110.mp3');
+        //        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+        //        $result = file_put_contents($fileNamea, fopen($fileName, 'r'));
+        //        dd($result);
         $fileNameb = storage_path('app/public/bh-191110.mp3');
-        $audio = new Mp3Info($fileNameb, true);
+        $audio     = new Mp3Info($fileNameb, true);
         dump($audio);
         // or omit 2nd argument to increase parsing speed
         $audio = new Mp3Info($fileNameb);
@@ -103,9 +109,10 @@ class ProgramController extends Controller
 
     public function programListApi(Request $request)
     {
-        $input = $request->only(['programID', 'page']);
-        $id = $input['programID'];
-        $programs = Program::where('categories', $id)->paginate(15);
+        $input    = $request->only(['programID', 'page']);
+        $id       = $input['programID'];
+        $programs = Program::where('categories', $id)
+            ->paginate(15);
         ProgramsCollection::wrap('list');
 
         return new ProgramsCollection($programs);
@@ -114,24 +121,29 @@ class ProgramController extends Controller
     public function programApi(Request $request)
     {
         $input = $request->only(['programType']);
-        $type = $input['programType'];
+        $type  = $input['programType'];
         switch ($type) {
             case 0:
                 //節目
-                $categories = Category::where('type', 1)->get();
+//                $categories = Category::where('type', 1)
+//                    ->get();
+                $programs   = Program::with('category')->where('start_date', '<', Carbon::now())
+                    ->where('end_date', '>', Carbon::now())
+                    ->orderBy('sort')
+                    ->get();
                 break;
             case 1:
                 //新約
-                $categories = [];
+                $programs = [];
                 break;
             case 2:
                 //舊約
-                $categories = [];
+                $programs = [];
                 break;
-        }
+        };
         CategoriesCollection::wrap('list');
-//
-        return new CategoriesCollection($categories);
+
+        return new CategoriesCollection($programs);
     }
 
 }

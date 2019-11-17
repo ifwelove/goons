@@ -15,4 +15,8 @@ class Category extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function programs()
+    {
+        return $this->hasMany(Program::class);
+    }
 }
