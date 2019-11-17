@@ -23,7 +23,7 @@ class PushController extends Controller
      */
     public function create()
     {
-        return view('pushs.index');
+        return view('pushs.create');
     }
 
     /**
