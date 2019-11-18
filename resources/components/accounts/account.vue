@@ -13,8 +13,10 @@
                           <span><i class="fa fa-search"></i></span>
                         </span>
                       </div>
-                      <button type="button" class="btn btn-primary"
+                      <button type="button" class="btn btn-primary mr-2"
                         @click="handleSearch">查詢</button>
+                      <button type="button" class="btn btn-primary"
+                        @click="handleSearchReset">重置</button>
                       </div>
                     </div>
                 </div>
@@ -117,6 +119,30 @@ export default {
         name: '王小凱',
         account: 'abc1234',
         is_active: false
+      },
+      {
+        id: 2,
+        name: '王小凱',
+        account: 'abc1234',
+        is_active: false
+      },
+      {
+        id: 2,
+        name: '王小凱',
+        account: 'abc1234',
+        is_active: false
+      },
+      {
+        id: 2,
+        name: '王小凱',
+        account: 'abc1234',
+        is_active: false
+      },
+      {
+        id: 2,
+        name: '王小凱',
+        account: 'abc1234',
+        is_active: false
       }
     ]
 
@@ -131,6 +157,10 @@ export default {
 
     handleSearch () {
       console.log('handleSearch', this.keyword)
+    },
+
+    handleSearchReset () {
+      console.log('handleSearch')
     },
 
     handleAddAccount () {

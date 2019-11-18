@@ -1,4 +1,4 @@
-// 
+//
 // menu.scss
 //
 
@@ -34,7 +34,7 @@
         transition-timing-function: ease;
         transition-duration: .35s;
         transition-property: height, visibility;
-    } 
+    }
 }
 
 
@@ -62,7 +62,6 @@
 // Wrapper
 #wrapper {
     height: 100%;
-    overflow: hidden;
     width: 100%;
 }
 
@@ -225,7 +224,7 @@
             .nav.collapse {
                 height: inherit !important;
             }
-            
+
             > ul {
                 > li {
                     position: relative;
@@ -234,7 +233,7 @@
                     > a {
                         padding: 15px 20px;
                         min-height: 54px;
-            
+
                         &:hover,
                         &:active,
                         &:focus {
@@ -251,7 +250,7 @@
                             padding-left: 25px;
                         }
                     }
-                    
+
                     &:hover  {
                         > a {
                             position: relative;
@@ -473,7 +472,7 @@ body.enlarged {
                 > li{
                     > a {
                         color: $menu-item-color-dark;
-        
+
                         &:hover,
                         &:focus,
                         &:active {
@@ -558,7 +557,7 @@ body.enlarged {
 
     .dropdown-item {
         border-radius: 3px;
-        
+
         &:hover {
             background-color: $primary;
             color: $white;

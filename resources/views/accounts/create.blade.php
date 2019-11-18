@@ -17,5 +17,6 @@
 @endsection
 
 @section('script-bottom')
+<script src="{{ URL::asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ URL::asset('js/accounts.js') }}"></script>
 @endsection
