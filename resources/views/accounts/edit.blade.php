@@ -9,7 +9,7 @@
 
 @section('content')
 <div id="accounts">
-    <account-form></account-form>
+    <account-form :is-edit="true"></account-form>
 </div>
 @endsection
 
@@ -17,5 +17,6 @@
 @endsection
 
 @section('script-bottom')
+<script src="{{ URL::asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ URL::asset('js/accounts.js') }}"></script>
 @endsection

@@ -54,12 +54,15 @@
             <div class="kt-form__actions">
               <div class="row">
                 <div class="col-2">
-                  <button v-if="isEdit" type="reset" class="btn btn-success">刪除</button>
+                  <button v-if="isEdit" type="reset" class="btn btn-success" @click="handleDelete">刪除</button>
                 </div>
                 <div class="col-10 text-right">
-                  <button type="reset" class="btn btn-secondary">取消</button>
+                  <button type="reset" class="btn btn-secondary" @click="handleCancel">取消</button>
                   <template>
-                    <button v-if="!isEdit" type="reset" class="btn btn-success" @click="handleCreate">新增</button>
+                    <button v-if="!isEdit" type="reset" class="btn btn-success" @click="handleCreate">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      新增
+                    </button>
                     <button v-else type="reset" class="btn btn-success" @click="handleSave">儲存</button>
                   </template>
                 </div>
@@ -83,13 +86,62 @@ export default {
 
   methods: {
     handleCreate () {
-      location.assign(location.origin + '/programs')
+
+      if (true) {
+        Swal.fire({
+          timer: 6000,
+          title: '新增成功'})
+          .then(() => {
+            location.assign(location.origin + '/accounts')
+          })
+      }
     },
 
     handleSave () {
-      location.assign(location.origin + '/programs')
+      if (true) {
+        Swal.fire({
+          timer: 6000,
+          title: '儲存變更'})
+          .then(() => {
+            location.assign(location.origin + '/accounts')
+          })
+      }
+    },
+
+    handleCancel () {
+      Swal.fire({
+        title: `是否要取消這次${isEdit ? '編輯' : '新增'}？如果取消${isEdit ? '編輯' : '新增'}的內容將不會被儲存。`,
+        showCancelButton: true,
+        confirmButtonText: '確定取消',
+        cancelButtonText: '返回',
+      })
+        .then((result) => {
+          if (result.value) {
+            location.assign(location.origin + '/accounts')
+          }
+        })
+
+    },
+
+    handleDelete () {
+      Swal.fire({
+        title: `確定要刪除嗎？若刪除此帳號將無法回復。`,
+        showCancelButton: true,
+        confirmButtonText: '確定刪除',
+        cancelButtonText: '返回',
+      })
+        .then((result) => {
+          if (result.value) {
+            Swal.fire({
+              title: '帳號已刪除'
+            })
+            .then(() => {
+              location.assign(location.origin + '/accounts')
+            })
+          }
+        })
+      }
     }
-  }
 
 }
 </script>
