@@ -1876,13 +1876,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     totalPages: {
       type: Number
     },
-    currentPage: {
-      type: Number
+    pagination: {
+      type: Object
     }
   },
   data: function data() {
@@ -1894,6 +1903,9 @@ __webpack_require__.r(__webpack_exports__);
     fromPage: function fromPage() {
       retutn;
     }
+  },
+  methods: {
+    handleSetPage: function handleSetPage(page) {}
   }
 });
 
@@ -1908,8 +1920,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
-//
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 //
 //
 //
@@ -2000,52 +2013,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
       keyword: '',
       currentPage: 1,
+      pagination: {
+        from: null,
+        to: null,
+        total: null,
+        per_page: null,
+        current_page: 1
+      },
       accounts: []
     };
   },
   created: function created() {
-    // call api
-    this.accounts = [{
-      id: 1,
-      name: 'David',
-      account: 'abc123',
-      is_active: true
-    }, {
-      id: 2,
-      name: '王小凱',
-      account: 'abc1234',
-      is_active: false
-    }, {
-      id: 2,
-      name: '王小凱',
-      account: 'abc1234',
-      is_active: false
-    }, {
-      id: 2,
-      name: '王小凱',
-      account: 'abc1234',
-      is_active: false
-    }, {
-      id: 2,
-      name: '王小凱',
-      account: 'abc1234',
-      is_active: false
-    }, {
-      id: 2,
-      name: '王小凱',
-      account: 'abc1234',
-      is_active: false
-    }];
+    this.getAccounts();
   },
   methods: {
+    getAccounts: function getAccounts() {
+      var _this = this;
+
+      var search = location.search;
+      var uri = "/api/accounts".concat(search);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri).then(function (res) {
+        var data = res.data;
+        _this.accounts = data.data;
+        var from = data.from,
+            to = data.to,
+            total = data.total,
+            per_page = data.per_page,
+            current_page = data.current_page;
+        _this.pagination = {
+          from: from,
+          to: to,
+          total: total,
+          per_page: per_page,
+          current_page: current_page
+        };
+        console.log('res', res);
+      });
+    },
     handleEdit: function handleEdit(id) {
       location.assign(location.href + "/".concat(id, "/edit"));
     },
@@ -20485,8 +20498,12 @@ var render = function() {
     _c("div", { staticClass: "kt-pagination__toolbar" }, [
       _c("span", { staticClass: "pagination__desc" }, [
         _vm._v(
-          "\n          顯示第 1 到 10 項紀錄，總共 " +
-            _vm._s(_vm.totalPages) +
+          "\n          顯示第 " +
+            _vm._s(_vm.pagination.from) +
+            " 到 " +
+            _vm._s(_vm.pagination.to) +
+            " 項紀錄，總共 " +
+            _vm._s(_vm.pagination.total) +
             " 項紀錄，每頁顯示\n          "
         ),
         _c(
@@ -20534,7 +20551,42 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("ul", { staticClass: "pagination mb-0" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.pagination.current_page > 1
+        ? _c(
+            "li",
+            {
+              staticClass: "page-item",
+              on: {
+                click: function($event) {
+                  return _vm.handleSetPage(_vm.pagination.current_page - 1)
+                }
+              }
+            },
+            [
+              _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.pagination.current_page - 1))
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("li", { staticClass: "page-item" }, [
+        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+          _vm._v(_vm._s(_vm.pagination.current_page))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "page-item" }, [
+        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+          _vm._v(_vm._s(_vm.pagination.current_page + 1))
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -20542,37 +20594,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "pagination mb-0" }, [
-      _c("li", { staticClass: "page-item disabled" }, [
-        _c(
-          "a",
-          { staticClass: "page-link", attrs: { href: "#", tabindex: "-1" } },
-          [_c("i", { staticClass: "fa fa-chevron-left" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _vm._v("1")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _vm._v("2")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _vm._v("3")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-chevron-right" })
-        ])
+    return _c("li", { staticClass: "page-item disabled" }, [
+      _c(
+        "a",
+        { staticClass: "page-link", attrs: { href: "#", tabindex: "-1" } },
+        [_c("i", { staticClass: "fa fa-chevron-left" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-chevron-right" })
       ])
     ])
   }
@@ -20711,7 +20747,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(account.name))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(account.account))]),
+                        _c("td", [_vm._v(_vm._s(account.email))]),
                         _vm._v(" "),
                         _c("td", [
                           _c("span", { staticClass: "kt-switch" }, [
@@ -20721,7 +20757,7 @@ var render = function() {
                               [
                                 _c("input", {
                                   attrs: { type: "checkbox", name: "" },
-                                  domProps: { checked: account.is_active }
+                                  domProps: { checked: account.status }
                                 }),
                                 _vm._v(" "),
                                 _c("span", { staticStyle: { padding: "4px" } })
@@ -20758,7 +20794,7 @@ var render = function() {
       _vm._v(" "),
       _c("Pagination", {
         staticClass: "mt-5",
-        attrs: { currentPage: _vm.currentPage, totalPage: _vm.accounts.length }
+        attrs: { pagination: _vm.pagination }
       })
     ],
     1
