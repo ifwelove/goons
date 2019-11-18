@@ -16,6 +16,16 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
+Route::group(['prefix' => 'accounts', 'middleware' => []], function () {
+    Route::match(['get', 'head'], '/', 'Api\AccountController@index');
+    Route::post('/', 'AccountController@store');
+    Route::match(['get', 'head'], '/create', 'Api\AccountController@create');
+    Route::delete('/{account}', 'Api\AccountController@destroy');
+    Route::match(['put', 'patch'], '/{account}', 'Api\AccountController@update');
+    Route::match(['get', 'head'], '/{account}/edit', 'Api\AccountController@edit');
+    Route::get('/status/update', 'Api\AccountController@updateStatus');
+});
+
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');
 Route::post('programDescription', 'CategoryController@programDescriptionApi');

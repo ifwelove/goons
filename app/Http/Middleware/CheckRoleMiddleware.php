@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Closure;
 
-class AdminMiddleware
+class CheckRoleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +15,10 @@ class AdminMiddleware
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
-        if (! Auth::user()->getRoleNames()->contains(Role::ADMIN)) {
+//        dd(Auth::user());
+        if (! Auth::user()->getRoleNames()->contains($role)) {
             abort('401');
         }
 

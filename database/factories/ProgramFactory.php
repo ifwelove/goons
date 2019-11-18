@@ -20,7 +20,6 @@ $factory->define(Program::class, function (Faker $faker) {
     $url = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
     $result = [
         'categories' => rand(1, 9),
-        'sort' => rand(1, 50),
         'title' => Str::random(10),
         'sub_title' => Str::random(100),
         'url' => $url,

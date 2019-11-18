@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class News extends JsonResource
@@ -9,19 +10,23 @@ class News extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
     {
-//        return parent::toArray($request);
+        //        return parent::toArray($request);
         return [
-            'title' => $this->title,
-                        'date' => '2019-11-30',
+            'id'         => $this->id,
+            'title'      => $this->title,
+//            'date'       => $this->start_date,
+            'date'        => Carbon::create($this->start_date)->timestamp,
+//            'dateFormat' => Carbon::create($this->start_date)->format('Y/m/d'),
             //            'start_date' => $this->start_date,
             //            'end_date' => $this->end_date,
-                        'moreURL' => 'https://yahoo.com.tw',
-            'id' => $this->id,
+//            'moreURL'    => config('app.url') . '/news/' . $this->id,
+            'moreHtml'    => $this->description,
         ];
     }
 }

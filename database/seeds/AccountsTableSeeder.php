@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Permission;
-//use App\Models\SysAdmin as User;
 use App\User;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
@@ -15,12 +13,10 @@ class AccountsTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::where('id', '=', 1)->firstOrFail();
+        $role = Role::all();
         factory(User::class, 10)->create()->each(function ($u) use ($role) {
             $u->assignRole($role);
         });
-        $permission = Permission::find(1)->first();
-        $role->givePermissionTo($permission);
 
         $user = User::find(1);
         $user->email = 'admin@test.com';

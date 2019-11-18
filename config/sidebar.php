@@ -2,7 +2,7 @@
 
 return [
     'system' => [
-        'roles' => \App\Models\Role::ADMIN,
+        'roles' => \App\Models\Role::ACCOUNT,
         'icon'  => 'remixicon-lock-2-line',
         'slug'  => '帳號管理',
         'route'  => 'accounts.index',
@@ -26,7 +26,7 @@ return [
     ],
 
     'account' => [
-        'roles' => \App\Models\Role::ADMIN,
+        'roles' => \App\Models\Role::CATEGORY,
         'icon'  => 'remixicon-dashboard-line',
         'slug'  => '節目分類管理',
         'route'  => 'categories.index',
@@ -51,7 +51,7 @@ return [
     ],
 
     'edm' => [
-        'roles' => \App\Models\Role::implodeAll(),
+        'roles' => \App\Models\Role::PROGRAM,
         'icon'  => 'remixicon-mail-open-line',
         'slug'  => '節目內容管理',
         'route'  => 'programs.index',
@@ -76,7 +76,7 @@ return [
     ],
 
     'message' => [
-        'roles' => \App\Models\Role::implodeAll(),
+        'roles' => \App\Models\Role::NEWS,
         'icon'  => 'remixicon-discuss-line',
         'slug'  => '最新消息管理',
         'route'  => 'news.index',
@@ -97,7 +97,7 @@ return [
     ],
 
     'app' => [
-        'roles' => \App\Models\Role::implodeAll(),
+        'roles' => \App\Models\Role::PUSH,
         'icon'  => 'remixicon-rocket-2-line',
         'badge' => 'Hot',
         'slug'  => '推播管理',
