@@ -8,6 +8,7 @@ use App\Http\Requests\Account\StoreRequest;
 use App\Http\Requests\Account\UpdateRequest;
 use App\Services\AccountRoleAndPermissionService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
@@ -19,9 +20,10 @@ class AccountController extends Controller
         $this->accountRoleAndPermissionService = $accountRoleAndPermissionService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $accounts = $this->accountRoleAndPermissionService->accountPaginate();
+        $perPage = $request->get('perPage', null);
+        $accounts = $this->accountRoleAndPermissionService->accountPaginate($perPage);
 
         return response()->json($accounts);
     }
