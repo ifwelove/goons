@@ -21,9 +21,9 @@ Route::group(['prefix' => 'accounts', 'middleware' => []], function () {
     Route::post('/', 'Api\AccountController@store');
     Route::match(['get', 'head'], '/create', 'Api\AccountController@create');
     Route::delete('/{account}', 'Api\AccountController@destroy');
+    Route::match(['put', 'patch'], '/{account}/status', 'Api\AccountController@updateStatus');
     Route::match(['put', 'patch'], '/{account}', 'Api\AccountController@update');
     Route::match(['get', 'head'], '/{account}/edit', 'Api\AccountController@edit');
-    Route::get('/status/update', 'Api\AccountController@updateStatus');
 });
 
 Route::post('messageList', 'NewsController@messageListApi');

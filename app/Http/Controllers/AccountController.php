@@ -76,9 +76,13 @@ class AccountController extends Controller
             ->withSuccess('backend.message.account_successfully_deleted');
     }
 
-    public function updateStatus()
+    public function updateStatus(UpdateRequest $request, $id)
     {
-        dd('updateStatus');
+        $this->accountRoleAndPermissionService->accountStatusUpdate($id, $request);
+
+        return redirect()
+            ->route('accounts.index')
+            ->withSuccess('backend.message.account_successfully_updated');
     }
 
 }

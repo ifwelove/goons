@@ -218,4 +218,18 @@ class AccountRoleAndPermissionService
 
         return true;
     }
+
+    public function accountStatusUpdate($id, $request)
+    {
+        $inputs = [];
+        $status = $request->get('status', null);
+        if (!is_null($status)) {
+            $inputs['status'] = $status;
+        }
+        if (!empty($inputs)) {
+            $this->accountsRepository->update($id, $inputs);
+        }
+
+        return true;
+    }
 }
