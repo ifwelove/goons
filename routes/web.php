@@ -82,3 +82,5 @@ Route::resource('pushs', 'PushController');
 Route::resource('categories', 'CategoryController');
 
 Route::match(['get', 'head'], 'share/{program}', 'ShareController@show');
+
+Route::match(['get', 'head'], 'cron/news', 'CronController@news');
