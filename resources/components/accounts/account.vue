@@ -49,14 +49,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="account in accounts.data" :key="account.id">
+                              <tr v-for="account in accounts" :key="account.id">
                                 <td>{{ account.id }}</td>
                                 <td>{{ account.name }}</td>
-                                <td>{{ account.account }}</td>
+                                <td>{{ account.email }}</td>
                                 <td>
                                   <span class="kt-switch">
                                     <label style="margin-bottom: 0">
-                                    <input type="checkbox" :checked="account.is_active" name="">
+                                    <input type="checkbox" :checked="account.status" name="">
                                     <span style="padding: 4px;"></span>
                                     </label>
                                   </span>
@@ -80,8 +80,7 @@
 
     <Pagination
       class="mt-5"
-      :currentPage="currentPage"
-      :totalPage="accounts.length"
+      :pagination="pagination"
       >
     </Pagination>
 
@@ -89,6 +88,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Pagination from '../Pagination'
 export default {
 
@@ -100,34 +100,44 @@ export default {
     return {
       keyword: '',
       currentPage: 1,
+      pagination: {
+        from: null,
+        to: null,
+        total: null,
+        per_page: null,
+        current_page: 1
+      },
       accounts: []
     }
   },
 
   created () {
-    // call api
-
-    this.accounts = window.accounts;
-    // this.accounts = [
-    //   {
-    //     id: 1,
-    //     name: 'David',
-    //     account: 'abc123',
-    //     is_active: true
-    //   },
-    //   {
-    //     id: 2,
-    //     name: '王小凱',
-    //     account: 'abc1234',
-    //     is_active: false
-    //   }
-    // ]
-
-
-
+    this.getAccounts()
   },
 
   methods: {
+    getAccounts () {
+      const search = location.search
+      const uri = `/api/accounts${search}`
+      axios.get(uri)
+      .then((res) => {
+        const { data } = res
+        this.accounts = data.data
+        const {
+          from,
+          to,
+          total,
+          per_page,
+          current_page
+        } = data
+
+        this.pagination = {
+          from, to, total, per_page, current_page
+        }
+        console.log('res', res)
+      })
+    },
+
     handleEdit (id) {
       location.assign(location.href + `/${id}/edit`)
     },

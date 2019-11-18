@@ -1876,13 +1876,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     totalPages: {
       type: Number
     },
-    currentPage: {
-      type: Number
+    pagination: {
+      type: Object
     }
   },
   data: function data() {
@@ -1894,6 +1903,9 @@ __webpack_require__.r(__webpack_exports__);
     fromPage: function fromPage() {
       retutn;
     }
+  },
+  methods: {
+    handleSetPage: function handleSetPage(page) {}
   }
 });
 
@@ -20484,8 +20496,12 @@ var render = function() {
     _c("div", { staticClass: "kt-pagination__toolbar" }, [
       _c("span", { staticClass: "pagination__desc" }, [
         _vm._v(
-          "\n          顯示第 1 到 10 項紀錄，總共 " +
-            _vm._s(_vm.totalPages) +
+          "\n          顯示第 " +
+            _vm._s(_vm.pagination.from) +
+            " 到 " +
+            _vm._s(_vm.pagination.to) +
+            " 項紀錄，總共 " +
+            _vm._s(_vm.pagination.total) +
             " 項紀錄，每頁顯示\n          "
         ),
         _c(
@@ -20533,7 +20549,42 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("ul", { staticClass: "pagination mb-0" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.pagination.current_page > 1
+        ? _c(
+            "li",
+            {
+              staticClass: "page-item",
+              on: {
+                click: function($event) {
+                  return _vm.handleSetPage(_vm.pagination.current_page - 1)
+                }
+              }
+            },
+            [
+              _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.pagination.current_page - 1))
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("li", { staticClass: "page-item" }, [
+        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+          _vm._v(_vm._s(_vm.pagination.current_page))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "page-item" }, [
+        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+          _vm._v(_vm._s(_vm.pagination.current_page + 1))
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -20541,37 +20592,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "pagination mb-0" }, [
-      _c("li", { staticClass: "page-item disabled" }, [
-        _c(
-          "a",
-          { staticClass: "page-link", attrs: { href: "#", tabindex: "-1" } },
-          [_c("i", { staticClass: "fa fa-chevron-left" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _vm._v("1")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _vm._v("2")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _vm._v("3")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "page-item" }, [
-        _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-chevron-right" })
-        ])
+    return _c("li", { staticClass: "page-item disabled" }, [
+      _c(
+        "a",
+        { staticClass: "page-link", attrs: { href: "#", tabindex: "-1" } },
+        [_c("i", { staticClass: "fa fa-chevron-left" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-chevron-right" })
       ])
     ])
   }
