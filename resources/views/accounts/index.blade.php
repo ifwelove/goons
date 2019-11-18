@@ -14,6 +14,10 @@
 @endsection
 
 @section('script')
+<script>
+    window.accounts = (JSON.parse('{!! json_encode($accounts) !!}'));
+    console.log(window.accounts);
+</script>
 @endsection
 
 @section('script-bottom')

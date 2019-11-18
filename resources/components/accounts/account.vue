@@ -47,7 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="account in accounts" :key="account.id">
+                              <tr v-for="account in accounts.data" :key="account.id">
                                 <td>{{ account.id }}</td>
                                 <td>{{ account.name }}</td>
                                 <td>{{ account.account }}</td>
@@ -105,20 +105,21 @@ export default {
   created () {
     // call api
 
-    this.accounts = [
-      {
-        id: 1,
-        name: 'David',
-        account: 'abc123',
-        is_active: true
-      },
-      {
-        id: 2,
-        name: '王小凱',
-        account: 'abc1234',
-        is_active: false
-      }
-    ]
+    this.accounts = window.accounts;
+    // this.accounts = [
+    //   {
+    //     id: 1,
+    //     name: 'David',
+    //     account: 'abc123',
+    //     is_active: true
+    //   },
+    //   {
+    //     id: 2,
+    //     name: '王小凱',
+    //     account: 'abc1234',
+    //     is_active: false
+    //   }
+    // ]
 
 
 

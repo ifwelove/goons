@@ -12,25 +12,25 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create([
-            'name' => 'edit_post',
-            'guard_name' => 'web',
-            'slug' => '編輯文章'
-        ]);
-        Permission::create([
-            'name' => 'delete_post',
-            'guard_name' => 'web',
-            'slug' => '刪除文章'
-        ]);
-        Permission::create([
-            'name' => 'get_post',
-            'guard_name' => 'web',
-            'slug' => '新增文章'
-        ]);
-        Permission::create([
-            'name' => 'create_post',
-            'guard_name' => 'web',
-            'slug' => '查看文章'
-        ]);
+//        Permission::create([
+//            'name' => 'edit_post',
+//            'guard_name' => 'web',
+//            'slug' => '編輯文章'
+//        ]);
+//        Permission::create([
+//            'name' => 'delete_post',
+//            'guard_name' => 'web',
+//            'slug' => '刪除文章'
+//        ]);
+//        Permission::create([
+//            'name' => 'get_post',
+//            'guard_name' => 'web',
+//            'slug' => '新增文章'
+//        ]);
+//        Permission::create([
+//            'name' => 'create_post',
+//            'guard_name' => 'web',
+//            'slug' => '查看文章'
+//        ]);
     }
 }

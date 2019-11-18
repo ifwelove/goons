@@ -30,117 +30,57 @@
                     <p class="sub-header">
                     </p>
                     {{ Form::open(array('url' => 'accounts', 'class' => 'parsley-form')) }}
-                        <div class="form-group row">
-                            <label for="username" class="col-sm-2 col-form-label">
-                                {{ __('backend.account') }}
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="text" name="username" required class="form-control" id="username" placeholder="{{ __('backend.account') }}">
-                            </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label">
+                            姓名
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" required class="form-control" id="name" placeholder="姓名" disabled>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="roles" class="col-sm-2 col-form-label">
-                                {{ __() }}
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                @foreach ($roles as $role)
-                                    <label for="{{ $role->name }}" class="col-form-label">
-                                        {{ ucfirst($role->name) }}
-                                    </label>
-                                    <input type="radio" name="roles" id="{{ $role->name }}">
-                                @endforeach
-                            </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">
+                            帳號
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="email" required class="form-control" id="email" placeholder="帳號" disabled>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-sm-2 col-form-label">
-                                密碼
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input id="password" type="password" name="password" placeholder="密碼" required class="form-control">
-                            </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-2 col-form-label">
+                            密碼
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="password" required class="form-control" id="password" placeholder="密碼" disabled>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="confirmPassword" class="col-sm-2 col-form-label">
-                                重複密碼
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input id="confirmPassword" name="confirm_password" data-parsley-equalto="#password" type="password" required placeholder="重複密碼" class="form-control">
-                            </div>
+                    <div class="form-group row">
+                        <label for="roles" class="col-sm-2 col-form-label">
+                            權限設定
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-10">
+                            @foreach ($roles as $role)
+                                <div class="checkbox checkbox-primary">
+                                    {{Form::checkbox('roles[]',  $role->id, false, array('id' => $role->id)) }}
+                                    {{Form::label($role->id, ucfirst($role->slug) . '(' . ucfirst($role->name) . ')') }}
+                                </div>
+                            @endforeach
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="companyTaxIdNumber" class="col-sm-2 col-form-label">
-                                公司統一編號
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="text" name="company_tax_id_number" required class="form-control" id="companyTaxIdNumber" placeholder="公司統一編號">
-                            </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 offset-sm-4">
+                            {{ Form::submit('新增', array('class' => 'btn btn-primary waves-effect waves-light mr-1')) }}
+                            {{ Form::reset('取消', array('class' => 'btn btn-secondary waves-effect waves-light')) }}
                         </div>
-
-                        <div class="form-group row">
-                            <label for="companyName" class="col-sm-2 col-form-label">
-                                公司名稱
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input name="company_name" type="text" required class="form-control" id="companyName" placeholder="公司名稱">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="companyAddr" class="col-sm-2 col-form-label">
-                                公司地址
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="text" name="company_addr" required class="form-control" id="companyAddr" placeholder="公司地址">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="personPhone" class="col-sm-2 col-form-label">
-                                聯絡人電話
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="text" name="person_phone" required class="form-control" id="personPhone" placeholder="聯絡人電話">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="personMail" class="col-sm-2 col-form-label">
-                                聯絡人信箱
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="email" name="person_mail" required parsley-type="email" class="form-control" id="personMail" placeholder="聯絡人信箱">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="dealline" class="col-sm-2 col-form-label">
-                                餘額提醒設定
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="text" name="dealline" required class="form-control" id="dealline" placeholder="餘額提醒設定">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-12 offset-sm-4">
-                                {{ Form::submit('新增', array('class' => 'btn btn-primary waves-effect waves-light mr-1')) }}
-                                {{ Form::reset('取消', array('class' => 'btn btn-secondary waves-effect waves-light')) }}
-                            </div>
-                        </div>
+                    </div>
                     {{ Form::close() }}
                 </div>
             </div>

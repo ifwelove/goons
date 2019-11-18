@@ -13,15 +13,28 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         Role::create([
-            'name' => 'admin',
+            'name' => 'account',
+            'slug' => '帳號管理',
             'guard_name' => 'web'
         ]);
         Role::create([
-            'name' => 'headquarter',
+            'name' => 'category',
+            'slug' => '節目分類管理',
             'guard_name' => 'web'
         ]);
         Role::create([
-            'name' => 'client',
+            'name' => 'news',
+            'slug' => '最新消息管理',
+            'guard_name' => 'web'
+        ]);
+        Role::create([
+            'name' => 'program',
+            'slug' => '節目內容管理',
+            'guard_name' => 'web'
+        ]);
+        Role::create([
+            'name' => 'push',
+            'slug' => '推播管理',
             'guard_name' => 'web'
         ]);
     }
