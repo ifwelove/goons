@@ -14,7 +14,7 @@ class AccountsTableSeeder extends Seeder
     public function run()
     {
         $role = Role::all();
-        factory(User::class, 10)->create()->each(function ($u) use ($role) {
+        factory(User::class, 100)->create()->each(function ($u) use ($role) {
             $u->assignRole($role);
         });
 

@@ -6,6 +6,7 @@ use App\Http\Requests\Account\DestoryRequest;
 use App\Http\Requests\Account\EditRequest;
 use App\Http\Requests\Account\StoreRequest;
 use App\Http\Requests\Account\UpdateRequest;
+use Illuminate\Http\Request;
 use App\Services\AccountRoleAndPermissionService;
 
 class AccountController extends Controller
@@ -17,9 +18,12 @@ class AccountController extends Controller
     {
         $this->accountRoleAndPermissionService = $accountRoleAndPermissionService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $accounts = $this->accountRoleAndPermissionService->accountPaginate();
+        $perPage = $request->get('perPage', null);
+        $keyword = $request->get('keyword', null);
+        $accounts = $this->accountRoleAndPermissionService->accountPaginate($perPage, $keyword);
+        $accounts->appends($request->query())->links();
 
         return view('accounts.index')->with(['accounts' => $accounts]);
     }

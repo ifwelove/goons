@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use Feixin\Common\Models\Fd\Epaper;
-
 abstract class Repository
 {
     /**
