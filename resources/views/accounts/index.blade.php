@@ -15,8 +15,7 @@
 
 @section('script')
 <script>
-    window.accounts = (JSON.parse('{!! json_encode($accounts) !!}'));
-    console.log(window.accounts);
+    // window.accounts = (JSON.parse('{!! json_encode($accounts) !!}'));
 </script>
 @endsection
 

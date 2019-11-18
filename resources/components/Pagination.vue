@@ -2,7 +2,7 @@
   <div class="kt-pagination d-flex">
     <div class="kt-pagination__toolbar">
         <span class="pagination__desc">
-            顯示第 1 到 10 項紀錄，總共 {{ totalPages }} 項紀錄，每頁顯示
+            顯示第 {{ pagination.from }} 到 {{ pagination.to }} 項紀錄，總共 {{ pagination.total }} 項紀錄，每頁顯示
             <select
               class="form-control d-inline mr-0"
               style="width: 60px;"
@@ -24,9 +24,18 @@
           <i class="fa fa-chevron-left"></i>
         </a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li
+        v-if="pagination.current_page > 1"
+        class="page-item"
+        @click="handleSetPage(pagination.current_page - 1)">
+        <a class="page-link" href="#">{{ pagination.current_page - 1 }}</a>
+        </li>
+      <li class="page-item">
+        <a class="page-link" href="#">{{ pagination.current_page }}</a>
+        </li>
+      <li class="page-item">
+        <a class="page-link" href="#">{{ pagination.current_page + 1 }}</a>
+        </li>
       <li class="page-item">
         <a class="page-link" href="#">
           <i class="fa fa-chevron-right"></i>
@@ -42,8 +51,8 @@ export default {
     totalPages: {
       type: Number
     },
-    currentPage: {
-      type: Number
+    pagination: {
+      type: Object
     }
   },
 
@@ -57,7 +66,12 @@ export default {
     fromPage () {
       retutn
     }
+  },
 
+  methods: {
+    handleSetPage (page) {
+      
+    }
   }
 }
 </script>
