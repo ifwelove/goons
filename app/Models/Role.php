@@ -6,16 +6,20 @@ use Spatie\Permission\Models\Role as Model;
 
 class Role extends Model
 {
-    const ADMIN       = 'admin';
-    const HEADQUARTER = 'headquarter';
-    const CLIENT      = 'client';
+    const ACCOUNT       = 'account';
+    const CATEGORY = 'category';
+    const NEWS      = 'news';
+    const PROGRAM      = 'program';
+    const PUSH      = 'push';
 
     static function implodeAll($implode = '|')
     {
         $rows = [
-            self::ADMIN,
-            self::HEADQUARTER,
-            self::CLIENT,
+            self::ACCOUNT,
+            self::CATEGORY,
+            self::NEWS,
+            self::PROGRAM,
+            self::PUSH,
         ];
 
         return implode($implode, $rows);
