@@ -51,7 +51,7 @@ Auth::routes(['register' => false]);
 //        ->name('roles.edit');
 //});
 
-Route::group(['prefix' => 'accounts', 'middleware' => ['auth', 'role:account']], function () {
+Route::group(['prefix' => 'accounts', 'middleware' => ['auth']], function () {
     Route::match(['get', 'head'], '/', 'AccountController@index')
         ->name('accounts.index');
     Route::post('/', 'AccountController@store')

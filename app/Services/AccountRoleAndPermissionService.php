@@ -196,11 +196,22 @@ class AccountRoleAndPermissionService
 
     public function accountUpdate($id, $request)
     {
+        $inputs = [];
         $account = $this->accountFind($id);
-        $role    = $request['role'];
-
-        if (isset($role)) {
-            $account->roles()->sync($role);
+        $name = $request->get('name', null);
+        $password = $request->get('password', null);
+        if (!is_null($name)) {
+            $inputs['name'] = $name;
+        }
+        if (!is_null($password)) {
+            $inputs['password'] = bcrypt($password);
+        }
+        if (!empty($inputs)) {
+            $this->accountsRepository->update($id, $inputs);
+        }
+        $roles    = $request['roles'];
+        if (isset($roles)) {
+            $account->roles()->sync($roles);
         } else {
             $account->roles()->detach();
         }

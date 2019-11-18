@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 //});
 Route::group(['prefix' => 'accounts', 'middleware' => []], function () {
     Route::match(['get', 'head'], '/', 'Api\AccountController@index');
-    Route::post('/', 'AccountController@store');
+    Route::post('/', 'Api\AccountController@store');
     Route::match(['get', 'head'], '/create', 'Api\AccountController@create');
     Route::delete('/{account}', 'Api\AccountController@destroy');
     Route::match(['put', 'patch'], '/{account}', 'Api\AccountController@update');
