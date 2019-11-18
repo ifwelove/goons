@@ -21,7 +21,9 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('perPage', null);
-        $accounts = $this->accountRoleAndPermissionService->accountPaginate($perPage);
+        $keyword = $request->get('keyword', null);
+        $accounts = $this->accountRoleAndPermissionService->accountPaginate($perPage, $keyword);
+        $accounts->appends($request->query())->links();
 
         return view('accounts.index')->with(['accounts' => $accounts]);
     }

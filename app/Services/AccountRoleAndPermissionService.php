@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\RolesRepository;
 use App\Repositories\PermissionsRepository;
 use App\Repositories\AccountsRepository;
+use App\User;
 
 class AccountRoleAndPermissionService
 {
@@ -40,13 +41,19 @@ class AccountRoleAndPermissionService
         return $accounts;
     }
 
-    public function accountPaginate($perPage = null)
+    public function accountPaginate($perPage = null, $keyword = null)
     {
         if (is_null($perPage)) {
             $perPage = 10;
         }
 
-        $accounts = $this->accountsRepository->paginate($perPage);
+        if (is_null($keyword)) {
+            $accounts = $this->accountsRepository->paginate($perPage);
+        } else {
+            $accounts = User::where('name', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                ->paginate($perPage);
+        }
 
         return $accounts;
     }
