@@ -7,44 +7,44 @@
         <form class="kt-form kt-form--label-right">
           <div class="kt-portlet__body">
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">姓名:</label>
+              <label class="col-lg-3 col-form-label">姓名：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限中英數字">
+                <input type="text" class="form-control" placeholder="限中英數字" v-model="form.name">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">帳號:</label>
+              <label class="col-lg-3 col-form-label">帳號：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限英數字">
+                <input type="text" class="form-control" placeholder="限英數字" v-model="form.email">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">密碼:</label>
+              <label class="col-lg-3 col-form-label">密碼：</label>
               <div class="col-lg-6">
-                <input type="password" class="form-control" placeholder="6-12位英數字密碼">
+                <input type="password" class="form-control" placeholder="6-12位英數字密碼" v-model="form.password">
               </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 col-form-label">權限管理:</label>
+                <label class="col-lg-3 col-form-label">權限管理：</label>
                 <div class="col-lg-6 kt-checkbox-list mt-2 pl-2">
                   <label class="kt-checkbox">
-                        <input type="checkbox"> 帳號管理
+                        <input type="checkbox" v-model="form.roles" value="account"> 帳號管理
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox"> 節目分類
+                        <input type="checkbox" v-model="form.roles" value="categories"> 節目分類
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox"> 節目內容
+                        <input type="checkbox" v-model="form.roles" value="program"> 節目內容
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox"> 最新消息
+                        <input type="checkbox" v-model="form.roles" value="news"> 最新消息
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox"> 推播管理
+                        <input type="checkbox" v-model="form.roles" value="pushes"> 推播管理
                         <span></span>
                     </label>
                 </div>
@@ -81,31 +81,74 @@ export default {
   props: {
     isEdit: {
       type: Boolean
+    },
+    account: {
+      type: Object
+    }
+  },
+
+  data () {
+    return {
+      form: {
+        name: '',
+        email: '',
+        password: '',
+        roles: []
+      }
+    }
+  },
+
+  created () {
+    if (this.isEdit) {
+      this.setForm()
     }
   },
 
   methods: {
-    handleCreate () {
+    setForm () {
+      const {
+        name, email, password
+      } = this.account
 
-      if (true) {
+      this.form = {
+        name, email, password
+      }
+    },
+
+    handleCreate () {
+      const formData = new FormData();
+      formData.append("name", this.form.name)
+      formData.append("email", this.form.email)
+      formData.append("password", this.form.password)
+
+      const uri = `/api/accounts`
+      axios.post(uri, formData)
+      .then(() => {
         Swal.fire({
           timer: 6000,
           title: '新增成功'})
           .then(() => {
             location.assign(location.origin + '/accounts')
           })
-      }
+      })
     },
 
     handleSave () {
-      if (true) {
+      const uri = `/api/accounts/${this.account.id}`
+      axios.put(uri, {
+        name: this.form.name,
+        email: this.form.email,
+        password: this.form.password,
+        roles: [1,2,3]
+      })
+      .then(() => {
         Swal.fire({
           timer: 6000,
           title: '儲存變更'})
           .then(() => {
             location.assign(location.origin + '/accounts')
           })
-      }
+      })
     },
 
     handleCancel () {
@@ -120,29 +163,40 @@ export default {
             location.assign(location.origin + '/accounts')
           }
         })
+    },
 
+    deleteConfirm () {
+      return new Promise((resolve, reject) => {
+        Swal.fire({
+          title: `確定要刪除嗎？若刪除此帳號將無法回復。`,
+          showCancelButton: true,
+          confirmButtonText: '確定刪除',
+          cancelButtonText: '返回',
+        })
+        .then((result) => {
+          if (result.value) {
+            resolve()
+          }
+        })
+      })
     },
 
     handleDelete () {
-      Swal.fire({
-        title: `確定要刪除嗎？若刪除此帳號將無法回復。`,
-        showCancelButton: true,
-        confirmButtonText: '確定刪除',
-        cancelButtonText: '返回',
-      })
-        .then((result) => {
-          if (result.value) {
+      this.deleteConfirm()
+        .then(() => {
+          const uri = `/api/accounts/${this.account.id}`
+          axios.delete(uri)
+          .then(() => {
             Swal.fire({
               title: '帳號已刪除'
             })
             .then(() => {
               location.assign(location.origin + '/accounts')
             })
-          }
+          })
         })
       }
     }
-
 }
 </script>
 

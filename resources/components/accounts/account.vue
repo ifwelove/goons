@@ -148,12 +148,12 @@ export default {
     },
 
     handleEdit (id) {
-      location.assign(location.href + `/${id}/edit`)
+      const account = this.accounts.find(account => account.id === id)
+      this.$parent.account = account
+      location.assign(location.origin + `/accounts/${id}/edit`)
     },
 
     handleSearch () {
-      console.log('handleSearch', this.keyword)
-
       const parsed = queryString.parse(location.search);
       parsed.page = 1
       parsed.keyword = this.keyword
@@ -172,7 +172,7 @@ export default {
     },
 
     handleAddAccount () {
-      location.assign(location.href + '/create')
+      location.assign(location.origin + '/accounts/create')
     }
   }
 
