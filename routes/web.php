@@ -51,7 +51,7 @@ Auth::routes(['register' => false]);
 //        ->name('roles.edit');
 //});
 
-Route::group(['prefix' => 'accounts', 'middleware' => ['auth', 'role:account']], function () {
+Route::group(['prefix' => 'accounts', 'middleware' => ['auth']], function () {
     Route::match(['get', 'head'], '/', 'AccountController@index')
         ->name('accounts.index');
     Route::post('/', 'AccountController@store')
@@ -62,11 +62,12 @@ Route::group(['prefix' => 'accounts', 'middleware' => ['auth', 'role:account']],
         ->name('accounts.destroy');
     Route::match(['get', 'head'], '/{account}', 'AccountController@show')
         ->name('accounts.show');
+    Route::match(['put', 'patch'], '/{account}/status', 'AccountController@updateStatus')
+        ->name('accounts.status.update');
     Route::match(['put', 'patch'], '/{account}', 'AccountController@update')
         ->name('accounts.update');
     Route::match(['get', 'head'], '/{account}/edit', 'AccountController@edit')
         ->name('accounts.edit');
-    Route::get('/status/update', 'AccountController@updateStatus');
 });
 
 Route::group(['middleware' => 'auth'], function () {

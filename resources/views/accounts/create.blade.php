@@ -25,7 +25,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" required class="form-control" id="name" placeholder="姓名" disabled>
+                            <input type="text" name="name" required class="form-control" id="name" placeholder="姓名">
                         </div>
                     </div>
 
@@ -35,7 +35,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="email" required class="form-control" id="email" placeholder="帳號" disabled>
+                            <input type="text" name="email" required class="form-control" id="email" placeholder="帳號">
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="password" required class="form-control" id="password" placeholder="密碼" disabled>
+                            <input type="text" name="password" required class="form-control" id="password" placeholder="密碼">
                         </div>
                     </div>
 

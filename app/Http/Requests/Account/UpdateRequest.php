@@ -22,7 +22,7 @@ class UpdateRequest extends BasicRequest
     public function rules()
     {
         return [
-            'role' => 'required|exists:roles,id',
+//            'roles' => 'required|exists:roles,id',
         ];
     }
 }

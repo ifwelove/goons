@@ -70,9 +70,10 @@ class AccountController extends Controller
         return response()->json(['message' => '刪除成功']);
     }
 
-    public function updateStatus()
+    public function updateStatus(UpdateRequest $request, $id)
     {
-//        dd('updateStatus');
+        $this->accountRoleAndPermissionService->accountStatusUpdate($id, $request);
+
         return response()->json(['message' => '更新成功']);
     }
 
