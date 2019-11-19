@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use wapmorgan\Mp3Info\Mp3Info;
 
 class ProgramController extends Controller
@@ -95,16 +97,26 @@ class ProgramController extends Controller
 
     public function parser()
     {
-        //        $fileNamea = storage_path('app/public/bh-191110.mp3');
-        //        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-        //        $result = file_put_contents($fileNamea, fopen($fileName, 'r'));
-        //        dd($result);
-        $fileNameb = storage_path('app/public/bh-191110.mp3');
-        $audio     = new Mp3Info($fileNameb, true);
-        dump($audio);
-        // or omit 2nd argument to increase parsing speed
-        $audio = new Mp3Info($fileNameb);
-        dump($audio);
+        ini_set('memory_limit', '2048M');
+        ignore_user_abort(true);
+        set_time_limit(1200);
+
+//        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+//        $contents = file_get_contents($fileName);
+//        Storage::disk('local')->put('public/bh-8787.mp3', $contents);
+//        dump(1);
+
+                $fileNamea = storage_path('app/public/bh-7878.mp3');
+                $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+                $result = file_put_contents($fileNamea, fopen($fileName, 'r'));
+                dump($result);
+        dump(1);
+//        $fileNameb = storage_path('app/public/bh-191110.mp3');
+//        $audio     = new Mp3Info($fileNameb, true);
+//        dump($audio);
+//        // or omit 2nd argument to increase parsing speed
+//        $audio = new Mp3Info($fileNameb);//快
+//        dump($audio);
     }
 
     public function programListApi(Request $request)
@@ -120,20 +132,22 @@ class ProgramController extends Controller
 
     public function programApi(Request $request)
     {
-        $input = $request->only(['programType']);
-        $type  = $input['programType'];
+        $input    = $request->only(['programType']);
+        $type     = $input['programType'];
         $programs = [];
         switch ($type) {
             case 0:
                 //節目
-                $categories = Category::orderBy('sort')->get();
+                $categories = Category::orderBy('sort')
+                    ->get();
                 foreach ($categories as $row) {
-                    $program = Program::with('category')->where('categories', $row->id)
+                    $program = Program::with('category')
+                        ->where('categories', $row->id)
                         ->where('start_date', '<', Carbon::now())
                         ->where('end_date', '>', Carbon::now())
                         ->orderBy('start_date', 'desc')
                         ->first();
-                    if (!is_null($program)) {
+                    if (! is_null($program)) {
                         $programs[] = $program;
                     }
                 }
