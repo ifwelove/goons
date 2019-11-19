@@ -2094,8 +2094,6 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       var account = this.accounts.find(function (account) {
         return account.id === id;
       });
-      console.log('account', account);
-      console.log(this);
       this.$parent.account = account;
       location.assign(location.origin + "/accounts/".concat(id, "/edit"));
     },
