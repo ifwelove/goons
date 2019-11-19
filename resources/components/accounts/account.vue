@@ -90,6 +90,8 @@
 <script>
 import axios from 'axios'
 import Pagination from '../Pagination'
+const queryString = require('query-string');
+
 export default {
 
   components: {
@@ -113,9 +115,15 @@ export default {
 
   created () {
     this.getAccounts()
+    this.init()
   },
 
   methods: {
+    init () {
+      const parsed = queryString.parse(location.search);
+      this.keyword = parsed.keyword
+    },
+
     getAccounts () {
       const search = location.search
       const uri = `/api/accounts${search}`
@@ -128,11 +136,12 @@ export default {
           to,
           total,
           per_page,
+          last_page,
           current_page
         } = data
 
         this.pagination = {
-          from, to, total, per_page, current_page
+          from, to, total, per_page, current_page, last_page
         }
         console.log('res', res)
       })
@@ -144,10 +153,22 @@ export default {
 
     handleSearch () {
       console.log('handleSearch', this.keyword)
+
+      const parsed = queryString.parse(location.search);
+      parsed.page = 1
+      parsed.keyword = this.keyword
+      location.search = queryString.stringify(parsed);
+
+      this.getAccounts()
     },
 
     handleSearchReset () {
-      console.log('handleSearch')
+      const parsed = queryString.parse(location.search);
+      parsed.page = 1
+      parsed.keyword = ''
+      location.search = queryString.stringify(parsed);
+
+      this.getAccounts()
     },
 
     handleAddAccount () {
