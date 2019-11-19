@@ -48,10 +48,11 @@ class AccountRoleAndPermissionService
         }
 
         if (is_null($keyword)) {
-            $accounts = $this->accountsRepository->paginate($perPage);
+            $accounts = User::orderBy('id', 'desc')->paginate($perPage);
         } else {
             $accounts = User::where('name', 'LIKE', '%' . $keyword . '%')
                 ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                ->orderBy('id', 'desc')
                 ->paginate($perPage);
         }
 
@@ -173,15 +174,19 @@ class AccountRoleAndPermissionService
 
     public function accountStore($request)
     {
-        $account = $this->accountsRepository->create($request->only('email', 'name', 'password'));
+        $inputs = [];
+        $email = $request->get('email', null);
+        $name = $request->get('name', null);
+        $password = $request->get('password', null);
+        $inputs['email'] = $email;
+        $inputs['name'] = $name;
+        $inputs['password'] = bcrypt($password);
+        $account = $this->accountsRepository->create($inputs);
         $roles   = $request['roles'];
-
         if (isset($roles)) {
-            foreach ($roles as $id) {
-                $role_r = $this->roleFind($id);
-
-                $account->assignRole($role_r);
-            }
+            $account->roles()->sync($roles);
+        } else {
+            $account->roles()->detach();
         }
 
         return $account;

@@ -56,7 +56,7 @@
                                     <div class="col-8">
                                     <div class="kt-checkbox-inline">
                                         <label class="kt-checkbox">
-                                            <input type="checkbox"> 保持登入（30 天）
+                                            <input type="checkbox" name="remember" value="1"> 保持登入（30 天）
                                             <span></span>
                                         </label>
                                     </div>
