@@ -9,7 +9,7 @@
 
 @section('content')
 <div id="accounts">
-    <account-form :is-edit="true"></account-form>
+    <account-form :is-edit="true" :account="{{ json_encode($account) }}"></account-form>
 </div>
 @endsection
 
