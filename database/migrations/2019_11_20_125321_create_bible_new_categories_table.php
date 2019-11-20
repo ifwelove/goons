@@ -3,14 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriesTable extends Migration {
+class CreateBibleNewCategoriesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('categories', function(Blueprint $table) {
+		Schema::create('bible_new_categories', function(Blueprint $table) {
 			$table->increments('id');
             $table->tinyInteger('status')->unsigned()->default(1);
-            $table->integer('sort')->default(1);
+            $table->integer('sort');
             $table->string('title', 50);
 			$table->string('sub_title', 500);
 			$table->string('image', 500);
@@ -22,6 +22,6 @@ class CreateCategoriesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('categories');
+		Schema::drop('bible_new_categories');
 	}
 }

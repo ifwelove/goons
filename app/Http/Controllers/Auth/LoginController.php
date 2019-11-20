@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -38,6 +40,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected function sendLoginResponse(Request $request)
+    {
+        $rememberTokenExpireMinutes = 10;
+
+        $rememberTokenName = Auth::getRecallerName();
+
+        Cookie::queue($rememberTokenName, Cookie::get($rememberTokenName), $rememberTokenExpireMinutes);
+
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
+    }
+
 //    public function username()
 //    {
 //        return 'username';
@@ -53,5 +71,18 @@ class LoginController extends Controller
 //            'captcha.required' => trans('validation.captcha.required'),
 //            'captcha.captcha'  => trans('validation.captcha.error'),
 //        ]);
+//    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string|exists:users,email,status,1',
+            'password' => 'required|string',
+        ]);
+    }
+
+//    protected function credentials(Request $request)
+//    {
+//        return array_merge($request->only($this->username(), 'password'), ['status' => 1]);
 //    }
 }

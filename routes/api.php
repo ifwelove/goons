@@ -26,6 +26,7 @@ Route::group(['prefix' => 'accounts', 'middleware' => []], function () {
     Route::match(['get', 'head'], '/{account}/edit', 'Api\AccountController@edit');
 });
 
+
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');
 Route::post('programDescription', 'CategoryController@programDescriptionApi');
