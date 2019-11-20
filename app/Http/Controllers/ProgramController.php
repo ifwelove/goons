@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoriesCollection;
 use App\Http\Resources\ProgramsCollection;
+use App\Models\BibleCategory;
+use App\Models\BibleNewCategory;
+use App\Models\BibleNewProgram;
+use App\Models\BibleProgram;
 use App\Models\Category;
 use App\Models\Program;
 use Illuminate\Http\Request;
@@ -101,30 +105,46 @@ class ProgramController extends Controller
         ignore_user_abort(true);
         set_time_limit(1200);
 
-//        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-//        $contents = file_get_contents($fileName);
-//        Storage::disk('local')->put('public/bh-8787.mp3', $contents);
-//        dump(1);
+        //        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+        //        $contents = file_get_contents($fileName);
+        //        Storage::disk('local')->put('public/bh-8787.mp3', $contents);
+        //        dump(1);
 
-                $fileNamea = storage_path('app/public/bh-7878.mp3');
-                $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-                $result = file_put_contents($fileNamea, fopen($fileName, 'r'));
-                dump($result);
+        $fileNamea = storage_path('app/public/bh-7878.mp3');
+        $fileName  = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+        $result    = file_put_contents($fileNamea, fopen($fileName, 'r'));
+        dump($result);
         dump(1);
-//        $fileNameb = storage_path('app/public/bh-191110.mp3');
-//        $audio     = new Mp3Info($fileNameb, true);
-//        dump($audio);
-//        // or omit 2nd argument to increase parsing speed
-//        $audio = new Mp3Info($fileNameb);//快
-//        dump($audio);
+        //        $fileNameb = storage_path('app/public/bh-191110.mp3');
+        //        $audio     = new Mp3Info($fileNameb, true);
+        //        dump($audio);
+        //        // or omit 2nd argument to increase parsing speed
+        //        $audio = new Mp3Info($fileNameb);//快
+        //        dump($audio);
     }
 
     public function programListApi(Request $request)
     {
-        $input    = $request->only(['programID', 'page']);
+        $input    = $request->only(['programType', 'programID', 'page']);
         $id       = $input['programID'];
-        $programs = Program::where('categories', $id)
-            ->paginate(15);
+        $type     = $input['programType'];
+        switch ($type) {
+            case 0:
+                //節目
+                $programs = Program::where('categories', $id)
+                    ->paginate(15);
+                break;
+            case 1:
+                //新約
+                $programs = BibleNewProgram::where('categories', $id)
+                    ->paginate(15);
+                break;
+            case 2:
+                //舊約
+                $programs = BibleProgram::where('categories', $id)
+                    ->paginate(15);
+                break;
+        };
         ProgramsCollection::wrap('list');
 
         return new ProgramsCollection($programs);
@@ -154,11 +174,29 @@ class ProgramController extends Controller
                 break;
             case 1:
                 //新約
-                $programs = [];
+                $categories = BibleNewCategory::orderBy('sort')
+                    ->get();
+                foreach ($categories as $row) {
+                    $program = BibleNewProgram::with('category')
+                        ->where('categories', $row->id)
+                        ->first();
+                    if (! is_null($program)) {
+                        $programs[] = $program;
+                    }
+                }
                 break;
             case 2:
                 //舊約
-                $programs = [];
+                $categories = BibleCategory::orderBy('sort')
+                    ->get();
+                foreach ($categories as $row) {
+                    $program = BibleProgram::with('category')
+                        ->where('categories', $row->id)
+                        ->first();
+                    if (! is_null($program)) {
+                        $programs[] = $program;
+                    }
+                }
                 break;
         };
         CategoriesCollection::wrap('list');

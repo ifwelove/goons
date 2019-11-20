@@ -17,6 +17,6 @@ class BibleNewProgram extends Model
 
     public function category()
     {
-        return $this->belongsTo(BibleNewProgram::class, 'categories');
+        return $this->belongsTo(BibleNewCategory::class, 'categories');
     }
 }

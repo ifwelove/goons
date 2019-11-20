@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Category as CategoryResource;
+use App\Models\BibleCategory;
+use App\Models\BibleNewCategory;
+use App\Models\BibleNewProgram;
+use App\Models\BibleProgram;
 use App\Models\Category;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -86,10 +91,24 @@ class CategoryController extends Controller
 
     public function programDescriptionApi(Request $request)
     {
-        $input = $request->only(['programID']);
+        $input = $request->only(['programID', 'programType']);
         $id = $input['programID'];
+        $type = $input['programType'];
         $category = Category::find($id);
-
+        switch ($type) {
+            case 0:
+                //節目
+                $category = Category::find($id);
+                break;
+            case 1:
+                //新約
+                $category = BibleNewCategory::find($id);
+                break;
+            case 2:
+                //舊約
+                $category = BibleCategory::find($id);
+                break;
+        };
         CategoryResource::withoutWrapping();
 
         return new CategoryResource($category);
