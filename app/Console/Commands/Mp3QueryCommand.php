@@ -4,9 +4,11 @@ namespace App\Console\Commands;
 
 use App\Jobs\Mp3QueryJob;
 use App\Models\BibleNewProgram;
+use App\Models\BibleProgram;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use wapmorgan\Mp3Info\Mp3Info;
 
 class Mp3QueryCommand extends Command
 {
@@ -41,15 +43,25 @@ class Mp3QueryCommand extends Command
      */
     public function handle()
     {
-//                $fileName = 'test1.mp3';
-//                $fileLocal = storage_path('app/public/mp3/' . $fileName);
-////                $fileUrl = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-//                $fileUrl = str_replace(' ', '%20','http://media.feearadio.net/downloads/others/Union Version Bible/01 Matthew/Mat01.mp3');
-////                $fileUrl = 'http://media.feearadio.net/downloads/others/Union%20Version%20Bible/01%20Matthew/Mat01.mp3';
-//                dump('下載:');
-//                $result = file_put_contents($fileLocal, fopen($fileUrl, 'r'));
-//                dump('下載完成:');
-//                dump($result);
-        dispatch(new Mp3QueryJob());
+//        dispatch(new Mp3QueryJob());
+    }
+
+    public function setDuration()
+    {
+//        $programs = BibleProgram::where('duration', '')->get();
+//        $programs = BibleNewProgram::where('duration', '')->get();
+//        foreach ($programs as $program) {
+//            $formatUrl = str_replace(' ', '%20', str_replace('//o', '/o', $program->url));
+//            $aa = explode('/', $formatUrl);
+//            $fileName = end($aa);
+//            $fileLocal = storage_path('app/public/mp3/' . $fileName);
+//            if (!file_exists( $fileLocal)) {
+//                dump($program->id . ':' . $fileName);
+//            } else {
+//                $audio = new Mp3Info($fileLocal);
+//                $program->duration = intval($audio->duration);
+//                $program->save();
+//            }
+//        }
     }
 }
