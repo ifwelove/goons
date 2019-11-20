@@ -2033,6 +2033,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2113,6 +2117,14 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
     },
     handleAddAccount: function handleAddAccount() {
       location.assign(location.origin + '/accounts/create');
+    },
+    handleToggleStatus: function handleToggleStatus(account) {
+      var toggleStatus = account.status ? 0 : 1;
+      var uri = "/api/accounts/".concat(account.id, "/status");
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, {
+        status: toggleStatus
+      }).then(function (res) {// console.log('res', res)
+      });
     }
   }
 });
@@ -2128,6 +2140,9 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2222,7 +2237,8 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         password: '',
         roles: []
-      }
+      },
+      isSubmitting: false
     };
   },
   created: function created() {
@@ -2235,20 +2251,29 @@ __webpack_require__.r(__webpack_exports__);
       var _this$account = this.account,
           name = _this$account.name,
           email = _this$account.email,
-          password = _this$account.password;
+          password = _this$account.password,
+          roles = _this$account.roles;
+      var rolesValue = roles.map(function (role) {
+        return role.id;
+      });
       this.form = {
         name: name,
         email: email,
-        password: password
+        password: password,
+        roles: rolesValue
       };
     },
     handleCreate: function handleCreate() {
-      var formData = new FormData();
-      formData.append("name", this.form.name);
-      formData.append("email", this.form.email);
-      formData.append("password", this.form.password);
+      $('.createForm').parsley();
+      return;
+      this.isSubmitting = true;
       var uri = "/api/accounts";
-      axios.post(uri, formData).then(function () {
+      axios.post(uri, {
+        name: this.form.name,
+        email: this.form.email,
+        password: this.form.password,
+        roles: this.form.roles
+      }).then(function () {
         Swal.fire({
           timer: 6000,
           title: '新增成功'
@@ -2263,7 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
         name: this.form.name,
         email: this.form.email,
         password: this.form.password,
-        roles: [1, 2, 3]
+        roles: this.form.roles
       }).then(function () {
         Swal.fire({
           timer: 6000,
@@ -2275,7 +2300,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleCancel: function handleCancel() {
       Swal.fire({
-        title: "\u662F\u5426\u8981\u53D6\u6D88\u9019\u6B21".concat(isEdit ? '編輯' : '新增', "\uFF1F\u5982\u679C\u53D6\u6D88").concat(isEdit ? '編輯' : '新增', "\u7684\u5167\u5BB9\u5C07\u4E0D\u6703\u88AB\u5132\u5B58\u3002"),
+        title: "\u662F\u5426\u8981\u53D6\u6D88\u9019\u6B21".concat(this.isEdit ? '編輯' : '新增', "\uFF1F\u5982\u679C\u53D6\u6D88").concat(this.isEdit ? '編輯' : '新增', "\u7684\u5167\u5BB9\u5C07\u4E0D\u6703\u88AB\u5132\u5B58\u3002"),
         showCancelButton: true,
         confirmButtonText: '確定取消',
         cancelButtonText: '返回'
@@ -2320,7 +2345,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--8-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -20430,13 +20455,13 @@ module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.c
 
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js??ref--8-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& ***!
   \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--8-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--8-2!../../../node_modules/vue-loader/lib??vue-loader-options!./account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -21360,7 +21385,12 @@ var render = function() {
                               [
                                 _c("input", {
                                   attrs: { type: "checkbox", name: "" },
-                                  domProps: { checked: account.status }
+                                  domProps: { checked: account.status },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.handleToggleStatus(account)
+                                    }
+                                  }
                                 }),
                                 _vm._v(" "),
                                 _c("span", { staticStyle: { padding: "4px" } })
@@ -21458,410 +21488,449 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "kt-portlet" }, [
-          _c("form", { staticClass: "kt-form kt-form--label-right" }, [
-            _c("div", { staticClass: "kt-portlet__body" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("姓名：")
+          _c(
+            "form",
+            {
+              ref: "createForm",
+              staticClass: "createForm kt-form kt-form--label-right"
+            },
+            [
+              _c("div", { staticClass: "kt-portlet__body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("姓名：")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.name,
+                          expression: "form.name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "限中英數字" },
+                      domProps: { value: _vm.form.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.name,
-                        expression: "form.name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "限中英數字" },
-                    domProps: { value: _vm.form.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("帳號：")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.email,
+                          expression: "form.email"
                         }
-                        _vm.$set(_vm.form, "name", $event.target.value)
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "限英數字" },
+                      domProps: { value: _vm.form.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "email", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("帳號：")
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.email,
-                        expression: "form.email"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "限英數字" },
-                    domProps: { value: _vm.form.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("密碼：")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.password,
+                          expression: "form.password"
                         }
-                        _vm.$set(_vm.form, "email", $event.target.value)
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "password",
+                        placeholder: "6-12位英數字密碼"
+                      },
+                      domProps: { value: _vm.form.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "password", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("密碼：")
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.password,
-                        expression: "form.password"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "password",
-                      placeholder: "6-12位英數字密碼"
-                    },
-                    domProps: { value: _vm.form.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "password", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("權限管理：")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-lg-6 kt-checkbox-list mt-2 pl-2" },
-                  [
-                    _c("label", { staticClass: "kt-checkbox" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.roles,
-                            expression: "form.roles"
-                          }
-                        ],
-                        attrs: { type: "checkbox", value: "account" },
-                        domProps: {
-                          checked: Array.isArray(_vm.form.roles)
-                            ? _vm._i(_vm.form.roles, "account") > -1
-                            : _vm.form.roles
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.roles,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "account",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(_vm.form, "roles", $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "roles",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.form, "roles", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" 帳號管理\n                        "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "kt-checkbox" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.roles,
-                            expression: "form.roles"
-                          }
-                        ],
-                        attrs: { type: "checkbox", value: "categories" },
-                        domProps: {
-                          checked: Array.isArray(_vm.form.roles)
-                            ? _vm._i(_vm.form.roles, "categories") > -1
-                            : _vm.form.roles
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.roles,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "categories",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(_vm.form, "roles", $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "roles",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.form, "roles", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" 節目分類\n                        "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "kt-checkbox" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.roles,
-                            expression: "form.roles"
-                          }
-                        ],
-                        attrs: { type: "checkbox", value: "program" },
-                        domProps: {
-                          checked: Array.isArray(_vm.form.roles)
-                            ? _vm._i(_vm.form.roles, "program") > -1
-                            : _vm.form.roles
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.roles,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "program",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(_vm.form, "roles", $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "roles",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.form, "roles", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" 節目內容\n                        "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "kt-checkbox" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.roles,
-                            expression: "form.roles"
-                          }
-                        ],
-                        attrs: { type: "checkbox", value: "news" },
-                        domProps: {
-                          checked: Array.isArray(_vm.form.roles)
-                            ? _vm._i(_vm.form.roles, "news") > -1
-                            : _vm.form.roles
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.roles,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "news",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(_vm.form, "roles", $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "roles",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.form, "roles", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" 最新消息\n                        "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "kt-checkbox" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.roles,
-                            expression: "form.roles"
-                          }
-                        ],
-                        attrs: { type: "checkbox", value: "pushes" },
-                        domProps: {
-                          checked: Array.isArray(_vm.form.roles)
-                            ? _vm._i(_vm.form.roles, "pushes") > -1
-                            : _vm.form.roles
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.roles,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "pushes",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(_vm.form, "roles", $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "roles",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.form, "roles", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" 推播管理\n                        "),
-                      _c("span")
-                    ])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "kt-portlet__foot" }, [
-              _c("div", { staticClass: "kt-form__actions" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-2" }, [
-                    _vm.isEdit
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success",
-                            attrs: { type: "reset" },
-                            on: { click: _vm.handleDelete }
-                          },
-                          [_vm._v("刪除")]
-                        )
-                      : _vm._e()
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("權限管理：")
                   ]),
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "col-10 text-right" },
+                    { staticClass: "col-lg-6 kt-checkbox-list mt-2 pl-2" },
                     [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "reset" },
-                          on: { click: _vm.handleCancel }
-                        },
-                        [_vm._v("取消")]
-                      ),
+                      _c("label", { staticClass: "kt-checkbox" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.roles,
+                              expression: "form.roles"
+                            }
+                          ],
+                          attrs: { type: "checkbox", value: "1" },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.roles)
+                              ? _vm._i(_vm.form.roles, "1") > -1
+                              : _vm.form.roles
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.roles,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = "1",
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "roles", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" 帳號管理\n                        "),
+                        _c("span")
+                      ]),
                       _vm._v(" "),
-                      [
-                        !_vm.isEdit
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: { type: "reset" },
-                                on: { click: _vm.handleCreate }
-                              },
-                              [
-                                _c("span", {
-                                  staticClass:
-                                    "spinner-border spinner-border-sm",
-                                  attrs: {
-                                    role: "status",
-                                    "aria-hidden": "true"
-                                  }
-                                }),
-                                _vm._v(
-                                  "\n                      新增\n                    "
-                                )
-                              ]
-                            )
-                          : _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: { type: "reset" },
-                                on: { click: _vm.handleSave }
-                              },
-                              [_vm._v("儲存")]
-                            )
-                      ]
-                    ],
-                    2
+                      _c("label", { staticClass: "kt-checkbox" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.roles,
+                              expression: "form.roles"
+                            }
+                          ],
+                          attrs: { type: "checkbox", value: "2" },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.roles)
+                              ? _vm._i(_vm.form.roles, "2") > -1
+                              : _vm.form.roles
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.roles,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = "2",
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "roles", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" 節目分類\n                        "),
+                        _c("span")
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "kt-checkbox" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.roles,
+                              expression: "form.roles"
+                            }
+                          ],
+                          attrs: { type: "checkbox", value: "3" },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.roles)
+                              ? _vm._i(_vm.form.roles, "3") > -1
+                              : _vm.form.roles
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.roles,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = "3",
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "roles", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" 節目內容\n                        "),
+                        _c("span")
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "kt-checkbox" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.roles,
+                              expression: "form.roles"
+                            }
+                          ],
+                          attrs: { type: "checkbox", value: "4" },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.roles)
+                              ? _vm._i(_vm.form.roles, "4") > -1
+                              : _vm.form.roles
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.roles,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = "4",
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "roles", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" 最新消息\n                        "),
+                        _c("span")
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "kt-checkbox" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.roles,
+                              expression: "form.roles"
+                            }
+                          ],
+                          attrs: { type: "checkbox", value: "5" },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.roles)
+                              ? _vm._i(_vm.form.roles, "5") > -1
+                              : _vm.form.roles
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.roles,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = "5",
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "roles",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "roles", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" 推播管理\n                        "),
+                        _c("span")
+                      ])
+                    ]
                   )
                 ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "kt-portlet__foot" }, [
+                _c("div", { staticClass: "kt-form__actions" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-2" }, [
+                      _vm.isEdit
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { type: "reset" },
+                              on: { click: _vm.handleDelete }
+                            },
+                            [_vm._v("刪除")]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-10 text-right" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "reset" },
+                            on: { click: _vm.handleCancel }
+                          },
+                          [_vm._v("取消")]
+                        ),
+                        _vm._v(" "),
+                        [
+                          !_vm.isEdit
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success",
+                                  attrs: { type: "reset" },
+                                  on: { click: _vm.handleCreate }
+                                },
+                                [
+                                  _c("span", {
+                                    class: {
+                                      "spinner-border spinner-border-sm":
+                                        _vm.isSubmitting
+                                    },
+                                    attrs: {
+                                      role: "status",
+                                      "aria-hidden": "true"
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "\n                      新增\n                    "
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success",
+                                  attrs: { type: "reset" },
+                                  on: { click: _vm.handleSave }
+                                },
+                                [_vm._v("儲存")]
+                              )
+                        ]
+                      ],
+                      2
+                    )
+                  ])
+                ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
@@ -34141,10 +34210,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader/dist/cjs.js??ref--8-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--8-2!../../../node_modules/vue-loader/lib??vue-loader-options!./account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/accounts/account.vue?vue&type=style&index=0&id=a4dc6856&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_style_index_0_id_a4dc6856_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -34321,27 +34390,15 @@ new Vue({
 
 /***/ }),
 
-/***/ "./resources/scss/icons.scss":
-/*!***********************************!*\
-  !*** ./resources/scss/icons.scss ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!*****************************************************************************************************************************************!*\
-  !*** multi ./resources/js/components/accounts.js ./resources/scss/bootstrap.scss ./resources/scss/icons.scss ./resources/scss/app.scss ***!
-  \*****************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** multi ./resources/js/components/accounts.js ./resources/scss/bootstrap.scss ./resources/scss/app.scss ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
 __webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-__webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/icons.scss */"./resources/scss/icons.scss");
 module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 

@@ -56,7 +56,11 @@
                                 <td>
                                   <span class="kt-switch">
                                     <label style="margin-bottom: 0">
-                                    <input type="checkbox" :checked="account.status" name="">
+                                    <input
+                                      type="checkbox"
+                                      :checked="account.status"
+                                      name=""
+                                      @change="handleToggleStatus(account)">
                                     <span style="padding: 4px;"></span>
                                     </label>
                                   </span>
@@ -173,6 +177,18 @@ export default {
 
     handleAddAccount () {
       location.assign(location.origin + '/accounts/create')
+    },
+
+    handleToggleStatus (account) {
+      const toggleStatus = account.status ? 0 : 1
+
+      const uri = `/api/accounts/${account.id}/status`
+      axios.put(uri, {
+        status: toggleStatus
+      })
+      .then((res) => {
+        // console.log('res', res)
+      })
     }
   }
 

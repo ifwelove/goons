@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="kt-portlet">
         <!--begin::Form-->
-        <form class="kt-form kt-form--label-right">
+        <form ref="createForm" class="createForm kt-form kt-form--label-right">
           <div class="kt-portlet__body">
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">姓名：</label>
@@ -28,23 +28,23 @@
                 <label class="col-lg-3 col-form-label">權限管理：</label>
                 <div class="col-lg-6 kt-checkbox-list mt-2 pl-2">
                   <label class="kt-checkbox">
-                        <input type="checkbox" v-model="form.roles" value="account"> 帳號管理
+                        <input type="checkbox" v-model="form.roles" value="1"> 帳號管理
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox" v-model="form.roles" value="categories"> 節目分類
+                        <input type="checkbox" v-model="form.roles" value="2"> 節目分類
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox" v-model="form.roles" value="program"> 節目內容
+                        <input type="checkbox" v-model="form.roles" value="3"> 節目內容
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox" v-model="form.roles" value="news"> 最新消息
+                        <input type="checkbox" v-model="form.roles" value="4"> 最新消息
                         <span></span>
                     </label>
                     <label class="kt-checkbox">
-                        <input type="checkbox" v-model="form.roles" value="pushes"> 推播管理
+                        <input type="checkbox" v-model="form.roles" value="5"> 推播管理
                         <span></span>
                     </label>
                 </div>
@@ -60,7 +60,10 @@
                   <button type="reset" class="btn btn-secondary" @click="handleCancel">取消</button>
                   <template>
                     <button v-if="!isEdit" type="reset" class="btn btn-success" @click="handleCreate">
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span
+                        :class="{'spinner-border spinner-border-sm': isSubmitting}"
+                        role="status"
+                        aria-hidden="true"></span>
                       新增
                     </button>
                     <button v-else type="reset" class="btn btn-success" @click="handleSave">儲存</button>
@@ -94,7 +97,8 @@ export default {
         email: '',
         password: '',
         roles: []
-      }
+      },
+      isSubmitting: false
     }
   },
 
@@ -107,22 +111,31 @@ export default {
   methods: {
     setForm () {
       const {
-        name, email, password
+        name, email, password,
+        roles
       } = this.account
 
+      const rolesValue = roles.map(role => role.id)
+
       this.form = {
-        name, email, password
+        name, email, password, roles: rolesValue
       }
     },
 
     handleCreate () {
-      const formData = new FormData();
-      formData.append("name", this.form.name)
-      formData.append("email", this.form.email)
-      formData.append("password", this.form.password)
 
+      $('.createForm').parsley();
+
+      return
+
+      this.isSubmitting = true
       const uri = `/api/accounts`
-      axios.post(uri, formData)
+      axios.post(uri, {
+        name: this.form.name,
+        email: this.form.email,
+        password: this.form.password,
+        roles: this.form.roles
+      })
       .then(() => {
         Swal.fire({
           timer: 6000,
@@ -139,7 +152,7 @@ export default {
         name: this.form.name,
         email: this.form.email,
         password: this.form.password,
-        roles: [1,2,3]
+        roles: this.form.roles
       })
       .then(() => {
         Swal.fire({
@@ -153,7 +166,7 @@ export default {
 
     handleCancel () {
       Swal.fire({
-        title: `是否要取消這次${isEdit ? '編輯' : '新增'}？如果取消${isEdit ? '編輯' : '新增'}的內容將不會被儲存。`,
+        title: `是否要取消這次${this.isEdit ? '編輯' : '新增'}？如果取消${this.isEdit ? '編輯' : '新增'}的內容將不會被儲存。`,
         showCancelButton: true,
         confirmButtonText: '確定取消',
         cancelButtonText: '返回',
