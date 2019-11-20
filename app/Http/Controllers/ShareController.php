@@ -13,7 +13,7 @@ class ShareController extends Controller
     public function show($id)
     {
         $program = Program::find($id);
-        dump($program->toArray());
+//        dump($program->toArray());
         return view('share.show')->with('program', $program->toArray());
     }
 }

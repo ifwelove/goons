@@ -19,15 +19,18 @@ class Categories extends JsonResource
         $weekList = array('日', '一', '二', '三', '四', '五', '六');
         $week = $weekList[Carbon::create($this->start_date)->dayOfWeek];
         $format = 'Y/m/d (' . $week . ')';
-
-        return [
+        $result = [
             'id'       => $this->id,
             'title'       => $this->category->title,
             'subTitle' => $this->title,
-//            'date'        => $this->start_date,
+            //            'date'        => $this->start_date,
             'date'        => Carbon::create($this->start_date)->timestamp,
             'dateFormat'        => Carbon::create($this->start_date)->format($format),
             'imageURL'    => $this->category->image,
+            'categoryId'    => $this->category->id,
+            'programType'    => $request->programType,
         ];
+
+        return $result;
     }
 }

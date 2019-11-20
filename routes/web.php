@@ -92,7 +92,7 @@ Route::group(['middleware' => 'role:category'], function() {
     Route::resource('categories', 'CategoryController');
 });
 
-Route::get('parser', 'ProgramController@parser');
+//Route::get('parser', 'ProgramController@parser');
 Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
 Route::match(['get', 'head'], 'share/{program}', 'ShareController@show');
 Route::match(['get', 'head'], 'cron/news', 'CronController@news');
