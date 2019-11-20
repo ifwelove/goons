@@ -4,18 +4,23 @@
     <div class="col-12">
       <div class="kt-portlet">
         <!--begin::Form-->
-        <form ref="createForm" class="createForm kt-form kt-form--label-right">
+        <form ref="createForm" class="createForm kt-form kt-form--label-right"
+        data-parsley-validate="">
           <div class="kt-portlet__body">
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">姓名：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限中英數字" v-model="form.name">
+                <input type="text" class="form-control" placeholder="限中英數字" v-model="form.name" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">帳號：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限英數字" v-model="form.email">
+                <input type="text" class="form-control" placeholder="限英數字"
+                  data-parsley-type="digits"
+                  data-parsley-trigger="change"
+                  required=""
+                  v-model="form.email">
               </div>
             </div>
             <div class="form-group row">
@@ -124,9 +129,11 @@ export default {
 
     handleCreate () {
 
-      $('.createForm').parsley();
+      // $('.createForm').parsley();
 
-      return
+      // $('.createForm').validate()
+
+      // return
 
       this.isSubmitting = true
       const uri = `/api/accounts`
