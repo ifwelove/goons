@@ -11,7 +11,7 @@ class BibleAllTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->parse();
+//        $this->parse();
     }
 
     protected function parse()
