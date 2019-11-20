@@ -167,7 +167,8 @@ class AccountRoleAndPermissionService
 
     public function accountFind($id)
     {
-        $account = $this->accountsRepository->find($id);
+        $account = User::with('roles')->find($id);
+//        $account = $this->accountsRepository->find($id);
 
         return $account;
     }
