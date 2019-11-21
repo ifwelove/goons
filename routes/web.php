@@ -51,7 +51,7 @@ Auth::routes(['register' => false]);
 //        ->name('roles.edit');
 //});
 
-Route::group(['prefix' => 'accounts', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'accounts', 'middleware' => ['auth', 'role:account']], function () {
     Route::match(['get', 'head'], '/', 'AccountController@index')
         ->name('accounts.index');
     Route::post('/', 'AccountController@store')
@@ -76,23 +76,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'DashboardController@index');
 });
 
-Route::group(['middleware' => 'role:program'], function() {
+Route::group(['middleware' => ['auth', 'role:program']], function() {
     Route::resource('programs', 'ProgramController');
 });
 
-Route::group(['middleware' => 'role:news'], function() {
+Route::group(['middleware' => ['auth', 'role:news']], function() {
     Route::resource('news', 'NewsController');
 });
 
-Route::group(['middleware' => 'role:push'], function() {
+Route::group(['middleware' => ['auth', 'role:push']], function() {
     Route::resource('pushs', 'PushController');
 });
 
-Route::group(['middleware' => 'role:category'], function() {
+Route::group(['middleware' => ['auth', 'role:category']], function() {
     Route::resource('categories', 'CategoryController');
 });
 
 //Route::get('parser', 'ProgramController@parser');
 Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
 Route::match(['get', 'head'], 'share/{program}', 'ShareController@show');
+
 Route::match(['get', 'head'], 'cron/news', 'CronController@news');
+Route::match(['get', 'head'], 'cron/push/curl', 'CronController@pushByCurl');
+Route::match(['get', 'head'], 'cron/push/fcm', 'CronController@pushByFcm');

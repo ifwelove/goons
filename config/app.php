@@ -178,8 +178,8 @@ return [
 
         App\Providers\ViewServiceProvider::class,
 //        App\Providers\MD5HashServiceProvider::class,
-        Mews\Captcha\CaptchaServiceProvider::class
-
+        LaravelFCM\FCMServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -231,7 +231,9 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
 
-        'Captcha' => Mews\Captcha\Facades\Captcha::class
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class, // Optional
     ],
 
 ];
