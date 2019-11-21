@@ -2221,6 +2221,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     isEdit: {
@@ -2264,8 +2269,9 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     handleCreate: function handleCreate() {
-      $('.createForm').parsley();
-      return;
+      // $('.createForm').parsley();
+      // $('.createForm').validate()
+      // return
       this.isSubmitting = true;
       var uri = "/api/accounts";
       axios.post(uri, {
@@ -21492,7 +21498,8 @@ var render = function() {
             "form",
             {
               ref: "createForm",
-              staticClass: "createForm kt-form kt-form--label-right"
+              staticClass: "createForm kt-form kt-form--label-right",
+              attrs: { "data-parsley-validate": "" }
             },
             [
               _c("div", { staticClass: "kt-portlet__body" }, [
@@ -21512,7 +21519,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "限中英數字" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "限中英數字",
+                        required: ""
+                      },
                       domProps: { value: _vm.form.name },
                       on: {
                         input: function($event) {
@@ -21542,7 +21553,13 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "限英數字" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "限英數字",
+                        "data-parsley-type": "digits",
+                        "data-parsley-trigger": "change",
+                        required: ""
+                      },
                       domProps: { value: _vm.form.email },
                       on: {
                         input: function($event) {
@@ -34397,9 +34414,9 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
-__webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
+__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 
 /***/ })
