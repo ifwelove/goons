@@ -2091,7 +2091,6 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
           current_page: current_page,
           last_page: last_page
         };
-        console.log('res', res);
       });
     },
     handleEdit: function handleEdit(id) {
@@ -2123,8 +2122,7 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       var uri = "/api/accounts/".concat(account.id, "/status");
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, {
         status: toggleStatus
-      }).then(function (res) {// console.log('res', res)
-      });
+      }).then(function (res) {});
     }
   }
 });
@@ -2226,6 +2224,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> debby
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     isEdit: {
@@ -2243,13 +2286,20 @@ __webpack_require__.r(__webpack_exports__);
         password: '',
         roles: []
       },
-      isSubmitting: false
+      isSubmitting: false,
+      errors: $('.parsley-error').length
     };
   },
   created: function created() {
     if (this.isEdit) {
       this.setForm();
     }
+  },
+  mounted: function mounted() {
+    $('.createForm').parsley();
+  },
+  updated: function updated() {
+    this.errors = $('.parsley-error').length;
   },
   methods: {
     setForm: function setForm() {
@@ -2269,9 +2319,14 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     handleCreate: function handleCreate() {
+<<<<<<< HEAD
       // $('.createForm').parsley();
       // $('.createForm').validate()
       // return
+=======
+      var instance = $('.createForm').parsley();
+      if (!instance.isValid()) return;
+>>>>>>> debby
       this.isSubmitting = true;
       var uri = "/api/accounts";
       axios.post(uri, {
@@ -2289,6 +2344,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     handleSave: function handleSave() {
+      var instance = $('.createForm').parsley();
+      if (!instance.isValid()) return;
+      this.isSubmitting = true;
       var uri = "/api/accounts/".concat(this.account.id);
       axios.put(uri, {
         name: this.form.name,
@@ -21497,7 +21555,10 @@ var render = function() {
           _c(
             "form",
             {
+<<<<<<< HEAD
               ref: "createForm",
+=======
+>>>>>>> debby
               staticClass: "createForm kt-form kt-form--label-right",
               attrs: { "data-parsley-validate": "" }
             },
@@ -21522,6 +21583,15 @@ var render = function() {
                       attrs: {
                         type: "text",
                         placeholder: "限中英數字",
+<<<<<<< HEAD
+=======
+                        name: "name",
+                        "data-parsley-trigger": "change",
+                        "data-parsley-pattern":
+                          "^(\\d|\\w|[\\u4E00-\\u9FFF])+$",
+                        "data-parsley-required-message": "必填欄位",
+                        "data-parsley-pattern-message": "限英數字",
+>>>>>>> debby
                         required: ""
                       },
                       domProps: { value: _vm.form.name },
@@ -21556,8 +21626,15 @@ var render = function() {
                       attrs: {
                         type: "text",
                         placeholder: "限英數字",
+<<<<<<< HEAD
                         "data-parsley-type": "digits",
                         "data-parsley-trigger": "change",
+=======
+                        "data-parsley-pattern": "^(\\d|\\w)+$",
+                        "data-parsley-trigger": "change",
+                        "data-parsley-pattern-message": "限英數字",
+                        "data-parsley-required-message": "必填欄位",
+>>>>>>> debby
                         required: ""
                       },
                       domProps: { value: _vm.form.email },
@@ -21591,7 +21668,14 @@ var render = function() {
                       staticClass: "form-control",
                       attrs: {
                         type: "password",
-                        placeholder: "6-12位英數字密碼"
+                        placeholder: "6-12位英數字密碼",
+                        "data-parsley-length": "[6, 12]",
+                        "data-parsley-pattern": "^(\\d|\\w)+$",
+                        "data-parsley-trigger": "focusout",
+                        "data-parsley-required-message": "必填欄位",
+                        "data-parsley-length-message": "密碼長度應為6-12碼",
+                        "data-parsley-pattern-message": "密碼不可包含符號",
+                        required: !_vm.isEdit
                       },
                       domProps: { value: _vm.form.password },
                       on: {
@@ -21883,7 +21967,6 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-success",
-                              attrs: { type: "reset" },
                               on: { click: _vm.handleDelete }
                             },
                             [_vm._v("刪除")]
@@ -21899,7 +21982,6 @@ var render = function() {
                           "button",
                           {
                             staticClass: "btn btn-secondary",
-                            attrs: { type: "reset" },
                             on: { click: _vm.handleCancel }
                           },
                           [_vm._v("取消")]
@@ -21911,7 +21993,11 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass: "btn btn-success",
-                                  attrs: { type: "reset" },
+                                  class: { disabled: _vm.errors > 0 },
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.errors > 0
+                                  },
                                   on: { click: _vm.handleCreate }
                                 },
                                 [
@@ -21934,10 +22020,28 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass: "btn btn-success",
-                                  attrs: { type: "reset" },
+                                  class: { disabled: _vm.errors > 0 },
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.errors > 0
+                                  },
                                   on: { click: _vm.handleSave }
                                 },
-                                [_vm._v("儲存")]
+                                [
+                                  _c("span", {
+                                    class: {
+                                      "spinner-border spinner-border-sm":
+                                        _vm.isSubmitting
+                                    },
+                                    attrs: {
+                                      role: "status",
+                                      "aria-hidden": "true"
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "\n                      儲存\n                    "
+                                  )
+                                ]
                               )
                         ]
                       ],
