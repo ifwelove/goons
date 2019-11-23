@@ -16,11 +16,22 @@ class Categories extends JsonResource
      */
     public function toArray($request)
     {
+        switch ($request->programType){
+            case 0:
+                $id = $this->id;
+                break;
+            case 1:
+                $id = 'n' . $this->id;
+                break;
+            case 2:
+                $id = 'o' . $this->id;
+                break;
+        }
         $weekList = array('日', '一', '二', '三', '四', '五', '六');
         $week = $weekList[Carbon::create($this->start_date)->dayOfWeek];
         $format = 'Y/m/d (' . $week . ')';
         $result = [
-            'id'       => $this->id,
+            'id'       => $id,
             'title'       => $this->category->title,
             'subTitle' => $this->title,
             //            'date'        => $this->start_date,

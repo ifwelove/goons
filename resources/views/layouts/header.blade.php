@@ -32,7 +32,7 @@
        <div class="logo-box">
            <a href="index" class="logo text-center">
                <span class="logo-lg">
-                   <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="20">
+{{--                   <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="20">--}}
                    {{--                   <span class="logo-lg-text-light">{{ env('APP_NAME') }}</span>--}}
                </span>
                <span class="logo-sm">

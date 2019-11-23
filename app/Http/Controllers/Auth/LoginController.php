@@ -37,52 +37,55 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')
+            ->except('logout');
     }
 
     protected function sendLoginResponse(Request $request)
     {
-        $rememberTokenExpireMinutes = 10;
+        //        $rememberTokenExpireMinutes = 10;
+        $rememberTokenExpireMinutes = 43200;//30day
 
         $rememberTokenName = Auth::getRecallerName();
 
         Cookie::queue($rememberTokenName, Cookie::get($rememberTokenName), $rememberTokenExpireMinutes);
 
-        $request->session()->regenerate();
+        $request->session()
+            ->regenerate();
 
         $this->clearLoginAttempts($request);
 
-        return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended($this->redirectPath());
+        return $this->authenticated($request, $this->guard()
+            ->user()) ?: redirect()->intended($this->redirectPath());
     }
 
-//    public function username()
-//    {
-//        return 'username';
-//    }
-//
-//    protected function validateLogin(Request $request)
-//    {
-//        $request->validate([
-//            $this->username() => 'required|string',
-//            'password'        => 'required|string',
-//            'captcha'         => 'required|captcha',
-//        ], [
-//            'captcha.required' => trans('validation.captcha.required'),
-//            'captcha.captcha'  => trans('validation.captcha.error'),
-//        ]);
-//    }
+    //    public function username()
+    //    {
+    //        return 'username';
+    //    }
+    //
+    //    protected function validateLogin(Request $request)
+    //    {
+    //        $request->validate([
+    //            $this->username() => 'required|string',
+    //            'password'        => 'required|string',
+    //            'captcha'         => 'required|captcha',
+    //        ], [
+    //            'captcha.required' => trans('validation.captcha.required'),
+    //            'captcha.captcha'  => trans('validation.captcha.error'),
+    //        ]);
+    //    }
 
     protected function validateLogin(Request $request)
     {
         $request->validate([
             $this->username() => 'required|string|exists:users,email,status,1',
-            'password' => 'required|string',
+            'password'        => 'required|string',
         ]);
     }
 
-//    protected function credentials(Request $request)
-//    {
-//        return array_merge($request->only($this->username(), 'password'), ['status' => 1]);
-//    }
+    //    protected function credentials(Request $request)
+    //    {
+    //        return array_merge($request->only($this->username(), 'password'), ['status' => 1]);
+    //    }
 }

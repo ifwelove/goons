@@ -95,6 +95,15 @@ class CategoryController extends Controller
         $id = $input['programID'];
         $type = $input['programType'];
         $category = Category::find($id);
+        switch ($type){
+            case 0:
+                break;
+            case 1:
+            case 2:
+                $id = str_replace('n', '', $id);
+                $id = str_replace('o', '', $id);
+                break;
+        }
         switch ($type) {
             case 0:
                 //節目
