@@ -11,8 +11,9 @@
                             <a href="/">
                                 {{ env('APP_NAME') }}
                             </a>
-                            <p class="text-muted mb-4 mt-3">{{ __('backend.message.login.title') }}</p>
+{{--                            <p class="text-muted mb-4 mt-3">{{ __('backend.message.login.title') }}</p>--}}
                         </div>
+
                         @if(session('error'))
                             <div class="alert alert-danger">{{ session('error') }}</div>
                             <br>
@@ -25,32 +26,16 @@
                         <form action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="form-group mb-3">
-{{--                                <label for="username">{{ __('backend.username') }}</label>--}}
-{{--                                <input class="form-control @if($errors->has('username')) is-invalid @endif" type="text" id="username" name="username" value="" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />--}}
-{{--                                @if($errors->has('username'))--}}
-{{--                                <span class="invalid-feedback" role="alert">--}}
-{{--                                    <strong>{{ $errors->first('username') }}</strong>--}}
-{{--                                </span>--}}
-{{--                                @endif--}}
                                 <label for="email">{{ __('backend.username') }}</label>
-                                <input class="form-control @if($errors->has('email')) is-invalid @endif" type="text" id="email" name="email" value="" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />
-                                @if($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                                @endif
+                                <input class="form-control" onkeyup="stoppedTyping()" type="text" id="email" name="email" value="" placeholder="{{ __('backend.message.enter_your_username') }}" autofocus />
                             </div>
                             <div class="form-group mb-3">
                                 <label for="password">{{ __('backend.password') }}</label>
-                                <div class="input-group">
-                                    <input class="form-control @if($errors->has('password')) is-invalid @endif" type="password" name="password" id="password" placeholder="{{ __('backend.message.enter_your_password') }}">
-                                </div>
-                                @if($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                                @endif
+                                <input class="form-control" onkeyup="stoppedTyping()" type="password" name="password" id="password" placeholder="{{ __('backend.message.enter_your_password') }}">
                             </div>
+                            @if($errors->has('email') || $errors->has('password'))
+                                <div class="alert alert-danger bg-white text-danger">帳號、密碼錯誤，請聯絡管理者</div>
+                            @endif
                             <div class="form-group mb-3">
                                 <div class="row">
                                     <div class="col-8">
@@ -64,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="form-group mb-0 text-center">
-                                <button class="btn btn-primary btn-block" type="submit">{{ __('backend.login') }}</button>
+                                <button class="btn btn-primary btn-block" id="submit" type="submit">{{ __('backend.login') }}</button>
                             </div>
                         </form>
                     </div>
@@ -77,7 +62,16 @@
 
 @section('script')
     <script>
+        function stoppedTyping(){
+            if(document.getElementById("email").value === "" || document.getElementById("password").value === "") {
+                document.getElementById('submit').disabled = true;
+            } else {
+                document.getElementById('submit').disabled = false;
+            }
+        }
         $(document).ready(function () {
+            stoppedTyping();
+
             var display = "{{ __('backend.display') }}";
             var none = "{{ __('backend.none') }}";
             var status = true;

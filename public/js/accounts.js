@@ -2224,8 +2224,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-=======
 //
 //
 //
@@ -2268,7 +2266,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
->>>>>>> debby
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     isEdit: {
@@ -2319,14 +2316,8 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     handleCreate: function handleCreate() {
-<<<<<<< HEAD
-      // $('.createForm').parsley();
-      // $('.createForm').validate()
-      // return
-=======
       var instance = $('.createForm').parsley();
       if (!instance.isValid()) return;
->>>>>>> debby
       this.isSubmitting = true;
       var uri = "/api/accounts";
       axios.post(uri, {
@@ -21555,10 +21546,6 @@ var render = function() {
           _c(
             "form",
             {
-<<<<<<< HEAD
-              ref: "createForm",
-=======
->>>>>>> debby
               staticClass: "createForm kt-form kt-form--label-right",
               attrs: { "data-parsley-validate": "" }
             },
@@ -21583,15 +21570,12 @@ var render = function() {
                       attrs: {
                         type: "text",
                         placeholder: "限中英數字",
-<<<<<<< HEAD
-=======
                         name: "name",
                         "data-parsley-trigger": "change",
                         "data-parsley-pattern":
                           "^(\\d|\\w|[\\u4E00-\\u9FFF])+$",
                         "data-parsley-required-message": "必填欄位",
                         "data-parsley-pattern-message": "限英數字",
->>>>>>> debby
                         required: ""
                       },
                       domProps: { value: _vm.form.name },
@@ -21626,15 +21610,10 @@ var render = function() {
                       attrs: {
                         type: "text",
                         placeholder: "限英數字",
-<<<<<<< HEAD
-                        "data-parsley-type": "digits",
-                        "data-parsley-trigger": "change",
-=======
                         "data-parsley-pattern": "^(\\d|\\w)+$",
                         "data-parsley-trigger": "change",
                         "data-parsley-pattern-message": "限英數字",
                         "data-parsley-required-message": "必填欄位",
->>>>>>> debby
                         required: ""
                       },
                       domProps: { value: _vm.form.email },
