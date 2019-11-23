@@ -147,7 +147,6 @@ export default {
         this.pagination = {
           from, to, total, per_page, current_page, last_page
         }
-        console.log('res', res)
       })
     },
 
@@ -187,7 +186,6 @@ export default {
         status: toggleStatus
       })
       .then((res) => {
-        // console.log('res', res)
       })
     }
   }
