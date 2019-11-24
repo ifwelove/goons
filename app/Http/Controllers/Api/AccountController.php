@@ -22,10 +22,11 @@ class AccountController extends Controller
 
     public function index(Request $request)
     {
-        $perPage = $request->get('perPage', null);
-        $keyword = $request->get('keyword', null);
+        $perPage  = $request->get('perPage', null);
+        $keyword  = $request->get('keyword', null);
         $accounts = $this->accountRoleAndPermissionService->accountPaginate($perPage, $keyword);
-        $accounts->appends($request->query())->links();
+        $accounts->appends($request->query())
+            ->links();
 
         return response()->json($accounts);
     }
@@ -39,6 +40,24 @@ class AccountController extends Controller
 
     public function store(StoreRequest $request)
     {
+        $message = [
+            'email.required'    => '帳號為必填',
+            'email.max'         => '帳號限制50字',
+            'email.regex'       => '帳號限英數字',
+            'name.required'     => '姓名為必填',
+            'name.max'          => '姓名限制50字',
+            'name.regex'        => '帳號限中英數字',
+            'password.required' => '密碼為必填',
+            'password.min'      => '密碼限制6字',
+            'password.max'      => '密碼限制12字',
+            'password.regex'    => '密碼限英數字',
+        ];
+        $this->validate($request, [
+            'email'    => 'required|max:50|regex:/^[A-Za-z0-9]+$/u',
+            'name'     => 'required|max:50|regex:/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]+$/u',
+            'password' => 'required|min:6|max:12|regex:/^[A-Za-z0-9]+$/u',
+        ], $message);
+
         $this->accountRoleAndPermissionService->accountStore($request);
 
         return response()->json(['message' => '新增成功']);
@@ -58,6 +77,23 @@ class AccountController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
+        $message = [
+            'email.required'    => '帳號為必填',
+            'email.max'         => '帳號限制50字',
+            'email.regex'       => '帳號限英數字',
+            'name.required'     => '姓名為必填',
+            'name.max'          => '姓名限制50字',
+            'name.regex'        => '帳號限中英數字',
+            'password.min'      => '密碼限制6字',
+            'password.max'      => '密碼限制12字',
+            'password.regex'    => '密碼限英數字',
+        ];
+        $this->validate($request, [
+            'email'    => 'required|max:50|regex:/^[A-Za-z0-9]+$/u',
+            'name'     => 'required|max:50|regex:/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]+$/u',
+            'password' => 'min:6|max:12|regex:/^[A-Za-z0-9]+$/u',
+        ], $message);
+
         $this->accountRoleAndPermissionService->accountUpdate($id, $request);
 
         return response()->json(['message' => '編輯成功']);
