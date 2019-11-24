@@ -12,7 +12,9 @@ class Category extends Model
     public $timestamps = true;
 
     use SoftDeletes;
-
+    protected $fillable = [
+        'title', 'status', 'sub_title', 'anchor', 'image'
+    ];
     protected $dates = ['deleted_at'];
 
     public function programs()

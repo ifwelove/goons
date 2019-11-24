@@ -9,8 +9,8 @@ class CreateCategoriesTable extends Migration {
 	{
 		Schema::create('categories', function(Blueprint $table) {
 			$table->increments('id');
-            $table->tinyInteger('status')->unsigned()->default(1);
-            $table->integer('sort')->default(1);
+            $table->tinyInteger('status')->unsigned()->default(0);
+            $table->integer('sort')->default(0);
             $table->string('title', 50);
 			$table->string('sub_title', 500);
 			$table->string('image', 500);

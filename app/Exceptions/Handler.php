@@ -54,7 +54,18 @@ class Handler extends ExceptionHandler
     {
         return response()->json([
             'message' => __('validation.exception.message'),
+            'message_format' => $this->messageFormat($exception->errors()),
             'errors' => $exception->errors()
         ], $exception->status);
+    }
+
+    protected function messageFormat($errors)
+    {
+        $messages = [];
+        foreach ($errors as $error) {
+            $messages[] = $error;
+        }
+
+        return $messages;
     }
 }

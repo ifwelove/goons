@@ -26,6 +26,18 @@ Route::group(['prefix' => 'accounts', 'middleware' => []], function () {
     Route::match(['get', 'head'], '/{account}/edit', 'Api\AccountController@edit');
 });
 
+//Route::post('upload/category/image', 'Api\CategoryController@storeImage');
+Route::group(['prefix' => 'categories', 'middleware' => []], function () {
+    Route::match(['get', 'head'], '/', 'Api\CategoryController@index');
+    Route::post('/', 'Api\CategoryController@store');
+    Route::post('/image', 'Api\CategoryController@storeImage');
+    Route::delete('/{category}', 'Api\CategoryController@destroy');
+    Route::match(['put', 'patch'], '/{category}/status', 'Api\CategoryController@updateStatus');
+    Route::match(['put', 'patch'], '/{category}/{type}/sort', 'Api\CategoryController@updateSort');
+    Route::match(['put', 'patch'], '/{category}', 'Api\CategoryController@update');
+    Route::match(['get', 'head'], '/{category}/edit', 'Api\CategoryController@edit');
+});
+
 
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');
