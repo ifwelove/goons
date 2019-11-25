@@ -13,6 +13,9 @@ class Program extends Model
 
     use SoftDeletes;
 
+    protected $fillable = [
+        'title', 'url', 'sub_title', 'anchor', 'start_date', 'end_date', 'categories'
+    ];
     protected $dates = ['deleted_at'];
 
     public function category()

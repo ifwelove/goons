@@ -16,7 +16,7 @@ class CreateProgramsTable extends Migration {
 			$table->string('url', 500);
 			$table->datetime('start_date')->nullable();
 			$table->datetime('end_date')->nullable();
-            $table->string('duration', 50);
+            $table->string('duration', 50)->nullable();
             $table->timestamps();
             $table->softDeletes();
 		});
