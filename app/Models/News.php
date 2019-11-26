@@ -12,7 +12,9 @@ class News extends Model
     public $timestamps = true;
 
     use SoftDeletes;
-
+    protected $fillable = [
+        'auto_push', 'title', 'description', 'type', 'start_date', 'end_date'
+    ];
     protected $dates = ['deleted_at'];
 
 }
