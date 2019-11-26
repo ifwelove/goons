@@ -107,15 +107,18 @@ class CategoryController extends Controller
         switch ($type) {
             case 0:
                 //節目
-                $category = Category::find($id);
+                $program = Program::find($id);
+                $category = Category::find($program->categories);
                 break;
             case 1:
                 //新約
-                $category = BibleNewCategory::find($id);
+                $program = BibleNewProgram::find($id);
+                $category = BibleNewCategory::find($program->categories);
                 break;
             case 2:
                 //舊約
-                $category = BibleCategory::find($id);
+                $program = BibleProgram::find($id);
+                $category = BibleCategory::find($program->categories);
                 break;
         };
         CategoryResource::withoutWrapping();
