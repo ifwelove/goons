@@ -38,6 +38,14 @@ Route::group(['prefix' => 'categories', 'middleware' => []], function () {
     Route::match(['get', 'head'], '/{category}/edit', 'Api\CategoryController@edit');
 });
 
+Route::group(['prefix' => 'programs', 'middleware' => []], function () {
+    Route::match(['get', 'head'], '/', 'Api\ProgramController@index');
+    Route::post('/', 'Api\ProgramController@store');
+    Route::delete('/{program}', 'Api\ProgramController@destroy');
+    Route::match(['put', 'patch'], '/{program}', 'Api\ProgramController@update');
+    Route::match(['get', 'head'], '/{program}/edit', 'Api\ProgramController@edit');
+});
+
 
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');
