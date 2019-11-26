@@ -25,7 +25,7 @@ class CategoryService
             return $q->where('title', 'LIKE', '%' . $keyword . '%')
                 ->orWhere('anchor', 'LIKE', '%' . $keyword . '%');
         });
-        $categories = $query->orderBy('id', 'desc')
+        $categories = $query->orderBy('sort', 'asc')
             ->paginate($perPage);
 
         return $categories;
