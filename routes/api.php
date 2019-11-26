@@ -38,6 +38,23 @@ Route::group(['prefix' => 'categories', 'middleware' => []], function () {
     Route::match(['get', 'head'], '/{category}/edit', 'Api\CategoryController@edit');
 });
 
+Route::group(['prefix' => 'programs', 'middleware' => []], function () {
+    Route::match(['get', 'head'], '/', 'Api\ProgramController@index');
+    Route::post('/', 'Api\ProgramController@store');
+    Route::delete('/{program}', 'Api\ProgramController@destroy');
+    Route::match(['put', 'patch'], '/{program}', 'Api\ProgramController@update');
+    Route::match(['get', 'head'], '/{program}/edit', 'Api\ProgramController@edit');
+});
+
+Route::group(['prefix' => 'news', 'middleware' => []], function () {
+    Route::match(['get', 'head'], '/', 'Api\NewsController@index');
+    Route::post('/', 'Api\NewsController@store');
+    Route::delete('/{news}', 'Api\NewsController@destroy');
+    Route::match(['put', 'patch'], '/{news}', 'Api\NewsController@update');
+    Route::match(['get', 'head'], '/{news}/edit', 'Api\NewsController@edit');
+    Route::post('/image/upload', 'Api\NewsController@imageUpload');
+});
+
 
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');

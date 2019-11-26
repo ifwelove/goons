@@ -11,7 +11,7 @@ class CreateNewsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->softDeletes();
-//			$table->tinyInteger('type')->unsigned()->default('0');
+			$table->tinyInteger('type')->unsigned()->default('0');
 			$table->tinyInteger('auto_push')->unsigned()->default('0');
 			$table->datetime('start_date')->nullable();
 			$table->datetime('end_date')->nullable();

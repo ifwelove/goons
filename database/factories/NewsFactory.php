@@ -31,7 +31,7 @@ $factory->define(News::class, function (Faker $faker) {
 //            'type' => rand(0, 1),
             'auto_push' => $autoPush,
             'start_date' => \Carbon\Carbon::now(),
-            'end_date' => \Carbon\Carbon::now()->subWeek(),
+            'end_date' => \Carbon\Carbon::now()->addWeek(),
             'title' => Str::random(20),
             'description' => Str::random(100),
         ];
