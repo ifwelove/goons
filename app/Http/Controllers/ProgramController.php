@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoriesCollection;
+use App\Http\Resources\ProgramsBibleCollection;
 use App\Http\Resources\ProgramsCollection;
 use App\Models\BibleCategory;
 use App\Models\BibleNewCategory;
@@ -142,21 +143,24 @@ class ProgramController extends Controller
                 //節目
                 $programs = Program::where('categories', $id)
                     ->paginate(15);
-                break;
+                ProgramsCollection::wrap('list');
+
+                return new ProgramsCollection($programs);
             case 1:
                 //新約
                 $programs = BibleNewProgram::where('categories', $id)
-                    ->paginate(15);
-                break;
+                    ->get();
+                ProgramsBibleCollection::wrap('list');
+
+                return new ProgramsBibleCollection($programs);
             case 2:
                 //舊約
                 $programs = BibleProgram::where('categories', $id)
-                    ->paginate(15);
-                break;
-        };
-        ProgramsCollection::wrap('list');
+                    ->get();
+                ProgramsBibleCollection::wrap('list');
 
-        return new ProgramsCollection($programs);
+                return new ProgramsBibleCollection($programs);
+        };
     }
 
     public function programApi(Request $request)
