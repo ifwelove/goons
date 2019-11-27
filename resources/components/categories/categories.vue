@@ -13,6 +13,21 @@
 														<span><i class="fa fa-search"></i></span>
 													</span>
 												</div>
+                        <select class="form-control w-auto mr-2" id="exampleSelect1"
+                          v-model="status">
+                          <option value="" disabled>狀態</option>
+                          <option value="1">上架</option>
+                          <option value="0">下架</option>
+                        </select>
+                        <!-- <select
+                          ref="statusSelect"
+                          class="my-select selectpicker w-auto mr-2"
+                          title="狀態"
+                          v-model="status">
+                          <option value="" disabled>狀態</option>
+                          <option value="1">上架</option>
+                          <option value="0">下架</option>
+                        </select> -->
                         <button type="button" class="btn btn-primary mr-2"
                         @click="handleSearch">查詢</button>
 												<button type="button" class="btn btn-primary"
@@ -61,16 +76,20 @@
                                 <td>
 																	<div class="btn-group" role="group" aria-label="Basic example">
 																		<button type="button" class="btn btn-secondary"
+                                      :disabled="isSearching"
                                       @click="handleSort(programItem, 'top')">置頂</button>
 																		<button type="button" class="btn btn-secondary"
-                                      @click="handleSort(programItem, 'sub')">
+                                       :disabled="isSearching"
+                                      @click="handleSort(programItem, 'add')">
 																			<i class="fas fa-arrow-up"></i>
 																		</button>
 																		<button type="button" class="btn btn-secondary"
-                                      @click="handleSort(programItem, 'add')">
+                                       :disabled="isSearching"
+                                      @click="handleSort(programItem, 'sub')">
 																			<i class="fas fa-arrow-down"></i>
 																		</button>
 																		<button type="button" class="btn btn-secondary"
+                                       :disabled="isSearching"
                                       @click="handleSort(programItem, 'down')">置底</button>
 																	</div>
 																</td>
@@ -115,27 +134,7 @@ import axios from 'axios'
 const queryString = require('query-string');
 import Pagination from '../Pagination'
 
-// const programsList = [
-//   {
-//     id: 1,
-// 		title: '書香園地',
-// 		subtitle: '書香園地',
-// 		image_url: 'http://placekitten.com/200/300',
-//     host: '方華',
-//     is_published: true,
-//   },
-//   {
-//     id: 2,
-// 		title: '齊來頌揚',
-// 		subtitle: '齊來頌揚',
-// 		image_url: 'http://placekitten.com/200/300',
-//     host: '方立心、章讚',
-//     is_published: false,
-//   },
-// ]
-
 export default {
-
   components: {
     Pagination
   },
@@ -143,6 +142,7 @@ export default {
   data () {
     return {
       keyword: '',
+      status: '',
       currentPage: 1,
       pagination: {
         from: null,
@@ -152,29 +152,26 @@ export default {
         current_page: 1
       },
       programsList: [],
-      category: '空中崇拜'
+      isSearching: false
     }
   },
 
   created () {
-    this.init()
     this.getProgramsList()
   },
 
-  mounted () {
-
-  },
-
   methods: {
-    init () {
-      const parsed = queryString.parse(location.search);
-      this.keyword = parsed.keyword
-    },
-
     getProgramsList () {
-      const search = location.search
-      const uri = `/api/categories${search}`
-      axios.get(uri)
+      const params = {
+        page: this.currentPage,
+        keyword: this.keyword,
+        status: this.status
+      }
+
+      const uri = `/api/categories`
+      axios.get(uri, {
+        params
+      })
       .then((res) => {
         const { data } = res
         this.programsList = data.data.sort((a, b) => a.sort - b.sort)
@@ -194,23 +191,19 @@ export default {
     },
 
     handleEdit (id) {
-      location.assign(location.href + `/${id}/edit`)
+      location.assign(location.origin + `/categories/${id}/edit`)
     },
 
     handleSearch () {
-      const parsed = queryString.parse(location.search);
-      parsed.page = 1
-      parsed.keyword = this.keyword
-      location.search = queryString.stringify(parsed);
-
+      this.isSearching = !!(this.keyword || this.status)
       this.getProgramsList()
     },
 
 		handleSearchReset () {
-      const parsed = queryString.parse(location.search);
-      parsed.page = 1
-      parsed.keyword = ''
-      location.search = queryString.stringify(parsed);
+      this.currentPage = 1
+      this.keyword = ''
+      this.status = ''
+      this.isSearching = false
 
       this.getProgramsList()
     },
@@ -231,10 +224,8 @@ export default {
     },
 
     handleSort (programItem, type) {
-      const uri = `/api/categories/${programItem.id}/top/sort`
-      axios.put(uri, {
-        type
-      })
+      const uri = `/api/categories/${programItem.id}/${type}/sort`
+      axios.put(uri)
       .then((res) => {
         this.getProgramsList()
       })

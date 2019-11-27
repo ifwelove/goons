@@ -8,7 +8,7 @@
 
 @section('content')
 <div id="categories">
-    <categories-form></categories-form>
+    <categories-form :is-edit="true" :category-id="{{ $id }}"></categories-form>
 </div>
 @endsection
 

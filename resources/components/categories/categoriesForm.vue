@@ -10,13 +10,13 @@
     <div class="col-12">
       <div class="kt-portlet">
         <!--begin::Form-->
-        <form class="kt-form kt-form--label-right">
+        <form class="categoriesForm kt-form kt-form--label-right" data-parsley-validate>
           <div class="kt-portlet__body">
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">節目名稱：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限10個字" maxlength="10"
-                  v-model="form.title">
+                  v-model="form.title" required>
               </div>
             </div>
 						 <div class="form-group row">
@@ -36,7 +36,7 @@
 
 								<div v-else class="custom-file">
 									<input type="file" class="custom-file-input position-absolute" id="customFile"
-                    @change="handleUpload">
+                    @change="handleUpload" required>
 									<button class="btn btn-success">上傳圖片</button>
                   <small>建議上傳圖片比例為 1:1 且小於 2MB 之圖片檔</small>
 								</div>
@@ -46,14 +46,14 @@
               <label class="col-lg-3 col-form-label">主持人：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限20個字" maxlength="20"
-                v-model="form.anchor">
+                v-model="form.anchor" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">節目介紹：</label>
               <div class="col-lg-6">
                 <textarea class="form-control" placeholder="" maxlength="500"
-                  v-model="form.sub_title"></textarea>
+                  v-model="form.sub_title" required></textarea>
               </div>
             </div>
           </div>
@@ -61,12 +61,16 @@
             <div class="kt-form__actions">
               <div class="row">
                 <div class="col-2">
-                  <button v-if="isEdit" type="button" class="btn btn-success">刪除</button>
+                  <button v-if="isEdit" type="button" class="btn btn-success" @click="handleDelete">刪除</button>
                 </div>
                 <div class="col-10 text-right">
-                  <button type="button" class="btn btn-secondary">取消</button>
+                  <button type="button" class="btn btn-secondary"
+                    @click="handleCancel">取消</button>
                   <template>
-                    <button v-if="!isEdit" type="button" class="btn btn-success" @click="handleCreate">新增</button>
+                    <button
+                      v-if="!isEdit" type="button" class="btn btn-success" @click="handleCreate"
+                      :class="{'disabled': isEmpty}"
+                      :disabled="isEmpty">新增</button>
                     <button v-else type="button" class="btn btn-success" @click="handleSave">儲存</button>
                   </template>
                 </div>
@@ -81,16 +85,21 @@
 </template>
 
 <script>
+const queryString = require('query-string');
+
 export default {
   props: {
     isEdit: {
       type: Boolean
+    },
+    categoryId: {
+      type: Number
     }
   },
 
   data () {
     return {
-      category: '空中崇拜',
+      isSubmitting: false,
       startDate: '',
       endDate: '',
       previewImage: '',
@@ -103,13 +112,40 @@ export default {
     }
   },
 
+  computed: {
+    isEmpty () {
+      return Object.values(this.form).some(v => v === '')
+    }
+  },
 
-  mounted () {
-
+  created () {
+    if (this.isEdit) {
+      this.getCategory()
+    }
   },
 
   methods: {
+    getCategory () {
+      const parsed = queryString.parse(location.search);
+
+      const uri = `/api/categories/${this.categoryId}/edit`
+      axios.get(uri)
+      .then((res) => {
+        const { anchor, image, sub_title, title } = res.data.category
+
+        this.form = {
+          anchor, image, sub_title, title
+        }
+        this.previewImage = image
+      })
+    },
+
     handleCreate () {
+
+      var instance = $('.categoriesForm').parsley();
+      if (!instance.isValid()) return
+
+      this.isSubmitting = true
 
       const uri = `/api/categories`
       axios.post(uri, {
@@ -126,7 +162,36 @@ export default {
     },
 
     handleSave () {
-      location.assign(location.origin + '/programs')
+      var instance = $('.categoriesForm').parsley();
+      if (!instance.isValid()) return
+
+      this.isSubmitting = true
+      const uri = `/api/categories/${this.categoryId}`
+      axios.put(uri, {
+        ...this.form
+      })
+      .then(() => {
+        Swal.fire({
+          timer: 6000,
+          title: '儲存變更'})
+          .then(() => {
+            location.assign(location.origin + '/categories')
+          })
+      })
+    },
+
+    handleCancel () {
+      Swal.fire({
+        title: `是否要取消這次${this.isEdit ? '編輯' : '新增'}？如果取消${this.isEdit ? '編輯' : '新增'}的內容將不會被儲存。`,
+        showCancelButton: true,
+        confirmButtonText: '確定取消',
+        cancelButtonText: '返回',
+      })
+        .then((result) => {
+          if (result.value) {
+            location.assign(location.origin + '/categories')
+          }
+        })
     },
 
     handleDeleteImage () {
@@ -135,8 +200,6 @@ export default {
     },
 
     handleUpload (e) {
-      console.log(e)
-
       const file = e.target.files[0]
       const isValid = this.validateImageSize(file)
       if (!isValid) return
@@ -167,7 +230,40 @@ export default {
         this.previewImage = reader.result;
       }
       reader.readAsDataURL(event.target.files[0]);
-    }
+    },
+
+    deleteConfirm () {
+      return new Promise((resolve, reject) => {
+        Swal.fire({
+          title: `確定要刪除嗎？若刪除此節目將無法回復。`,
+          showCancelButton: true,
+          confirmButtonText: '確定刪除',
+          cancelButtonText: '返回',
+        })
+        .then((result) => {
+          if (result.value) {
+            resolve()
+          }
+        })
+      })
+    },
+
+    handleDelete () {
+      this.deleteConfirm()
+        .then(() => {
+          const uri = `/api/categories/${this.categoryId}`
+          axios.delete(uri)
+          .then(() => {
+            Swal.fire({
+              title: '節目已刪除'
+            })
+            .then(() => {
+              location.assign(location.origin + '/categories')
+            })
+          })
+        })
+      }
+
   }
 
 }
