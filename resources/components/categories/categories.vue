@@ -13,10 +13,25 @@
 														<span><i class="fa fa-search"></i></span>
 													</span>
 												</div>
+                        <select class="form-control w-auto mr-2" id="exampleSelect1"
+                          v-model="status">
+                          <option value="" disabled>狀態</option>
+                          <option value="1">上架</option>
+                          <option value="0">下架</option>
+                        </select>
+                        <!-- <select
+                          ref="statusSelect"
+                          class="my-select selectpicker w-auto mr-2"
+                          title="狀態"
+                          v-model="status">
+                          <option value="" disabled>狀態</option>
+                          <option value="1">上架</option>
+                          <option value="0">下架</option>
+                        </select> -->
                         <button type="button" class="btn btn-primary mr-2"
                         @click="handleSearch">查詢</button>
 												<button type="button" class="btn btn-primary"
-                        @click="handleSearchReset">重置</button>
+                        @click="handleSearchReset">清除</button>
                       </div>
                     </div>
                 </div>
@@ -55,33 +70,44 @@
                                 <td>{{ programItem.id }}</td>
                                 <td>{{ programItem.title }}</td>
                                 <td>
-																	<img :src="programItem.image_url" alt="" style="width: 100px; height: 100px; object-fit: cover;">
+																	<img :src="programItem.image" alt="" style="width: 100px; height: 100px; object-fit: cover;">
 																</td>
-                                <td>{{ programItem.host }}</td>
+                                <td>{{ programItem.anchor }}</td>
                                 <td>
 																	<div class="btn-group" role="group" aria-label="Basic example">
-																		<button type="button" class="btn btn-secondary">置頂</button>
-																		<button type="button" class="btn btn-secondary">
+																		<button type="button" class="btn btn-secondary"
+                                      :disabled="isSearching"
+                                      @click="handleSort(programItem, 'top')">置頂</button>
+																		<button type="button" class="btn btn-secondary"
+                                       :disabled="isSearching"
+                                      @click="handleSort(programItem, 'add')">
 																			<i class="fas fa-arrow-up"></i>
 																		</button>
-																		<button type="button" class="btn btn-secondary">
+																		<button type="button" class="btn btn-secondary"
+                                       :disabled="isSearching"
+                                      @click="handleSort(programItem, 'sub')">
 																			<i class="fas fa-arrow-down"></i>
 																		</button>
-																		<button type="button" class="btn btn-secondary">置底</button>
-
+																		<button type="button" class="btn btn-secondary"
+                                       :disabled="isSearching"
+                                      @click="handleSort(programItem, 'down')">置底</button>
 																	</div>
 																</td>
 																<td>
                                   <span class="kt-switch">
                                     <label style="margin-bottom: 0">
-                                    <input type="checkbox" :checked="programItem.is_published" name="">
+                                    <input
+                                      type="checkbox"
+                                      :checked="programItem.status"
+                                      name=""
+                                      @click="handleToggleStatus(programItem)">
                                     <span style="padding: 4px;"></span>
                                     </label>
                                   </span>
                                 </td>
                                 <td>
                                   <button type="button" class="btn btn-light btn-circle btn-icon"
-                                    @click="handleEdit(program.id)">
+                                    @click="handleEdit(programItem.id)">
                                     <i class="fa fa-pen"></i>
                                   </button>
                                 </td>
@@ -91,15 +117,12 @@
                     </div> <!-- end .table-responsive-->
                 </div> <!-- end card-body -->
             </div> <!-- end card -->
-
-
         </div> <!-- end col -->
     </div>
 
     <Pagination
       class="mt-5"
-      :currentPage="currentPage"
-      :totalPage="programsList.length"
+      :pagination="pagination"
       >
     </Pagination>
 
@@ -107,29 +130,11 @@
 </template>
 
 <script>
+import axios from 'axios'
+const queryString = require('query-string');
 import Pagination from '../Pagination'
 
-const programsList = [
-  {
-    id: 1,
-		title: '書香園地',
-		subtitle: '書香園地',
-		image_url: 'http://placekitten.com/200/300',
-    host: '方華',
-    is_published: true,
-  },
-  {
-    id: 2,
-		title: '齊來頌揚',
-		subtitle: '齊來頌揚',
-		image_url: 'http://placekitten.com/200/300',
-    host: '方立心、章讚',
-    is_published: false,
-  },
-]
-
 export default {
-
   components: {
     Pagination
   },
@@ -137,37 +142,93 @@ export default {
   data () {
     return {
       keyword: '',
+      status: '',
       currentPage: 1,
+      pagination: {
+        from: null,
+        to: null,
+        total: null,
+        per_page: null,
+        current_page: 1
+      },
       programsList: [],
-      category: '空中崇拜'
+      isSearching: false
     }
   },
 
   created () {
-    // call api
-
-    this.programsList = programsList
-  },
-
-  mounted () {
-
+    this.getProgramsList()
   },
 
   methods: {
+    getProgramsList () {
+      const params = {
+        page: this.currentPage,
+        keyword: this.keyword,
+        status: this.status
+      }
+
+      const uri = `/api/categories`
+      axios.get(uri, {
+        params
+      })
+      .then((res) => {
+        const { data } = res
+        this.programsList = data.data.sort((a, b) => a.sort - b.sort)
+        const {
+          from,
+          to,
+          total,
+          per_page,
+          last_page,
+          current_page
+        } = data
+
+        this.pagination = {
+          from, to, total, per_page, current_page, last_page
+        }
+      })
+    },
+
     handleEdit (id) {
-      location.assign(location.href + `/${id}/edit`)
+      location.assign(location.origin + `/categories/${id}/edit`)
     },
 
     handleSearch () {
-      console.log('handleSearch', this.keyword)
-		},
+      this.isSearching = !!(this.keyword || this.status)
+      this.getProgramsList()
+    },
 
 		handleSearchReset () {
-      console.log('handleSearchReset', this.keyword)
-		},
+      this.currentPage = 1
+      this.keyword = ''
+      this.status = ''
+      this.isSearching = false
+
+      this.getProgramsList()
+    },
 
     handleAddPrograms () {
       location.assign(location.href + '/create')
+    },
+
+    handleToggleStatus (programItem) {
+      const toggleStatus = programItem.status ? 0 : 1
+
+      const uri = `/api/categories/${programItem.id}/status`
+      axios.put(uri, {
+        status: toggleStatus
+      })
+      .then((res) => {
+      })
+    },
+
+    handleSort (programItem, type) {
+      const uri = `/api/categories/${programItem.id}/${type}/sort`
+      axios.put(uri)
+      .then((res) => {
+        this.getProgramsList()
+      })
     }
   }
 

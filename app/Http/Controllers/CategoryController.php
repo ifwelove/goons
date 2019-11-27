@@ -63,7 +63,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('categories.edit');
+        return view('categories.edit', ['id' => $id]);
     }
 
     /**

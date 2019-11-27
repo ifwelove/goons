@@ -118,8 +118,8 @@ export default {
   },
 
   created () {
-    this.getAccounts()
     this.init()
+    this.getAccounts()
   },
 
   methods: {

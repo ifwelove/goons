@@ -1941,7 +1941,32 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2051,50 +2076,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-var programsList = [{
-  id: 1,
-  title: '書香園地',
-  subtitle: '書香園地',
-  image_url: 'http://placekitten.com/200/300',
-  host: '方華',
-  is_published: true
-}, {
-  id: 2,
-  title: '齊來頌揚',
-  subtitle: '齊來頌揚',
-  image_url: 'http://placekitten.com/200/300',
-  host: '方立心、章讚',
-  is_published: false
-}];
+
+var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
       keyword: '',
+      status: '',
       currentPage: 1,
+      pagination: {
+        from: null,
+        to: null,
+        total: null,
+        per_page: null,
+        current_page: 1
+      },
       programsList: [],
-      category: '空中崇拜'
+      isSearching: false
     };
   },
   created: function created() {
-    // call api
-    this.programsList = programsList;
+    this.getProgramsList();
   },
-  mounted: function mounted() {},
   methods: {
+    getProgramsList: function getProgramsList() {
+      var _this = this;
+
+      var params = {
+        page: this.currentPage,
+        keyword: this.keyword,
+        status: this.status
+      };
+      var uri = "/api/categories";
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri, {
+        params: params
+      }).then(function (res) {
+        var data = res.data;
+        _this.programsList = data.data.sort(function (a, b) {
+          return a.sort - b.sort;
+        });
+        var from = data.from,
+            to = data.to,
+            total = data.total,
+            per_page = data.per_page,
+            last_page = data.last_page,
+            current_page = data.current_page;
+        _this.pagination = {
+          from: from,
+          to: to,
+          total: total,
+          per_page: per_page,
+          current_page: current_page,
+          last_page: last_page
+        };
+      });
+    },
     handleEdit: function handleEdit(id) {
-      location.assign(location.href + "/".concat(id, "/edit"));
+      location.assign(location.origin + "/categories/".concat(id, "/edit"));
     },
     handleSearch: function handleSearch() {
-      console.log('handleSearch', this.keyword);
+      this.isSearching = !!(this.keyword || this.status);
+      this.getProgramsList();
     },
     handleSearchReset: function handleSearchReset() {
-      console.log('handleSearchReset', this.keyword);
+      this.currentPage = 1;
+      this.keyword = '';
+      this.status = '';
+      this.isSearching = false;
+      this.getProgramsList();
     },
     handleAddPrograms: function handleAddPrograms() {
       location.assign(location.href + '/create');
+    },
+    handleToggleStatus: function handleToggleStatus(programItem) {
+      var toggleStatus = programItem.status ? 0 : 1;
+      var uri = "/api/categories/".concat(programItem.id, "/status");
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, {
+        status: toggleStatus
+      }).then(function (res) {});
+    },
+    handleSort: function handleSort(programItem, type) {
+      var _this2 = this;
+
+      var uri = "/api/categories/".concat(programItem.id, "/").concat(type, "/sort");
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri).then(function (res) {
+        _this2.getProgramsList();
+      });
     }
   }
 });
@@ -2110,6 +2182,12 @@ var programsList = [{
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2196,46 +2274,170 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     isEdit: {
       type: Boolean
+    },
+    categoryId: {
+      type: Number
     }
   },
   data: function data() {
     return {
-      category: '空中崇拜',
+      isSubmitting: false,
       startDate: '',
-      endDate: ''
+      endDate: '',
+      previewImage: '',
+      form: {
+        title: '',
+        sub_title: '',
+        anchor: '',
+        image: ''
+      }
     };
   },
-  mounted: function mounted() {
-    this.$nextTick(function () {// jQuery
-      // $("#upload_image").dropzone({ url: "/file/post" });
-    });
+  computed: {
+    isEmpty: function isEmpty() {
+      return Object.values(this.form).some(function (v) {
+        return v === '';
+      });
+    }
+  },
+  created: function created() {
+    if (this.isEdit) {
+      this.getCategory();
+    }
   },
   methods: {
+    getCategory: function getCategory() {
+      var _this = this;
+
+      var parsed = queryString.parse(location.search);
+      var uri = "/api/categories/".concat(this.categoryId, "/edit");
+      axios.get(uri).then(function (res) {
+        var _res$data$category = res.data.category,
+            anchor = _res$data$category.anchor,
+            image = _res$data$category.image,
+            sub_title = _res$data$category.sub_title,
+            title = _res$data$category.title;
+        _this.form = {
+          anchor: anchor,
+          image: image,
+          sub_title: sub_title,
+          title: title
+        };
+        _this.previewImage = image;
+      });
+    },
     handleCreate: function handleCreate() {
-      location.assign(location.origin + '/programs');
+      var instance = $('.categoriesForm').parsley();
+      if (!instance.isValid()) return;
+      this.isSubmitting = true;
+      var uri = "/api/categories";
+      axios.post(uri, _objectSpread({}, this.form)).then(function () {
+        Swal.fire({
+          timer: 6000,
+          title: '新增成功'
+        }).then(function () {
+          location.assign(location.origin + '/categories');
+        });
+      });
     },
     handleSave: function handleSave() {
-      location.assign(location.origin + '/programs');
+      var instance = $('.categoriesForm').parsley();
+      if (!instance.isValid()) return;
+      this.isSubmitting = true;
+      var uri = "/api/categories/".concat(this.categoryId);
+      axios.put(uri, _objectSpread({}, this.form)).then(function () {
+        Swal.fire({
+          timer: 6000,
+          title: '儲存變更'
+        }).then(function () {
+          location.assign(location.origin + '/categories');
+        });
+      });
+    },
+    handleCancel: function handleCancel() {
+      Swal.fire({
+        title: "\u662F\u5426\u8981\u53D6\u6D88\u9019\u6B21".concat(this.isEdit ? '編輯' : '新增', "\uFF1F\u5982\u679C\u53D6\u6D88").concat(this.isEdit ? '編輯' : '新增', "\u7684\u5167\u5BB9\u5C07\u4E0D\u6703\u88AB\u5132\u5B58\u3002"),
+        showCancelButton: true,
+        confirmButtonText: '確定取消',
+        cancelButtonText: '返回'
+      }).then(function (result) {
+        if (result.value) {
+          location.assign(location.origin + '/categories');
+        }
+      });
+    },
+    handleDeleteImage: function handleDeleteImage() {
+      this.form.image = '';
+      this.previewImage = '';
+    },
+    handleUpload: function handleUpload(e) {
+      var _this2 = this;
+
+      var file = e.target.files[0];
+      var isValid = this.validateImageSize(file);
+      if (!isValid) return;
+      this.setPreviewImage(e);
+      var formData = new FormData();
+      formData.append("image", file);
+      var uri = "/api/categories/image";
+      axios.post(uri, formData).then(function (res) {
+        _this2.form.image = res.data.imagePath;
+      });
+    },
+    validateImageSize: function validateImageSize(file) {
+      if (file.size / Math.pow(1024, 2) > 2) {
+        Swal.fire({
+          title: "\u5716\u7247\u6A94\u6848\u8D85\u904E2MB"
+        });
+        return false;
+      }
+
+      return true;
+    },
+    setPreviewImage: function setPreviewImage(event) {
+      var _this3 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function () {
+        _this3.previewImage = reader.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    },
+    deleteConfirm: function deleteConfirm() {
+      return new Promise(function (resolve, reject) {
+        Swal.fire({
+          title: "\u78BA\u5B9A\u8981\u522A\u9664\u55CE\uFF1F\u82E5\u522A\u9664\u6B64\u7BC0\u76EE\u5C07\u7121\u6CD5\u56DE\u5FA9\u3002",
+          showCancelButton: true,
+          confirmButtonText: '確定刪除',
+          cancelButtonText: '返回'
+        }).then(function (result) {
+          if (result.value) {
+            resolve();
+          }
+        });
+      });
+    },
+    handleDelete: function handleDelete() {
+      var _this4 = this;
+
+      this.deleteConfirm().then(function () {
+        var uri = "/api/categories/".concat(_this4.categoryId);
+        axios["delete"](uri).then(function () {
+          Swal.fire({
+            title: '節目已刪除'
+          }).then(function () {
+            location.assign(location.origin + '/categories');
+          });
+        });
+      });
     }
   }
 });
@@ -2244,7 +2446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--8-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& ***!
   \************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -20354,13 +20556,13 @@ module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.c
 
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js??ref--8-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--8-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--8-2!../../../node_modules/vue-loader/lib??vue-loader-options!./categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -21212,6 +21414,50 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.status,
+                            expression: "status"
+                          }
+                        ],
+                        staticClass: "form-control w-auto mr-2",
+                        attrs: { id: "exampleSelect1" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.status = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "", disabled: "" } }, [
+                          _vm._v("狀態")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("上架")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "0" } }, [
+                          _vm._v("下架")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
                       "button",
                       {
                         staticClass: "btn btn-primary mr-2",
@@ -21228,7 +21474,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: { click: _vm.handleSearchReset }
                       },
-                      [_vm._v("重置")]
+                      [_vm._v("清除")]
                     )
                   ])
                 ])
@@ -21281,13 +21527,93 @@ var render = function() {
                               height: "100px",
                               "object-fit": "cover"
                             },
-                            attrs: { src: programItem.image_url, alt: "" }
+                            attrs: { src: programItem.image, alt: "" }
                           })
                         ]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(programItem.host))]),
+                        _c("td", [_vm._v(_vm._s(programItem.anchor))]),
                         _vm._v(" "),
-                        _vm._m(2, true),
+                        _c("td", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "btn-group",
+                              attrs: {
+                                role: "group",
+                                "aria-label": "Basic example"
+                              }
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.isSearching
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.handleSort(programItem, "top")
+                                    }
+                                  }
+                                },
+                                [_vm._v("置頂")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.isSearching
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.handleSort(programItem, "add")
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-arrow-up" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.isSearching
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.handleSort(programItem, "sub")
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-arrow-down" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-secondary",
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.isSearching
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.handleSort(programItem, "down")
+                                    }
+                                  }
+                                },
+                                [_vm._v("置底")]
+                              )
+                            ]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("span", { staticClass: "kt-switch" }, [
@@ -21297,8 +21623,11 @@ var render = function() {
                               [
                                 _c("input", {
                                   attrs: { type: "checkbox", name: "" },
-                                  domProps: {
-                                    checked: programItem.is_published
+                                  domProps: { checked: programItem.status },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.handleToggleStatus(programItem)
+                                    }
                                   }
                                 }),
                                 _vm._v(" "),
@@ -21316,7 +21645,7 @@ var render = function() {
                               attrs: { type: "button" },
                               on: {
                                 click: function($event) {
-                                  return _vm.handleEdit(_vm.program.id)
+                                  return _vm.handleEdit(programItem.id)
                                 }
                               }
                             },
@@ -21336,10 +21665,7 @@ var render = function() {
       _vm._v(" "),
       _c("Pagination", {
         staticClass: "mt-5",
-        attrs: {
-          currentPage: _vm.currentPage,
-          totalPage: _vm.programsList.length
-        }
+        attrs: { pagination: _vm.pagination }
       })
     ],
     1
@@ -21376,45 +21702,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "div",
-        {
-          staticClass: "btn-group",
-          attrs: { role: "group", "aria-label": "Basic example" }
-        },
-        [
-          _c(
-            "button",
-            { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-            [_vm._v("置頂")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-            [_c("i", { staticClass: "fas fa-arrow-up" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-            [_c("i", { staticClass: "fas fa-arrow-down" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-            [_vm._v("置底")]
-          )
-        ]
-      )
     ])
   }
 ]
@@ -21458,66 +21745,239 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "kt-portlet" }, [
-          _c("form", { staticClass: "kt-form kt-form--label-right" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "kt-portlet__foot" }, [
-              _c("div", { staticClass: "kt-form__actions" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-2" }, [
-                    _vm.isEdit
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success",
-                            attrs: { type: "reset" }
-                          },
-                          [_vm._v("刪除")]
-                        )
-                      : _vm._e()
+          _c(
+            "form",
+            {
+              staticClass: "categoriesForm kt-form kt-form--label-right",
+              attrs: { "data-parsley-validate": "" }
+            },
+            [
+              _c("div", { staticClass: "kt-portlet__body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("節目名稱：")
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-10 text-right" },
-                    [
-                      _c(
-                        "button",
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _c("input", {
+                      directives: [
                         {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "reset" }
-                        },
-                        [_vm._v("取消")]
-                      ),
-                      _vm._v(" "),
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.title,
+                          expression: "form.title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "限10個字",
+                        maxlength: "10",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "title", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("選擇圖片：")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _vm.form.image
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "image-wrapper position-relative",
+                            staticStyle: { width: "50%", height: "auto" }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { width: "100%", height: "auto" },
+                              attrs: { src: _vm.previewImage, alt: "" }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "close position-absolute",
+                                staticStyle: {
+                                  top: "0",
+                                  right: "0",
+                                  "font-size": "20px"
+                                },
+                                on: { click: _vm.handleDeleteImage }
+                              },
+                              [_c("i", { staticClass: "fa fa-window-close" })]
+                            )
+                          ]
+                        )
+                      : _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input position-absolute",
+                            attrs: {
+                              type: "file",
+                              id: "customFile",
+                              required: ""
+                            },
+                            on: { change: _vm.handleUpload }
+                          }),
+                          _vm._v(" "),
+                          _c("button", { staticClass: "btn btn-success" }, [
+                            _vm._v("上傳圖片")
+                          ]),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v("建議上傳圖片比例為 1:1 且小於 2MB 之圖片檔")
+                          ])
+                        ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("主持人：")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.anchor,
+                          expression: "form.anchor"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "限20個字",
+                        maxlength: "20",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.anchor },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "anchor", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                    _vm._v("節目介紹：")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-6" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.sub_title,
+                          expression: "form.sub_title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        placeholder: "",
+                        maxlength: "500",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.sub_title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "sub_title", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "kt-portlet__foot" }, [
+                _c("div", { staticClass: "kt-form__actions" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-2" }, [
+                      _vm.isEdit
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { type: "button" },
+                              on: { click: _vm.handleDelete }
+                            },
+                            [_vm._v("刪除")]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-10 text-right" },
                       [
-                        !_vm.isEdit
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: { type: "reset" },
-                                on: { click: _vm.handleCreate }
-                              },
-                              [_vm._v("新增")]
-                            )
-                          : _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: { type: "reset" },
-                                on: { click: _vm.handleSave }
-                              },
-                              [_vm._v("儲存")]
-                            )
-                      ]
-                    ],
-                    2
-                  )
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "button" },
+                            on: { click: _vm.handleCancel }
+                          },
+                          [_vm._v("取消")]
+                        ),
+                        _vm._v(" "),
+                        [
+                          !_vm.isEdit
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success",
+                                  class: { disabled: _vm.isEmpty },
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.isEmpty
+                                  },
+                                  on: { click: _vm.handleCreate }
+                                },
+                                [_vm._v("新增")]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success",
+                                  attrs: { type: "button" },
+                                  on: { click: _vm.handleSave }
+                                },
+                                [_vm._v("儲存")]
+                              )
+                        ]
+                      ],
+                      2
+                    )
+                  ])
                 ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
@@ -21530,106 +21990,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "breadcrumb-item" }, [
       _c("a", { attrs: { href: "/categories" } }, [_vm._v("節目分類")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "kt-portlet__body" }, [
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-          _vm._v("節目名稱：")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "限30個字", maxlength: "30" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-          _vm._v("節目名稱：")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "限10個字", maxlength: "10" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-          _vm._v("選擇圖片：")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6" }, [
-          _c(
-            "div",
-            {
-              staticClass: "image-wrapper position-relative",
-              staticStyle: { width: "50%", height: "auto" }
-            },
-            [
-              _c("img", {
-                staticStyle: { width: "100%", height: "auto" },
-                attrs: { src: "http://placekitten.com/600/400", alt: "" }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "kt-demo-icon__preview" }, [
-                _c("i", { staticClass: "flaticon-cancel" })
-              ]),
-              _vm._v(" "),
-              _c("i", {
-                staticClass: "flaticon-cancel position-absolute pointer-cursor",
-                staticStyle: { top: "0", right: "0" }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "custom-file" }, [
-            _c("input", {
-              staticClass: "custom-file-input position-absolute",
-              attrs: { type: "file", id: "customFile" }
-            }),
-            _vm._v(" "),
-            _c("button", { staticClass: "btn btn-success" }, [
-              _vm._v("上傳圖片")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-          _vm._v("主持人：")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "限20個字", maxlength: "20" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-          _vm._v("節目介紹：")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6" }, [
-          _c("textarea", {
-            staticClass: "form-control",
-            attrs: { placeholder: "", maxlength: "500" }
-          })
-        ])
-      ])
     ])
   }
 ]
@@ -33906,10 +34266,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader/dist/cjs.js??ref--8-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--8-2!../../../node_modules/vue-loader/lib??vue-loader-options!./categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/categories/categories.vue?vue&type=style&index=0&id=1d59486e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_categories_vue_vue_type_style_index_0_id_1d59486e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -34065,7 +34425,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
 
 
 /***/ })

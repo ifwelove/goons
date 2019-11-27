@@ -8,9 +8,6 @@ new Vue({
 	data: {
 		account: ''
 	},
-	mounted () {
-		console.log('mounted')
-	},
 	components: {
 		account,
 		accountForm
