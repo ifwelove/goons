@@ -55,6 +55,14 @@ Route::group(['prefix' => 'news', 'middleware' => []], function () {
     Route::post('/image/upload', 'Api\NewsController@imageUpload');
 });
 
+Route::group(['prefix' => 'pushs', 'middleware' => []], function () {
+    Route::match(['get', 'head'], '/', 'Api\PushController@index');
+//    Route::post('/', 'Api\PushController@store');
+//    Route::delete('/{push}', 'Api\PushController@destroy');
+//    Route::match(['put', 'patch'], '/{push}', 'Api\PushController@update');
+    Route::match(['get', 'head'], '/{push}/edit', 'Api\PushController@edit');
+});
+
 
 Route::post('messageList', 'NewsController@messageListApi');
 Route::post('setToken', 'DeviceController@setTokenApi');

@@ -67,15 +67,10 @@ class NewsController extends Controller
 
     public function edit(EditRequest $request, $id)
     {
-        $program = $this->newsService->newsFind($id);
+        $news = $this->newsService->newsFind($id);
 
         return response()->json([
-            'news'    => [
-                '已下架',
-                '已上架',
-                '預約中',
-            ],
-            'program' => $program,
+            'news' => $news,
         ]);
 
     }

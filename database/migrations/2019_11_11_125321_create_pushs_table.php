@@ -16,6 +16,7 @@ class CreatePushsTable extends Migration {
 			$table->datetime('start_date')->nullable();
 			$table->datetime('end_date')->nullable();
 			$table->tinyInteger('status')->default('0');
+			$table->tinyInteger('type')->default('0');
 			$table->string('url', 500);
 		});
 	}
