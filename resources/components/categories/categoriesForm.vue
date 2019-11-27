@@ -218,7 +218,9 @@ export default {
 
     validateImageSize (file) {
       if ((file.size / (1024 ** 2)) >  2) {
-        console.log('圖片檔案超過2MB')
+        Swal.fire({
+          title: `圖片檔案超過2MB`
+        })
         return false
       }
       return true
