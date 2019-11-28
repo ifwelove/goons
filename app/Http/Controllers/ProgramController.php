@@ -129,6 +129,7 @@ class ProgramController extends Controller
         $input    = $request->only(['programType', 'programID', 'page']);
         $id       = $input['programID'];
         $type     = $input['programType'];
+        $page     = $request->get('page', null);
         switch ($type){
             case 0:
                 break;
@@ -141,25 +142,49 @@ class ProgramController extends Controller
         switch ($type) {
             case 0:
                 //節目
-                $programs = Program::where('categories', $id)
-                    ->paginate(15);
-                ProgramsCollection::wrap('list');
+                if (is_null($page)) {
+                    $programs = Program::where('categories', $id)
+                        ->get();
+                    ProgramsBibleCollection::wrap('list');
 
-                return new ProgramsCollection($programs);
+                    return new ProgramsBibleCollection($programs);
+                } else {
+                    $programs = Program::where('categories', $id)
+                        ->paginate(15);
+                    ProgramsCollection::wrap('list');
+
+                    return new ProgramsCollection($programs);
+                }
             case 1:
                 //新約
-                $programs = BibleNewProgram::where('categories', $id)
-                    ->get();
-                ProgramsBibleCollection::wrap('list');
+                if (is_null($page)) {
+                    $programs = BibleNewProgram::where('categories', $id)
+                        ->get();
+                    ProgramsBibleCollection::wrap('list');
 
-                return new ProgramsBibleCollection($programs);
+                    return new ProgramsBibleCollection($programs);
+                } else {
+                    $programs = BibleNewProgram::where('categories', $id)
+                        ->paginate(15);
+                    ProgramsCollection::wrap('list');
+
+                    return new ProgramsCollection($programs);
+                }
             case 2:
                 //舊約
-                $programs = BibleProgram::where('categories', $id)
-                    ->get();
-                ProgramsBibleCollection::wrap('list');
+                if (is_null($page)) {
+                    $programs = BibleProgram::where('categories', $id)
+                        ->get();
+                    ProgramsBibleCollection::wrap('list');
 
-                return new ProgramsBibleCollection($programs);
+                    return new ProgramsBibleCollection($programs);
+                } else {
+                    $programs = BibleProgram::where('categories', $id)
+                        ->paginate(15);
+                    ProgramsCollection::wrap('list');
+
+                    return new ProgramsCollection($programs);
+                }
         };
     }
 
