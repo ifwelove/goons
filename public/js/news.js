@@ -31856,7 +31856,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/news.js */"./resources/js/components/news.js");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/news.js */"./resources/js/components/news.js");
 
 
 /***/ })

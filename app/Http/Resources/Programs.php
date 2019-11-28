@@ -23,7 +23,7 @@ class Programs extends JsonResource
             //            'date' => $this->start_date,
             'date'      => Carbon::create($this->start_date)->timestamp,
             'length'    => $this->duration,
-            'playerURL' => $this->url,
+            'playerURL' => str_replace(' ', '%20', str_replace('s//o', 's/o', $this->url)),
             'shareURL'  => config('app.url') . '/share/' . $this->id,
             'shareText' => $this->title . '一起來收聽吧',
         ];
