@@ -14,7 +14,7 @@ class Push extends Model
 
     use SoftDeletes;
     protected $fillable = [
-        'status', 'title', 'sub_title', 'type', 'start_date', 'end_date'
+        'status', 'title', 'sub_title', 'type', 'start_date', 'end_date', 'url'
     ];
     protected $dates = ['deleted_at'];
 //    protected $appends = [
