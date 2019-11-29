@@ -17,6 +17,7 @@ class ProgramsBible extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'        => $this->id,
             'title'     => $this->title,
             'subTitle'  => $this->sub_title,
             'host'      => $this->anchor,
