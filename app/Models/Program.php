@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,5 +22,22 @@ class Program extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'categories');
+    }
+
+    protected $appends = [
+        'status'
+    ];
+
+    public function getStatusAttribute()
+    {
+        if (Carbon::now() > $this->end_date) {
+            return '已下架';
+        }
+        if (Carbon::now() >= $this->start_date && Carbon::now() <= $this->end_date) {
+            return '已上架';
+        }
+        if (Carbon::now() <= $this->start_date) {
+            return '預約中';
+        }
     }
 }
