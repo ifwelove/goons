@@ -18,7 +18,7 @@ class News extends JsonResource
     {
         //        return parent::toArray($request);
         return [
-            'id'         => $this->id,
+            'id'         => (string) $this->id,
             'title'      => $this->title,
 //            'date'       => $this->start_date,
             'date'        => Carbon::create($this->start_date)->timestamp,
