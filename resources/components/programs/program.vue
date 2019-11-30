@@ -7,9 +7,13 @@
                     <div class="kt-portlet__content">
                       <div class="d-flex">
                         <select class="my-select selectpicker w-auto mr-2"
-                          v-model="category">
-                            <option value="空中崇拜">空中崇拜</option>
-                            <option value="半邊天">半邊天</option>
+                          title="請選擇節目類別"
+                          v-model="category"
+                          @change="isShowList = false">
+                            <option
+                              v-for="categoryItem in categories"
+                              :key="categoryItem.id"
+                              :value="categoryItem.id">{{ categoryItem.title }}</option>
                           </select>
                         <button type="button" class="btn btn-primary"
                         @click="handleSearch">顯示列表</button>
@@ -20,7 +24,9 @@
 
             <div class="page-title-box bg-none">
                 <div class="page-title-right">
-                    <button type="button" class="btn btn-primary"
+                    <button
+                      v-if="isShowList"
+                      type="button" class="btn btn-primary"
                       @click="handleAddPrograms">新增節目</button>
                 </div>
                 <h2 class="page-title">節目單集列表</h2>
@@ -47,21 +53,18 @@
                                 <th></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody v-if="isShowList">
                               <tr v-for="program in programs" :key="program.id">
                                 <td>{{ program.id }}</td>
                                 <td>
-                                  <span class="kt-switch">
-                                    <label style="margin-bottom: 0">
-                                    <input type="checkbox" :checked="program.is_published" name="">
-                                    <span style="padding: 4px;"></span>
-                                    </label>
-                                  </span>
+                                  <span class="badge badge-pill badge-primary">{{ program.status }}</span>
+                                  <!-- <span class="badge badge-pill badge-primary">Primary</span> -->
+                                  <!-- <span class="badge badge-pill badge-primary">Primary</span> -->
                                 </td>
-                                <td>{{ program.published_time }}</td>
-                                <td>{{ program.unpublished_time }}</td>
+                                <td>{{ formatDate(program.start_date) }}</td>
+                                <td>{{ formatDate(program.end_date) }}</td>
                                 <td>{{ program.title }}</td>
-                                <td>{{ program.host }}</td>
+                                <td>{{ program.anchor }}</td>
                                 <td>{{ program.url }}</td>
                                 <td>
                                   <button type="button" class="btn btn-light btn-circle btn-icon"
@@ -81,9 +84,11 @@
     </div>
 
     <Pagination
+      v-if="isShowList"
       class="mt-5"
-      :currentPage="currentPage"
-      :totalPage="programs.length"
+      :pagination="pagination"
+      @setPerPage="setPerPage"
+      @setPage="setPage"
       >
     </Pagination>
 
@@ -91,28 +96,9 @@
 </template>
 
 <script>
+import format from 'date-fns/format'
+import twLocale from 'date-fns/locale/zh-TW'
 import Pagination from '../Pagination'
-
-const programs = [
-  {
-    id: 1,
-    title: '我是生命的糧',
-    host: '方華',
-    url: 'http://',
-    is_published: true,
-    published_time: '2019/10/28(四) 06:00',
-    unpublished_time: '2019/11/14(四) 23:59'
-  },
-  {
-    id: 2,
-    title: '你聽「道」後的回應為何',
-    host: '方華',
-    url: 'http://',
-    is_published: false,
-    published_time: '2019/10/28(四) 06:00',
-    unpublished_time: '2019/11/14(四) 23:59'
-  },
-]
 
 export default {
 
@@ -122,36 +108,92 @@ export default {
 
   data () {
     return {
-      keyword: '',
-      currentPage: 1,
       programs: [],
-      category: '空中崇拜'
+      categories: [],
+      category: null,
+      isShowList: false,
+      filters: {
+        page: '',
+        perPage: ''
+      },
+      pagination: {
+        from: null,
+        to: null,
+        total: null,
+        per_page: null,
+        current_page: 1
+      },
     }
   },
 
   created () {
-    // call api
-
-    this.programs = programs
-  },
-
-  mounted () {
-    this.$nextTick(() => {
-      $('.my-select').selectpicker();
-    })
+    this.getPrograms(true)
   },
 
   methods: {
+    formatDate (date) {
+      return format(new Date(date), 'yyyy/MM/dd (eeeee) hh:mm', { locale: twLocale })
+    },
+
+    getPrograms (isFirst= false) {
+      const params = {
+        category: this.category,
+        ...{page: this.filters.page || ''},
+        ...{perPage: this.filters.perPage || ''}
+      }
+
+      const uri = `/api/programs`
+      axios.get(uri, {
+        params
+      })
+      .then((res) => {
+        const { data } = res
+        this.categories = data.categories.filter(category => category.status === 1)
+
+        if (!isFirst) {
+          this.programs = data.programs.data
+        }
+
+        $('.my-select').selectpicker();
+
+        const {
+          from,
+          to,
+          total,
+          per_page,
+          last_page,
+          current_page
+        } = data.programs
+
+        this.pagination = {
+          from, to, total, per_page, current_page, last_page
+        }
+      })
+
+    },
+
     handleEdit (id) {
-      location.assign(location.href + `/${id}/edit`)
+      location.assign(location.origin + `/programs/${id}/edit?category=${this.category}`)
     },
 
     handleSearch () {
-      console.log('handleSearch', this.keyword)
+      this.getPrograms()
+      this.isShowList = true
+      this.filters.page = 1
     },
 
     handleAddPrograms () {
-      location.assign(location.href + '/create')
+      location.assign(location.origin + `/programs/create?category=${this.category}`)
+    },
+
+    setPerPage (perPage) {
+      this.filters.perPage = perPage
+      this.getPrograms()
+    },
+
+    setPage (page) {
+      this.filters.page = page
+      this.getPrograms()
     }
   }
 
