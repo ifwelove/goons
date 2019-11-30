@@ -1897,9 +1897,6 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    totalPages: {
-      type: Number
-    },
     pagination: {
       type: Object
     }
@@ -1909,23 +1906,13 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       perPages: 10
     };
   },
-  computed: {
-    fromPage: function fromPage() {
-      retutn;
-    }
-  },
   methods: {
     handleSetPage: function handleSetPage(page) {
       if (page < 1 || page > this.pagination.last_page) return;
-      var parsed = queryString.parse(location.search);
-      parsed.page = page;
-      location.search = queryString.stringify(parsed);
+      this.$emit('setPage', page);
     },
-    handleSetPerpage: function handleSetPerpage() {
-      var parsed = queryString.parse(location.search);
-      parsed.page = 1;
-      parsed.perPage = this.pagination.per_page;
-      location.search = queryString.stringify(parsed);
+    handleSetPerpage: function handleSetPerpage(perPage) {
+      this.$emit('setPerPage', this.pagination.per_page);
     }
   }
 });
@@ -1944,6 +1931,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
 //
 //
 //
@@ -2048,8 +2043,11 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
   },
   data: function data() {
     return {
-      keyword: '',
-      currentPage: 1,
+      filters: {
+        keyword: '',
+        page: '',
+        perPage: ''
+      },
       pagination: {
         from: null,
         to: null,
@@ -2061,20 +2059,16 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
     };
   },
   created: function created() {
-    this.init();
     this.getAccounts();
   },
   methods: {
-    init: function init() {
-      var parsed = queryString.parse(location.search);
-      this.keyword = parsed.keyword;
-    },
     getAccounts: function getAccounts() {
       var _this = this;
 
-      var search = location.search;
-      var uri = "/api/accounts".concat(search);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri).then(function (res) {
+      var uri = "/api/accounts";
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri, {
+        params: _objectSpread({}, this.filters)
+      }).then(function (res) {
         var data = res.data;
         _this.accounts = data.data;
         var from = data.from,
@@ -2101,17 +2095,14 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       location.assign(location.origin + "/accounts/".concat(id, "/edit"));
     },
     handleSearch: function handleSearch() {
-      var parsed = queryString.parse(location.search);
-      parsed.page = 1;
-      parsed.keyword = this.keyword;
-      location.search = queryString.stringify(parsed);
+      this.filters.page = 1;
       this.getAccounts();
     },
     handleSearchReset: function handleSearchReset() {
-      var parsed = queryString.parse(location.search);
-      parsed.page = 1;
-      parsed.keyword = '';
-      location.search = queryString.stringify(parsed);
+      this.filters = {
+        page: 1,
+        keyword: ''
+      };
       this.getAccounts();
     },
     handleAddAccount: function handleAddAccount() {
@@ -2123,6 +2114,14 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, {
         status: toggleStatus
       }).then(function (res) {});
+    },
+    setPerPage: function setPerPage(perPage) {
+      this.filters.perPage = perPage;
+      this.getAccounts();
+    },
+    setPage: function setPage(page) {
+      this.filters.page = page;
+      this.getAccounts();
     }
   }
 });
@@ -21342,8 +21341,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.keyword,
-                              expression: "keyword"
+                              value: _vm.filters.keyword,
+                              expression: "filters.keyword"
                             }
                           ],
                           staticClass: "form-control",
@@ -21352,13 +21351,17 @@ var render = function() {
                             placeholder: "搜尋姓名、帳號",
                             id: "generalSearch"
                           },
-                          domProps: { value: _vm.keyword },
+                          domProps: { value: _vm.filters.keyword },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.keyword = $event.target.value
+                              _vm.$set(
+                                _vm.filters,
+                                "keyword",
+                                $event.target.value
+                              )
                             }
                           }
                         }),
@@ -21482,7 +21485,8 @@ var render = function() {
       _vm._v(" "),
       _c("Pagination", {
         staticClass: "mt-5",
-        attrs: { pagination: _vm.pagination }
+        attrs: { pagination: _vm.pagination },
+        on: { setPerPage: _vm.setPerPage, setPage: _vm.setPage }
       })
     ],
     1
@@ -34494,9 +34498,9 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
-__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
+__webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 
 /***/ })
