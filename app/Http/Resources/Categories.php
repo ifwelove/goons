@@ -37,7 +37,7 @@ class Categories extends JsonResource
             //            'date'        => $this->start_date,
             'date'        => Carbon::create($this->start_date)->timestamp,
             'dateFormat'        => Carbon::create($this->start_date)->format($format),
-            'imageURL'    => $this->category->image,
+            'imageURL'    => config('app.url') . $this->category->image,
             'categoryId'    => $this->category->id,
             'programType'    => $request->programType,
         ];
