@@ -19,7 +19,7 @@ class Category extends JsonResource
             'title'       => $this->title,
             'description' => $this->sub_title,
             'host'        => $this->anchor,
-            'imageURL'    => $this->image,
+            'imageURL'    => config('app.url') . $this->image,
             'sysCode'     => 200,
             'sysMsg'     => '',
         ];
