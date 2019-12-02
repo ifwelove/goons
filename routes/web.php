@@ -96,6 +96,8 @@ Route::group(['middleware' => ['auth', 'role:category']], function() {
 Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
 Route::match(['get', 'head'], 'share/{program}', 'ShareController@show');
 
+Route::match(['get', 'head'], 'cron/mp3', 'CronController@mp3');
 Route::match(['get', 'head'], 'cron/news', 'CronController@news');
+Route::match(['get', 'head'], 'cron/pushs', 'CronController@pushs');
 Route::match(['get', 'head'], 'cron/push/curl', 'CronController@pushByCurl');
 Route::match(['get', 'head'], 'cron/push/fcm', 'CronController@pushByFcm');
