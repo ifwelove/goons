@@ -27,7 +27,8 @@ class NewsController extends Controller
         $status     = $request->get('status', null);
         $title      = $request->get('title', null);
         $start_date = $request->get('start_date', null);
-        $news       = $this->newsService->newsPaginate($perPage, $title, $status, $start_date);
+        $end_date = $request->get('end_date', null);
+        $news       = $this->newsService->newsPaginate($perPage, $title, $status, $start_date, $end_date);
         $news->appends($request->query())
             ->links();
         $result           = [];
