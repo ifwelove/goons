@@ -196,7 +196,7 @@ class ProgramController extends Controller
         switch ($type) {
             case 0:
                 //節目
-                $categories = Category::orderBy('sort')
+                $categories = Category::where('status', 1)->orderBy('sort')
                     ->get();
                 foreach ($categories as $row) {
                     $program = Program::with('category')
