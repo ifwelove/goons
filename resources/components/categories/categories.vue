@@ -8,13 +8,13 @@
                       <div class="d-flex">
                         <div class="kt-input-icon kt-input-icon--right w-auto mr-2">
 													<input type="text" class="form-control" placeholder="搜尋節目名稱、主持人" id="generalSearch"
-														v-model="keyword">
+														v-model="filters.keyword">
 													<span class="kt-input-icon__icon kt-input-icon__icon--right">
 														<span><i class="fa fa-search"></i></span>
 													</span>
 												</div>
                         <select class="form-control w-auto mr-2" id="exampleSelect1"
-                          v-model="status">
+                          v-model="filters.status">
                           <option value="" disabled>狀態</option>
                           <option value="1">上架</option>
                           <option value="0">下架</option>
@@ -123,6 +123,8 @@
     <Pagination
       class="mt-5"
       :pagination="pagination"
+      @setPerPage="setPerPage"
+      @setPage="setPage"
       >
     </Pagination>
 
@@ -141,9 +143,12 @@ export default {
 
   data () {
     return {
-      keyword: '',
-      status: '',
-      currentPage: 1,
+      filters: {
+        keyword: '',
+        status: '',
+        page: '',
+        perPage: ''
+      },
       pagination: {
         from: null,
         to: null,
@@ -163,9 +168,7 @@ export default {
   methods: {
     getProgramsList () {
       const params = {
-        page: this.currentPage,
-        keyword: this.keyword,
-        status: this.status
+        ...this.filters
       }
 
       const uri = `/api/categories`
@@ -195,21 +198,25 @@ export default {
     },
 
     handleSearch () {
-      this.isSearching = !!(this.keyword || this.status)
+      this.isSearching = !!(this.filters.keyword || this.filters.status)
+      this.filters.page = 1
       this.getProgramsList()
     },
 
 		handleSearchReset () {
-      this.currentPage = 1
-      this.keyword = ''
-      this.status = ''
+      this.filters = {
+        page: 1,
+        keyword: '',
+        status: ''
+      }
+
       this.isSearching = false
 
       this.getProgramsList()
     },
 
     handleAddPrograms () {
-      location.assign(location.href + '/create')
+      location.assign(location.origin + '/categories/create')
     },
 
     handleToggleStatus (programItem) {
@@ -229,6 +236,16 @@ export default {
       .then((res) => {
         this.getProgramsList()
       })
+    },
+
+    setPerPage (perPage) {
+      this.filters.perPage = perPage
+      this.getProgramsList()
+    },
+
+    setPage (page) {
+      this.filters.page = page
+      this.getProgramsList()
     }
   }
 

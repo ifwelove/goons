@@ -58,9 +58,6 @@ const queryString = require('query-string');
 
 export default {
   props: {
-    totalPages: {
-      type: Number
-    },
     pagination: {
       type: Object
     }
@@ -72,26 +69,14 @@ export default {
     }
   },
 
-  computed: {
-    fromPage () {
-      retutn
-    }
-  },
-
   methods: {
     handleSetPage (page) {
       if (page < 1 || page > this.pagination.last_page) return
-
-      const parsed = queryString.parse(location.search);
-      parsed.page = page
-      location.search = queryString.stringify(parsed);
+      this.$emit('setPage', page)
     },
 
-    handleSetPerpage () {
-      const parsed = queryString.parse(location.search);
-      parsed.page = 1
-      parsed.perPage = this.pagination.per_page
-      location.search = queryString.stringify(parsed);
+    handleSetPerpage (perPage) {
+      this.$emit('setPerPage', this.pagination.per_page)
     }
   }
 }

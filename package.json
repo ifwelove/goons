@@ -62,6 +62,7 @@
         "datatables.net-responsive-bs4": "^2.2.1",
         "datatables.net-select": "^1.2.5",
         "datatables.net-select-bs4": "^1.2.5",
+        "date-fns": "^2.6.0",
         "dropzone": "^5.5.1",
         "flot-charts": "^0.8.3",
         "flot-orderbars": "^1.0.0",
