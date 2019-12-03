@@ -16,7 +16,7 @@ class CreateNewsTable extends Migration {
 			$table->datetime('start_date')->nullable();
 			$table->datetime('end_date')->nullable();
 			$table->string('title', 100);
-            $table->text('description');
+            $table->longText('description');
 		});
 	}
 
