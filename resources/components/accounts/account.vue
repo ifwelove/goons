@@ -8,7 +8,7 @@
                       <div class="d-flex">
                       <div class="kt-input-icon kt-input-icon--right w-auto mr-2">
                         <input type="text" class="form-control" placeholder="搜尋姓名、帳號" id="generalSearch"
-                          v-model="keyword">
+                          v-model="filters.keyword">
                         <span class="kt-input-icon__icon kt-input-icon__icon--right">
                           <span><i class="fa fa-search"></i></span>
                         </span>
@@ -85,6 +85,8 @@
     <Pagination
       class="mt-5"
       :pagination="pagination"
+      @setPerPage="setPerPage"
+      @setPage="setPage"
       >
     </Pagination>
 
@@ -104,8 +106,11 @@ export default {
 
   data () {
     return {
-      keyword: '',
-      currentPage: 1,
+      filters: {
+        keyword: '',
+        page: '',
+        perPage: ''
+      },
       pagination: {
         from: null,
         to: null,
@@ -118,20 +123,18 @@ export default {
   },
 
   created () {
-    this.init()
     this.getAccounts()
   },
 
   methods: {
-    init () {
-      const parsed = queryString.parse(location.search);
-      this.keyword = parsed.keyword
-    },
 
     getAccounts () {
-      const search = location.search
-      const uri = `/api/accounts${search}`
-      axios.get(uri)
+      const uri = `/api/accounts`
+      axios.get(uri, {
+        params: {
+          ...this.filters
+        }
+      })
       .then((res) => {
         const { data } = res
         this.accounts = data.data
@@ -157,20 +160,15 @@ export default {
     },
 
     handleSearch () {
-      const parsed = queryString.parse(location.search);
-      parsed.page = 1
-      parsed.keyword = this.keyword
-      location.search = queryString.stringify(parsed);
-
+      this.filters.page = 1
       this.getAccounts()
     },
 
     handleSearchReset () {
-      const parsed = queryString.parse(location.search);
-      parsed.page = 1
-      parsed.keyword = ''
-      location.search = queryString.stringify(parsed);
-
+      this.filters = {
+        page: 1,
+        keyword: ''
+      }
       this.getAccounts()
     },
 
@@ -187,6 +185,16 @@ export default {
       })
       .then((res) => {
       })
+    },
+
+    setPerPage (perPage) {
+      this.filters.perPage = perPage
+      this.getAccounts()
+    },
+
+    setPage (page) {
+      this.filters.page = page
+      this.getAccounts()
     }
   }
 

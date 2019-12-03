@@ -196,7 +196,7 @@ function($) {
     },
     //
     $.Portlet = new Portlet, $.Portlet.Constructor = Portlet
-    
+
 }(window.jQuery),
 
 function ($) {
@@ -222,7 +222,7 @@ function ($) {
         });
     },
 
-    /** 
+    /**
      * Initlizes the menu - top and sidebar
     */
     App.prototype.initMenu = function () {
@@ -295,7 +295,7 @@ function ($) {
         });
     },
 
-    /** 
+    /**
      * Init the layout - with broad sidebar or compact side bar
     */
     App.prototype.initLayout = function () {

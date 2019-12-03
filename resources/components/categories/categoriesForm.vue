@@ -70,8 +70,18 @@
                     <button
                       v-if="!isEdit" type="button" class="btn btn-success" @click="handleCreate"
                       :class="{'disabled': isEmpty}"
-                      :disabled="isEmpty">新增</button>
-                    <button v-else type="button" class="btn btn-success" @click="handleSave">儲存</button>
+                      :disabled="isEmpty">
+                      <span
+                        :class="{'spinner-border spinner-border-sm': isSubmitting}"
+                        role="status"
+                        aria-hidden="true"></span>
+                      新增</button>
+                    <button v-else type="button" class="btn btn-success" @click="handleSave">
+                      <span
+                        :class="{'spinner-border spinner-border-sm': isSubmitting}"
+                        role="status"
+                        aria-hidden="true"></span>
+                        儲存</button>
                   </template>
                 </div>
               </div>
@@ -126,8 +136,6 @@ export default {
 
   methods: {
     getCategory () {
-      const parsed = queryString.parse(location.search);
-
       const uri = `/api/categories/${this.categoryId}/edit`
       axios.get(uri)
       .then((res) => {

@@ -72,7 +72,7 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        return view('programs.edit');
+        return view('programs.edit', ['id' => $id]);
     }
 
     /**
