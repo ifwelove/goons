@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth', 'role:category']], function() {
 
 //Route::get('parser', 'ProgramController@parser');
 Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
-Route::match(['get', 'head'], 'share/{program}', 'ShareController@show');
+Route::match(['get', 'head'], '{programType}/{categoryId}/{programId}', 'ShareController@show');
 
 Route::match(['get', 'head'], 'cron/mp3', 'CronController@mp3');
 Route::match(['get', 'head'], 'cron/news', 'CronController@news');
