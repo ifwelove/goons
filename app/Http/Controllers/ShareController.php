@@ -2,18 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\NewsCollection;
-use App\Models\News;
+use App\Models\BibleNewProgram;
+use App\Models\BibleProgram;
 use App\Models\Program;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ShareController extends Controller
 {
-    public function show($id)
+    public function show(Request $request, $programType, $categoryId, $programId)
     {
-        $program = Program::find($id);
-//        dump($program->toArray());
-        return view('share.show')->with('program', $program->toArray());
+        switch ($programType) {
+            case 0:
+                //節目
+                $program = Program::with('category')
+                    ->find($programId);
+                break;
+            case 1:
+                //新約
+                $program = BibleNewProgram::with('category')
+                    ->find($programId);
+                break;
+            case 2:
+                //舊約
+                $program = BibleProgram::with('category')
+                    ->find($programId);
+                break;
+        };
+
+        return view('share.show')->with([
+                'programType' => $programType,
+                'categoryId'  => $categoryId,
+                'program'     => $program->toArray()
+            ]
+
+        );
     }
 }
