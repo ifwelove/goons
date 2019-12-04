@@ -142,14 +142,15 @@ class ProgramController extends Controller
         switch ($type) {
             case 0:
                 //節目
+                $program = Program::find($id);
                 if (is_null($page)) {
-                    $programs = Program::where('categories', $id)
+                    $programs = Program::where('categories', $program->categories)
                         ->get();
                     ProgramsBibleCollection::wrap('list');
 
                     return new ProgramsBibleCollection($programs);
                 } else {
-                    $programs = Program::where('categories', $id)
+                    $programs = Program::where('categories', $program->categories)
                         ->paginate(15);
                     ProgramsCollection::wrap('list');
 
@@ -157,14 +158,15 @@ class ProgramController extends Controller
                 }
             case 1:
                 //新約
+                $program = BibleNewProgram::find($id);
                 if (is_null($page)) {
-                    $programs = BibleNewProgram::where('categories', $id)
+                    $programs = BibleNewProgram::where('categories', $program->categories)
                         ->get();
                     ProgramsBibleCollection::wrap('list');
 
                     return new ProgramsBibleCollection($programs);
                 } else {
-                    $programs = BibleNewProgram::where('categories', $id)
+                    $programs = BibleNewProgram::where('categories', $program->categories)
                         ->paginate(15);
                     ProgramsCollection::wrap('list');
 
@@ -172,14 +174,15 @@ class ProgramController extends Controller
                 }
             case 2:
                 //舊約
+                $program = BibleProgram::find($id);
                 if (is_null($page)) {
-                    $programs = BibleProgram::where('categories', $id)
+                    $programs = BibleProgram::where('categories', $program->categories)
                         ->get();
                     ProgramsBibleCollection::wrap('list');
 
                     return new ProgramsBibleCollection($programs);
                 } else {
-                    $programs = BibleProgram::where('categories', $id)
+                    $programs = BibleProgram::where('categories', $program->categories)
                         ->paginate(15);
                     ProgramsCollection::wrap('list');
 
