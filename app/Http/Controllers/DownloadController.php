@@ -18,7 +18,7 @@ use LaravelFCM\Message\PayloadNotificationBuilder;
 use LaravelFCM\Message\Topics;
 use wapmorgan\Mp3Info\Mp3Info;
 
-class CronController extends Controller
+class DownloadController extends Controller
 {
     public function iosJson()
     {
