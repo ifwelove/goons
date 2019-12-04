@@ -96,9 +96,9 @@ class NewsController extends Controller
     {
         $date = Carbon::today();
 //        $news = News::all();
-        $news = News::where('start_date', '>', $date->copy()
+        $news = News::where('start_date', '<=', $date->copy()
             ->startOfDay())
-            ->where('end_date', '<', $date->copy()
+            ->where('end_date', '>=', $date->copy()
                 ->endOfDay())
             ->get();
         NewsCollection::wrap('list');
