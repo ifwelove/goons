@@ -11,7 +11,7 @@
     <meta property="og:title" content="遠東福音會 - {{ $program['anchor'] }} - {{ $program['title'] }}">
     <meta property="og:description" content="{{ $program['title'] }} - {{ $program['sub_title'] }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ config('app.url') }}{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">
+    <meta property="og:url" content="{{ config('app.url') }}/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">
     <meta property="og:locale" content="zh_TW">
     @if ($programType < 1)
         <meta property="og:image" content="{{ config('app.url') }}{{ $program['category']['image'] }}">
@@ -40,6 +40,8 @@
     }
 </script>
 <body>
+<a href="{{ config('app.url') }}/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">點擊</a>
+<a href="{{ config('app.url') }}/share/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">點擊</a>
 {{--<p>{{ $program['anchor'] }}</p>--}}
 {{--<p>{{ $program['title'] }}</p>--}}
 {{--<p>{{ $program['sub_title'] }}</p>--}}
