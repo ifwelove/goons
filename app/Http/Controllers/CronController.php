@@ -20,25 +20,6 @@ use wapmorgan\Mp3Info\Mp3Info;
 
 class CronController extends Controller
 {
-    public function iosJson()
-    {
-        $headers = [
-            'Content-Type' => 'application/pkcs7-mime',
-        ];
-
-//        dd(storage_path('app/json/apple-app-site-association'));
-        return response()->download(storage_path('app/public/json/apple-app-site-association'), 'apple-app-site-association', $headers);
-    }
-
-    public function androidJson()
-    {
-        $headers = [
-            'Content-Type' => 'application/json',
-        ];
-
-        //        dd(storage_path('app/json/apple-app-site-association'));
-        return response()->download(storage_path('app/public/json/assetlinks.json'), 'assetlinks.json', $headers);
-    }
 
     public function mp3()
     {
