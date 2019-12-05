@@ -30,6 +30,16 @@ class DownloadController extends Controller
         return response()->download(storage_path('app/public/json/apple-app-site-association'), 'apple-app-site-association', $headers);
     }
 
+    public function iosJsonDisplay()
+    {
+        $headers = [
+            'Content-Type' => 'application/json',
+        ];
+
+        //        dd(storage_path('app/json/apple-app-site-association'));
+        return response()->download(storage_path('app/public/json/apple-app-site-association'), 'apple-app-site-association', $headers);
+    }
+
     public function androidJson()
     {
         $headers = [

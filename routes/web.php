@@ -103,4 +103,5 @@ Route::match(['get', 'head'], 'cron/pushs', 'CronController@pushs');//沒推播�
 //Route::match(['get', 'head'], 'cron/push/curl', 'CronController@pushByCurl');
 //Route::match(['get', 'head'], 'cron/push/fcm', 'CronController@pushByFcm');
 Route::match(['get', 'head'], '.well-known/apple-app-site-association', 'DownloadController@iosJson');
+Route::match(['get', 'head'], 'apple-app-site-association', 'DownloadController@iosJsonDisplay');
 Route::match(['get', 'head'], '.well-known/assetlinks.json', 'DownloadController@iosJson');
