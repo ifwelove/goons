@@ -22,7 +22,7 @@ class PushController extends Controller
 {
     private $pushService;
 
-    //@todo cron job 推播
+    //@todo cron job 推播 fixed
 
     public function __construct(PushService $pushService)
     {

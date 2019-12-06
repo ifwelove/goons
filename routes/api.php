@@ -64,8 +64,8 @@ Route::group(['prefix' => 'pushs', 'middleware' => []], function () {
 });
 
 
-Route::post('messageList', 'NewsController@messageListApi');
-Route::post('setToken', 'DeviceController@setTokenApi');
-Route::post('programDescription', 'CategoryController@programDescriptionApi');
-Route::post('programList', 'ProgramController@programListApi');
-Route::post('program', 'ProgramController@programApi');
+Route::post('messageList', 'NewsController@messageListApi');//104
+Route::post('setToken', 'DeviceController@setTokenApi');//105
+Route::post('programDescription', 'CategoryController@programDescriptionApi');//102
+Route::post('programList', 'ProgramController@programListApi');//103
+Route::post('program', 'ProgramController@programApi');//101

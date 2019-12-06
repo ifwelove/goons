@@ -57,31 +57,31 @@ class CronController extends Controller
 
     public function news()
     {
-        return response()->json();
-
-//        $news = News::where('type', 0)->where('auto_push', 1)->where('start_date', '<=', Carbon::now())->first();
-//        if (is_null($news)) {
-//            return response()->json();
-//        }
-//        $optionBuilder = new OptionsBuilder();
-//        $optionBuilder->setTimeToLive(60*20);
-//
-//        //notification
-//        $notificationBuilder = new PayloadNotificationBuilder('遠東福音會');
-//        $notificationBuilder->setBody($news->sub_title)->setSound('default');
-//
-//        $option = $optionBuilder->build();
-//        $notification = $notificationBuilder->build();
-//        Device::chunk(50, function ($devices) use ($option, $notification) {
-//            foreach ($devices as $device) {
-//                FCM::sendTo($device->token, $option, $notification);
-//            }
-//        });
-//        $news->type = 1;
-//        $news->save();
-//        Log::info($news->toArray());
-//
 //        return response()->json();
+
+        $news = News::where('type', 0)->where('auto_push', 1)->where('start_date', '<=', Carbon::now())->first();
+        if (is_null($news)) {
+            return response()->json();
+        }
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        //notification
+        $notificationBuilder = new PayloadNotificationBuilder('遠東福音會');
+        $notificationBuilder->setBody($news->sub_title)->setSound('default');
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        Device::chunk(50, function ($devices) use ($option, $notification) {
+            foreach ($devices as $device) {
+                FCM::sendTo($device->token, $option, $notification);
+            }
+        });
+        $news->type = 1;
+        $news->save();
+        Log::info($news->toArray());
+
+        return response()->json();
     }
 
     public function pushs()
