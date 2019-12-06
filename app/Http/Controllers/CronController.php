@@ -68,13 +68,22 @@ class CronController extends Controller
 
         //notification
         $notificationBuilder = new PayloadNotificationBuilder('遠東福音會');
-        $notificationBuilder->setBody($news->sub_title)->setSound('default');
+        $notificationBuilder->setBody($news->title)->setSound('default');
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
-        Device::chunk(50, function ($devices) use ($option, $notification) {
+        $data = ['a_data' => $news->title];
+        $dataBuilder = new PayloadDataBuilder();
+        //android, web
+//        $dataBuilder->addData($data);//key and value
+        //ios
+        $dataBuilder->addData([
+            'custom' => $data
+        ]);
+        $data = $dataBuilder->build();
+        Device::chunk(50, function ($devices) use ($option, $notification, $data) {
             foreach ($devices as $device) {
-                FCM::sendTo($device->token, $option, $notification);
+                FCM::sendTo($device->token, $option, $notification, $data);
             }
         });
         $news->type = 1;
