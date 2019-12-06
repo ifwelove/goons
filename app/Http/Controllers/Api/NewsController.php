@@ -14,7 +14,7 @@ class NewsController extends Controller
 {
     private $newsService;
 
-    //@todo cron job 音源0
+    //@todo cron job 推播 fixed
 
     public function __construct(NewsService $newsService)
     {

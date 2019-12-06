@@ -15,7 +15,8 @@ class ProgramController extends Controller
 {
     private $programService;
 
-    //@todo cron job 音源0
+    //@todo cron job 音源0 fixed
+    //@todo 更新mp3 url 音源要reset 0, 讓crone重抓長度
 
     public function __construct(ProgramService $programService)
     {
