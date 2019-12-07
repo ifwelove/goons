@@ -33,8 +33,10 @@ class PushService
                 break;
         }
         $query->when(! is_null($start_date), function ($q) use ($start_date) {
-            return $q->where('start_date', '>=', Carbon::parse($start_date)->startOfDay())
-                ->Where('start_date', '<=', Carbon::parse($start_date)->endOfDay());
+            return $q->where('start_date', '>=', Carbon::parse($start_date)
+                ->startOfDay())
+                ->Where('start_date', '<=', Carbon::parse($start_date)
+                    ->endOfDay());
         });
         $push = $query->orderBy('id', 'desc')
             ->paginate($perPage);
@@ -51,7 +53,39 @@ class PushService
 
     public function pushStore($request)
     {
-        $push = Push::create($request->all());
+        switch ($request->get('firstClase')) {
+            case 'A':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                    'secClase'   =>  $request->get('secClase', ''),
+                ];
+                break;
+            case 'B':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                ];
+                break;
+            case 'C':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                ];
+                break;
+            case 'D':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                    'secClase'   => $request->get('secClase', ''),
+                    'lastClase'   => $request->get('lastClase', ''),
+                ];
+                break;
+
+        }
+        $push            = new Push;
+        $push->title     = $request->get('title', "");
+        $push->sub_title = $request->get('sub_title', "");
+        $push->status    = $request->get('status', 0);
+        $push->url        = json_encode($data);
+        $push->start_date = $request->get('start_date', "");
+        $push->save();
 
         return $push;
     }
@@ -65,8 +99,39 @@ class PushService
 
     public function pushUpdate($id, $request)
     {
+        switch ($request->get('firstClase')) {
+            case 'A':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                    'secClase'   =>  $request->get('secClase', ''),
+                ];
+                break;
+            case 'B':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                ];
+                break;
+            case 'C':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                ];
+                break;
+            case 'D':
+                $data            = [
+                    'firstClase' => $request->get('firstClase'),
+                    'secClase'   => $request->get('secClase', ''),
+                    'lastClase'   => $request->get('lastClase', ''),
+                ];
+                break;
+
+        }
         $push = Push::findOrFail($id);
-        $push->update($request->all());
+        $push->title     = $request->get('title', "");
+        $push->sub_title = $request->get('sub_title', "");
+        $push->status    = $request->get('status', 0);
+        $push->url        = json_encode($data);
+        $push->start_date = $request->get('start_date', "");
+        $push->save();
 
         return true;
     }
