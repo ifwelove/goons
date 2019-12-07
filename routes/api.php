@@ -61,6 +61,7 @@ Route::group(['prefix' => 'pushs', 'middleware' => []], function () {
     Route::delete('/{push}', 'Api\PushController@destroy');
     Route::match(['put', 'patch'], '/{push}', 'Api\PushController@update');
     Route::match(['get', 'head'], '/{push}/edit', 'Api\PushController@edit');
+    Route::match(['get', 'head'], '/options', 'Api\PushController@add');
 });
 
 

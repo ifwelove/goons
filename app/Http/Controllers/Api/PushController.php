@@ -55,7 +55,7 @@ class PushController extends Controller
             'title.required'     => '標題為必填',
             'sub_title.max'      => '推播內容限制100字',
             'sub_title.required' => '推播內容為必填',
-            'url.required'       => '跳轉位址為必填',
+            //            'url.required'       => '跳轉位址為必填',
             'status.required'    => '推播時間為必填',
             //            'start_date.required' => '指定上架日期為必填',
             //            'start_date.date'     => '指定上架日期格式錯誤',
@@ -64,7 +64,7 @@ class PushController extends Controller
             'title'      => 'required|max:20',
             'sub_title'  => 'required|max:100',
             'status'     => 'required',
-            'url'        => 'required',
+            //            'url'        => 'required',
             'start_date' => 'required|date',
         ], $message);
 
@@ -87,19 +87,49 @@ class PushController extends Controller
         $newCategories = BibleNewCategory::select('title', 'id')
             ->get();
         $push          = $this->pushService->pushFind($id);
-
+        $secClaseData  = [
+                'B' => ['title' => '新約'],
+                'C' => ['title' => '舊約'],
+                'A' => ['title' => '節目']
+            ] + $news->toArray();
         return response()->json([
-            'first'  => ['音頻', '最新消息', '聯絡我們', '首頁'],
-            'second' => [
-                ['新約', '舊約', '節目'],
-                $news
+            'firstClase' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
+            'secClase'   => $secClaseData,
+            'lastClase'  => [
+                'B' => $newCategories,
+                'C' => $oldCategories,
+                'A' => $categories
             ],
-            'third'  => [
-                $newCategories,
-                $oldCategories,
-                $categories
-            ],
-            'push'   => $push,
+            'push'       => $push,
+        ]);
+    }
+
+    public function add(Request $request)
+    {
+        $news          = News::select('title', 'id')
+            ->where('start_date', '<=', Carbon::now())
+            ->where('end_date', '>=', Carbon::now())
+            ->get();
+        $categories    = Category::select('title', 'id')
+            ->where('status', 1)
+            ->get();
+        $oldCategories = BibleCategory::select('title', 'id')
+            ->get();
+        $newCategories = BibleNewCategory::select('title', 'id')
+            ->get();
+        $secClaseData  = [
+                'B' => ['title' => '新約'],
+                'C' => ['title' => '舊約'],
+                'A' => ['title' => '節目']
+            ] + $news->toArray();
+        return response()->json([
+            'firstClase' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
+            'secClase'   => $secClaseData,
+            'lastClase'  => [
+                'B' => $newCategories,
+                'C' => $oldCategories,
+                'A' => $categories
+            ]
         ]);
 
     }
@@ -112,7 +142,7 @@ class PushController extends Controller
             'sub_title.max'      => '推播內容限制100字',
             'sub_title.required' => '推播內容為必填',
             'status.required'    => '推播時間為必填',
-            'url.required'       => '跳轉位址為必填',
+            //            'url.required'       => '跳轉位址為必填',
             //            'start_date.required' => '指定上架日期為必填',
             //            'start_date.date'     => '指定上架日期格式錯誤',
         ];
@@ -120,7 +150,7 @@ class PushController extends Controller
             'title'      => 'required|max:20',
             'sub_title'  => 'required|max:100',
             'status'     => 'required',
-            'url'     => 'required',
+            //            'url'        => 'required',
             'start_date' => 'required|date',
         ], $message);
         $this->pushService->pushUpdate($id, $request);

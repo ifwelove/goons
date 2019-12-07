@@ -18,15 +18,22 @@ class News extends JsonResource
     {
         //        return parent::toArray($request);
         return [
-            'id'         => (string) $this->id,
-            'title'      => $this->title,
-//            'date'       => $this->start_date,
-            'date'        => Carbon::create($this->start_date)->timestamp,
-//            'dateFormat' => Carbon::create($this->start_date)->format('Y/m/d'),
+            'id'       => (string) $this->id,
+            'title'    => $this->title,
+            //            'date'       => $this->start_date,
+            'date'     => Carbon::create($this->start_date)->timestamp,
+            //            'dateFormat' => Carbon::create($this->start_date)->format('Y/m/d'),
             //            'start_date' => $this->start_date,
             //            'end_date' => $this->end_date,
-//            'moreURL'    => config('app.url') . '/news/' . $this->id,
-            'moreHtml'    => $this->description,
+            //            'moreURL'    => config('app.url') . '/news/' . $this->id,
+            //            'moreHtml'    => $this->description,
+            'moreHtml' => view('news-template')
+                ->with([
+                        'dateFormat' => Carbon::create($this->start_date)->format('Y/m/d'),
+                        'description' => $this->description,
+                        'title' => $this->title,
+                    ])
+                ->render(),
         ];
     }
 }

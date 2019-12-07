@@ -58,18 +58,6 @@ class CronController extends Controller
 
     public function news()
     {
-
-        //        母分類的 key 用 "firstClase", 最新消息("A"), 聯絡我們("B"), 首頁("C"), 音頻("D")
-        //次分類的 key 用 "secClase", 節目("A"), 新約("B"), 舊約("C"), 推廣消息係項傳送ID("ID123")
-        //子分類的 key 用 "lastClase", 帶節目係向ID
-
-        //        "data": {
-        //        "firstClase": "D",
-        // "secClase": "B",
-        // "lastClase" "n01"
-        //}
-        //音頻 -> 新約 -> 編號n01
-
         $news = News::where('type', 0)
             ->where('auto_push', 1)
             ->where('start_date', '<=', Carbon::now())
@@ -143,10 +131,6 @@ class CronController extends Controller
         $option       = $optionBuilder->build();
         $notification = $notificationBuilder->build();
         $data = json_decode($push->url, true);
-        $data         = [
-            'firstClase' => "A",
-            'secClase'   => (string) $push->id,
-        ];
         Device::chunk(50, function ($devices) use ($option, $notification, $data) {
             foreach ($devices as $device) {
                 $dataBuilder = new PayloadDataBuilder();
