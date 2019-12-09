@@ -23,6 +23,8 @@ class CronController extends Controller
 
     public function mp3()
     {
+        return response()->json();
+
         $program = Program::whereNull('duration')
             ->first();
         if (is_null($program)) {
@@ -76,19 +78,13 @@ class CronController extends Controller
         $option       = $optionBuilder->build();
         $notification = $notificationBuilder->build();
         $data         = [
-            'firstClase' => "A",
-            'secClase'   => (string) $news->id,
+            'firstClass' => "A",
+            'secClass'   => (string) $news->id,
         ];
         Device::chunk(50, function ($devices) use ($option, $notification, $data) {
             foreach ($devices as $device) {
                 $dataBuilder = new PayloadDataBuilder();
-                if ($device->type == 1) {
-                    $dataBuilder->addData([
-                        'custom' => $data
-                    ]);
-                } else {
-                    $dataBuilder->addData($data);
-                }
+                $dataBuilder->addData($data);
                 $dataBuild = $dataBuilder->build();
                 FCM::sendTo($device->token, $option, $notification, $dataBuild);
             }
@@ -130,17 +126,11 @@ class CronController extends Controller
 
         $option       = $optionBuilder->build();
         $notification = $notificationBuilder->build();
-        $data = json_decode($push->url, true);
+        $data         = json_decode($push->url, true);
         Device::chunk(50, function ($devices) use ($option, $notification, $data) {
             foreach ($devices as $device) {
                 $dataBuilder = new PayloadDataBuilder();
-                if ($device->type == 1) {
-                    $dataBuilder->addData([
-                        'custom' => $data
-                    ]);
-                } else {
-                    $dataBuilder->addData($data);
-                }
+                $dataBuilder->addData($data);
                 $dataBuild = $dataBuilder->build();
                 FCM::sendTo($device->token, $option, $notification, $dataBuild);
             }
