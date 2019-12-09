@@ -6,6 +6,16 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProgramsBibleCollection extends ResourceCollection
 {
+    private $programName;
+
+    public function __construct($resource)
+    {
+        $this->programName = $resource->first()
+            ->toArray()['category']['title'];
+
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource collection into an array.
      *
@@ -21,8 +31,9 @@ class ProgramsBibleCollection extends ResourceCollection
     public function with($request)
     {
         return [
-            'sysCode' => 200,
-            'sysMsg'  => ""
+            'programName' => $this->programName,
+            'sysCode'     => 200,
+            'sysMsg'      => ""
         ];
     }
 }

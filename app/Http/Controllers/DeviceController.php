@@ -11,10 +11,11 @@ class DeviceController extends Controller
 
     public function setTokenApi(Request $request)
     {
-        $input = $request->only(['Device', 'DeviceToken']);
-        $device = Device::updateOrCreate(['token' => $input['DeviceToken']], [
-            'type'  => $input['Device'],
-            'token' => $input['DeviceToken']
+        $input = $request->only(['device', 'deviceToken', 'receiveNoti']);
+        $device = Device::updateOrCreate(['token' => $input['deviceToken']], [
+            'type'  => $input['device'],
+            'token' => $input['deviceToken'],
+            'receiveNoti' => $input['receiveNoti']
         ]);
         DeviceResource::withoutWrapping();
 

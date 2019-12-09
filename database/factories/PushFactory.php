@@ -25,7 +25,8 @@ $factory->define(Push::class, function (Faker $faker) {
         'end_date' => \Carbon\Carbon::now()->addYear(),
         'title' => Str::random(20),
         'sub_title' => Str::random(100),
-        'url' => Str::random(10),
+        'receiveNoti' => 0,
+        'url' => '{"firstClase":"D","secClase":"B","lastClase":"2"}',
     ];
 
     return $result;

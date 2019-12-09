@@ -16,7 +16,7 @@ class Categories extends JsonResource
      */
     public function toArray($request)
     {
-        switch ($request->programType){
+        switch ($request->programType) {
             case 0:
                 $id = $this->id;
                 break;
@@ -28,18 +28,19 @@ class Categories extends JsonResource
                 break;
         }
         $weekList = array('日', '一', '二', '三', '四', '五', '六');
-        $week = $weekList[Carbon::create($this->start_date)->dayOfWeek];
-        $format = 'Y/m/d (' . $week . ')';
-        $result = [
-            'id'       => (string) $id,
+        $week     = $weekList[Carbon::create($this->start_date)->dayOfWeek];
+        $format   = 'Y/m/d (' . $week . ')';
+        $result   = [
+            'id'          => (string) $id,
             'title'       => $this->category->title,
-            'subTitle' => $this->title,
+            'subTitle'    => $this->title,
             //            'date'        => $this->start_date,
-            'date'        => Carbon::create($this->start_date)->timestamp,
-            'dateFormat'        => Carbon::create($this->start_date)->format($format),
+            'date'        => ($this->start_date) != '' ? Carbon::create($this->start_date)->timestamp : 0,
+            'dateFormat'  => ($this->start_date) != '' ? Carbon::create($this->start_date)
+                ->format($format) : 0,
             'imageURL'    => config('app.url') . $this->category->image,
-            'categoryId'    => $this->category->id,
-            'programType'    => $request->programType,
+            'categoryId'  => (string) $this->category->id,
+            'programType' => $request->programType,
         ];
 
         return $result;

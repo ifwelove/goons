@@ -100,6 +100,7 @@ class NewsController extends Controller
             ->startOfDay())
             ->where('end_date', '>=', $date->copy()
                 ->endOfDay())
+            ->orderBy('start_date', 'DESC')
             ->get();
         NewsCollection::wrap('list');
 
