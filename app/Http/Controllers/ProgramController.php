@@ -144,13 +144,13 @@ class ProgramController extends Controller
                 //節目
                 $program = Program::find($id);
                 if (is_null($page)) {
-                    $programs = Program::where('categories', $program->categories)
+                    $programs = Program::with('category')->where('categories', $program->categories)
                         ->get();
                     ProgramsBibleCollection::wrap('list');
 
                     return new ProgramsBibleCollection($programs);
                 } else {
-                    $programs = Program::where('categories', $program->categories)
+                    $programs = Program::with('category')->where('categories', $program->categories)
                         ->paginate(15);
                     ProgramsCollection::wrap('list');
 
@@ -160,13 +160,13 @@ class ProgramController extends Controller
                 //新約
                 $program = BibleNewProgram::find($id);
                 if (is_null($page)) {
-                    $programs = BibleNewProgram::where('categories', $program->categories)
+                    $programs = BibleNewProgram::with('category')->where('categories', $program->categories)
                         ->get();
                     ProgramsBibleCollection::wrap('list');
 
                     return new ProgramsBibleCollection($programs);
                 } else {
-                    $programs = BibleNewProgram::where('categories', $program->categories)
+                    $programs = BibleNewProgram::with('category')->where('categories', $program->categories)
                         ->paginate(15);
                     ProgramsCollection::wrap('list');
 
@@ -176,13 +176,13 @@ class ProgramController extends Controller
                 //舊約
                 $program = BibleProgram::find($id);
                 if (is_null($page)) {
-                    $programs = BibleProgram::where('categories', $program->categories)
+                    $programs = BibleProgram::with('category')->where('categories', $program->categories)
                         ->get();
                     ProgramsBibleCollection::wrap('list');
 
                     return new ProgramsBibleCollection($programs);
                 } else {
-                    $programs = BibleProgram::where('categories', $program->categories)
+                    $programs = BibleProgram::with('category')->where('categories', $program->categories)
                         ->paginate(15);
                     ProgramsCollection::wrap('list');
 
@@ -209,6 +209,16 @@ class ProgramController extends Controller
                         ->orderBy('start_date', 'desc')
                         ->first();
                     if (! is_null($program)) {
+                        $programs[] = $program;
+                    } else {
+                        $program = new Program();
+                        $program->title = '';
+                        $program->sub_title = '';
+                        $program->url = '';
+                        $program->anchor = '';
+                        $program->start_date = '';
+                        $program->end_date = '';
+                        $program->categories = $row->id;
                         $programs[] = $program;
                     }
                 }

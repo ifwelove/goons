@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class ProgramsCollection extends ResourceCollection
 {
     private $pagination;
+    private $programName;
 
     public function __construct($resource)
     {
@@ -14,7 +15,7 @@ class ProgramsCollection extends ResourceCollection
             'page'  => $resource->currentPage(),
             'totalPage'  => $resource->lastPage(),
         ];
-
+        $this->programName = $resource->first()->toArray()['category']['title'];
         $resource = $resource->getCollection();
 
         parent::__construct($resource);
@@ -36,6 +37,7 @@ class ProgramsCollection extends ResourceCollection
         return [
             'page'  => $this->pagination['page'],
             'totalPage'  => $this->pagination['totalPage'],
+            'programName'  => $this->programName,
             'sysCode' => 200,
             'sysMsg'  => ""
         ];
