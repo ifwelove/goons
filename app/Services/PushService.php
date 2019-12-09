@@ -53,28 +53,28 @@ class PushService
 
     public function pushStore($request)
     {
-        switch ($request->get('firstClase')) {
+        switch ($request->get('firstClass')) {
             case 'A':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
-                    'secClase'   =>  $request->get('secClase', ''),
+                    'firstClass' => $request->get('firstClass'),
+                    'secClass'   =>  $request->get('secClass', ''),
                 ];
                 break;
             case 'B':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
+                    'firstClass' => $request->get('firstClass'),
                 ];
                 break;
             case 'C':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
+                    'firstClass' => $request->get('firstClass'),
                 ];
                 break;
             case 'D':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
-                    'secClase'   => $request->get('secClase', ''),
-                    'lastClase'   => $request->get('lastClase', ''),
+                    'firstClass' => $request->get('firstClass'),
+                    'secClass'   => $request->get('secClass', ''),
+                    'lastClass'   => $request->get('lastClass', ''),
                 ];
                 break;
 
@@ -99,28 +99,28 @@ class PushService
 
     public function pushUpdate($id, $request)
     {
-        switch ($request->get('firstClase')) {
+        switch ($request->get('firstClass')) {
             case 'A':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
-                    'secClase'   =>  $request->get('secClase', ''),
+                    'firstClass' => $request->get('firstClass'),
+                    'secClass'   =>  $request->get('secClass', ''),
                 ];
                 break;
             case 'B':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
+                    'firstClass' => $request->get('firstClass'),
                 ];
                 break;
             case 'C':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
+                    'firstClass' => $request->get('firstClass'),
                 ];
                 break;
             case 'D':
                 $data            = [
-                    'firstClase' => $request->get('firstClase'),
-                    'secClase'   => $request->get('secClase', ''),
-                    'lastClase'   => $request->get('lastClase', ''),
+                    'firstClass' => $request->get('firstClass'),
+                    'secClass'   => $request->get('secClass', ''),
+                    'lastClass'   => $request->get('lastClass', ''),
                 ];
                 break;
 

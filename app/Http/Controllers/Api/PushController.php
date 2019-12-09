@@ -87,15 +87,15 @@ class PushController extends Controller
         $newCategories = BibleNewCategory::select('title', 'id')
             ->get();
         $push          = $this->pushService->pushFind($id);
-        $secClaseData  = [
+        $secClassData  = [
                 'B' => ['title' => '新約'],
                 'C' => ['title' => '舊約'],
                 'A' => ['title' => '節目']
             ] + $news->toArray();
         return response()->json([
-            'firstClase' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
-            'secClase'   => $secClaseData,
-            'lastClase'  => [
+            'firstClass' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
+            'secClass'   => $secClassData,
+            'lastClass'  => [
                 'B' => $newCategories,
                 'C' => $oldCategories,
                 'A' => $categories
@@ -117,15 +117,15 @@ class PushController extends Controller
             ->get();
         $newCategories = BibleNewCategory::select('title', 'id')
             ->get();
-        $secClaseData  = [
+        $secClassData  = [
                 'B' => ['title' => '新約'],
                 'C' => ['title' => '舊約'],
                 'A' => ['title' => '節目']
             ] + $news->toArray();
         return response()->json([
-            'firstClase' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
-            'secClase'   => $secClaseData,
-            'lastClase'  => [
+            'firstClass' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
+            'secClass'   => $secClassData,
+            'lastClass'  => [
                 'B' => $newCategories,
                 'C' => $oldCategories,
                 'A' => $categories
