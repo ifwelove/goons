@@ -23,25 +23,28 @@
     var URL = document.location.toString();
     var useragent = navigator.userAgent;
     useragent = useragent.toLowerCase();
+    {{--setTimeout(function () {--}}
+    {{--    window.location.replace("https://febctw.url.tw/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}");--}}
+    {{--}, 3000);--}}
     if (useragent.indexOf('iphone') != -1) {
-        setTimeout(function () {
-            window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
-        }, 3000);
+        // setTimeout(function () {
+        //     window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
+        // }, 3000);
     } else if (useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1) {
-        setTimeout(function () {
-            window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
-        }, 3000);
+        // setTimeout(function () {
+        //     window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
+        // }, 3000);
     } else if (useragent.indexOf('android') != -1) {
-        setTimeout(function () {
-            window.location.replace("market://details?id=tw.com.taishinbank.ccapp");
-        }, 3000);
+        // setTimeout(function () {
+        //     window.location.replace("market://details?id=tw.com.taishinbank.ccapp");
+        // }, 3000);
     } else {
         // PC
     }
 </script>
 <body>
-<a href="{{ config('app.url') }}/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">點擊</a>
-<a href="{{ config('app.url') }}/share/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">點擊</a>
+<a href="https://febctw.url.tw/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">點擊</a>
+<a href="https://febctw.url.tw/share/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}">點擊</a>
 </body>
 
 </html>
