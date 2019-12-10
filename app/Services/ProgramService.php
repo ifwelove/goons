@@ -50,6 +50,11 @@ class ProgramService
     public function programUpdate($id, $request)
     {
         $program = Program::findOrFail($id);
+        if($program->url != $request->get('url', '')){
+            $program->duration = null;
+            $program->save();
+        }
+        $program = Program::findOrFail($id);
         $program->update($request->all());
 
         return true;
