@@ -61,7 +61,7 @@ class PushController extends Controller
      */
     public function edit($id)
     {
-        return view('pushs.edit');
+        return view('pushs.edit', ['id' => $id]);
     }
 
     /**
