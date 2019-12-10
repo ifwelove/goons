@@ -26,7 +26,7 @@ $factory->define(Push::class, function (Faker $faker) {
         'title' => Str::random(20),
         'sub_title' => Str::random(100),
         'receiveNoti' => 0,
-        'url' => '{"firstClase":"D","secClase":"B","lastClase":"2"}',
+        'url' => '{"firstClass":"D","secClass":"B","lastClass":"2"}',
     ];
 
     return $result;
