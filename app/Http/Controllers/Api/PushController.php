@@ -75,7 +75,7 @@ class PushController extends Controller
 
     public function edit(EditRequest $request, $id)
     {
-        $news          = News::select('title', 'id')
+        $news          = News::select('title', 'id', 'start_date', 'end_date')
             ->where('start_date', '<=', Carbon::now())
             ->where('end_date', '>=', Carbon::now())
             ->get();
@@ -106,7 +106,7 @@ class PushController extends Controller
 
     public function add(Request $request)
     {
-        $news          = News::select('title', 'id')
+        $news          = News::select('title', 'id', 'start_date', 'end_date')
             ->where('start_date', '<=', Carbon::now())
             ->where('end_date', '>=', Carbon::now())
             ->get();

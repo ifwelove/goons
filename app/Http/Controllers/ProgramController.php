@@ -228,8 +228,7 @@ class ProgramController extends Controller
                 $categories = BibleNewCategory::orderBy('sort')
                     ->get();
                 foreach ($categories as $row) {
-                    $program = BibleNewProgram::with('category')
-                        ->where('categories', $row->id)
+                    $program = BibleNewProgram::where('categories', $row->id)
                         ->first();
                     if (! is_null($program)) {
                         $programs[] = $program;
@@ -241,8 +240,7 @@ class ProgramController extends Controller
                 $categories = BibleCategory::orderBy('sort')
                     ->get();
                 foreach ($categories as $row) {
-                    $program = BibleProgram::with('category')
-                        ->where('categories', $row->id)
+                    $program = BibleProgram::where('categories', $row->id)
                         ->first();
                     if (! is_null($program)) {
                         $programs[] = $program;
