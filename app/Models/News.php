@@ -23,14 +23,14 @@ class News extends Model
 
     public function getStatusAttribute()
     {
-        if (Carbon::now() > $this->end_date) {
-            return '已下架';
-        }
         if (Carbon::now() >= $this->start_date && Carbon::now() <= $this->end_date) {
             return '已上架';
         }
         if (Carbon::now() <= $this->start_date) {
             return '預約中';
+        }
+        if (Carbon::now() > $this->end_date) {
+            return '已下架';
         }
     }
 
