@@ -16,6 +16,20 @@ class Programs extends JsonResource
      */
     public function toArray($request)
     {
+        $text = '';
+        $type = $request->programType;
+        switch ($type) {
+            case 0:
+                $text = '';
+                break;
+            case 1:
+                $text = 'n';
+                break;
+            case 2:
+                $text = 'o';
+                break;
+        }
+
         return [
             'id'        => (string) $this->id,
             'title'     => $this->title,
@@ -25,7 +39,7 @@ class Programs extends JsonResource
             'date'      => Carbon::create($this->start_date)->timestamp,
             'length'    => is_null($this->duration) ? "" : $this->duration,
             'playerURL' => str_replace(' ', '%20', str_replace('s//o', 's/o', $this->url)),
-            'shareURL'  => config('app.link_url') . '/' . $request->programType . '/' . $this->categories . '/' . $this->id,
+            'shareURL'  => config('app.link_url') . '/' . $request->programType . '/' . $this->categories . '/' . $text . $this->id,
             'shareText' => $this->title . '一起來收聽吧',
         ];
     }
