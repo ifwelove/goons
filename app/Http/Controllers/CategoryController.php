@@ -91,9 +91,10 @@ class CategoryController extends Controller
 
     public function programDescriptionApi(Request $request)
     {
-        $input = $request->only(['programID', 'programType']);
+        $input = $request->only(['programID', 'programType', 'categoryId']);
         $id = $input['programID'];
         $type = $input['programType'];
+        $categoryId = $input['categoryId'];
         $category = Category::find($id);
         switch ($type){
             case 0:
@@ -108,17 +109,29 @@ class CategoryController extends Controller
             case 0:
                 //節目
                 $program = Program::find($id);
-                $category = Category::find($program->categories);
+                if (is_null($program)) {
+                    $category = Category::find($categoryId);
+                } else {
+                    $category = Category::find($program->categories);
+                }
                 break;
             case 1:
                 //新約
                 $program = BibleNewProgram::find($id);
-                $category = BibleNewCategory::find($program->categories);
+                if (is_null($program)) {
+                    $category = BibleNewCategory::find($categoryId);
+                } else {
+                    $category = BibleNewCategory::find($program->categories);
+                }
                 break;
             case 2:
                 //舊約
                 $program = BibleProgram::find($id);
-                $category = BibleCategory::find($program->categories);
+                if (is_null($program)) {
+                    $category = BibleCategory::find($categoryId);
+                } else {
+                    $category = BibleCategory::find($program->categories);
+                }
                 break;
         };
         CategoryResource::withoutWrapping();

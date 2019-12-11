@@ -52,7 +52,7 @@ class PushController extends Controller
     {
         $message = [
             'title.max'          => '標題限制20字',
-            'title.required'     => '標題為必填',
+//            'title.required'     => '標題為必填',
             'sub_title.max'      => '推播內容限制100字',
             'sub_title.required' => '推播內容為必填',
             //            'url.required'       => '跳轉位址為必填',
@@ -61,7 +61,7 @@ class PushController extends Controller
             //            'start_date.date'     => '指定上架日期格式錯誤',
         ];
         $this->validate($request, [
-            'title'      => 'required|max:20',
+//            'title'      => 'required|max:20',
             'sub_title'  => 'required|max:100',
             'status'     => 'required',
             //            'url'        => 'required',
@@ -92,6 +92,7 @@ class PushController extends Controller
                 'C' => ['title' => '舊約'],
                 'A' => ['title' => '節目']
             ] + $news->toArray();
+
         return response()->json([
             'firstClass' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
             'secClass'   => $secClassData,
@@ -122,6 +123,7 @@ class PushController extends Controller
                 'C' => ['title' => '舊約'],
                 'A' => ['title' => '節目']
             ] + $news->toArray();
+
         return response()->json([
             'firstClass' => ['D' => '音頻', 'A' => '最新消息', 'B' => '聯絡我們', 'C' => '首頁'],
             'secClass'   => $secClassData,
@@ -138,7 +140,7 @@ class PushController extends Controller
     {
         $message = [
             'title.max'          => '標題限制20字',
-            'title.required'     => '標題為必填',
+//            'title.required'     => '標題為必填',
             'sub_title.max'      => '推播內容限制100字',
             'sub_title.required' => '推播內容為必填',
             'status.required'    => '推播時間為必填',
@@ -147,7 +149,7 @@ class PushController extends Controller
             //            'start_date.date'     => '指定上架日期格式錯誤',
         ];
         $this->validate($request, [
-            'title'      => 'required|max:20',
+//            'title'      => 'required|max:20',
             'sub_title'  => 'required|max:100',
             'status'     => 'required',
             //            'url'        => 'required',

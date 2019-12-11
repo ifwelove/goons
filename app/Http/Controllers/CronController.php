@@ -23,8 +23,6 @@ class CronController extends Controller
 
     public function mp3()
     {
-        return response()->json();
-
         $program = Program::whereNull('duration')
             ->first();
         if (is_null($program)) {
@@ -53,7 +51,7 @@ class CronController extends Controller
                 unlink($fileLocal);
             }
         }
-        Log::info($program->toArray());
+        Log::info([$program->id]);
 
         return response()->json();
     }
@@ -91,7 +89,7 @@ class CronController extends Controller
         });
         $news->type = 1;
         $news->save();
-        Log::info($news->toArray());
+        Log::info([$news->id]);
 
         return response()->json();
     }
@@ -137,7 +135,7 @@ class CronController extends Controller
         });
         $push->type = 1;
         $push->save();
-        Log::info($push->toArray());
+        Log::info([$push->id]);
 
         return response()->json();
     }
