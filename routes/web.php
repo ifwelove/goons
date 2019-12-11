@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth', 'role:category']], function() {
 
 //Route::get('parser', 'ProgramController@parser');
 Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
-Route::match(['get', 'head'], '{programType}/{categoryId}/{programId}', 'ShareController@show');//分享的靜態頁面
+Route::match(['get', 'head'], '{programType}/{categoryId}/{programId}', 'ShareController@linkShow');//分享的靜態頁面
 Route::match(['get', 'head'], 'share/{programType}/{categoryId}/{programId}', 'ShareController@show');//分享的靜態頁面
 
 Route::match(['get', 'head'], 'cron/mp3', 'CronController@mp3');//將節目音源長度0的做下載擷取長度
