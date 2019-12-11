@@ -21,17 +21,20 @@ class ShareController extends Controller
                 //新約
                 $program = BibleNewProgram::with('category')
                     ->find($programId);
+                $programId = 'n' . $programId;
                 break;
             case 2:
                 //舊約
                 $program = BibleProgram::with('category')
                     ->find($programId);
+                $programId = 'o' . $programId;
                 break;
         };
 
-        return view('share.link_show')->with([
+        return view('share.show')->with([
                 'programType' => $programType,
                 'categoryId'  => $categoryId,
+                'programId'  => $programId,
                 'program'     => $program->toArray()
             ]
 
@@ -50,17 +53,20 @@ class ShareController extends Controller
                 //新約
                 $program = BibleNewProgram::with('category')
                     ->find($programId);
+                $programId = 'n' . $programId;
                 break;
             case 2:
                 //舊約
                 $program = BibleProgram::with('category')
                     ->find($programId);
+                $programId = 'o' . $programId;
                 break;
         };
 
         return view('share.show')->with([
                 'programType' => $programType,
                 'categoryId'  => $categoryId,
+                'programId'  => $programId,
                 'program'     => $program->toArray()
             ]
 
