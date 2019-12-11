@@ -2069,6 +2069,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2368,6 +2372,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2405,14 +2410,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     isEmpty: function isEmpty() {
-      var validateForm = _objectSpread({}, this.form); // 因為立即發布不需要填時間
+      var _this = this;
 
+      var requiedFields = ['sub_title', 'status', 'firstClass'];
 
-      if (validateForm.status === 1) {
-        delete validateForm.start_date;
+      if (this.form.status !== 1) {
+        requiedFields.push('start_date');
       }
 
-      return Object.values(validateForm).some(function (v) {
+      return requiedFields.map(function (field) {
+        return _this.form[field];
+      }).some(function (v) {
         return v === '';
       });
     },
@@ -2428,7 +2436,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getPushsOptions();
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     this.$nextTick(function () {
       $('#datepicker_start').datetimepicker({
@@ -2437,7 +2445,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         startDate: new Date()
       });
       $('#datepicker_start').on('changeDate', function () {
-        _this.form.start_date = $('#datepicker_start').datetimepicker('getFormattedDate');
+        _this2.form.start_date = $('#datepicker_start').datetimepicker('getFormattedDate');
       });
     });
   },
@@ -2448,7 +2456,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     getPushs: function getPushs() {
-      var _this2 = this;
+      var _this3 = this;
 
       var uri = "/api/pushs/".concat(this.id, "/edit");
       _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(uri).then(function (res) {
@@ -2468,7 +2476,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         $('#firstClass').val(firstClass);
         $('#secClass').val(secClass);
         $('#lastClass').val(lastClass);
-        _this2.form = _objectSpread({}, _this2.form, {
+        _this3.form = _objectSpread({}, _this3.form, {
           title: title,
           sub_title: sub_title,
           status: status,
@@ -2480,7 +2488,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     getPushsOptions: function getPushsOptions() {
-      var _this3 = this;
+      var _this4 = this;
 
       var uri = "/api/pushs/options";
       _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(uri).then(function (res) {
@@ -2488,9 +2496,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             firstClass = _res$data.firstClass,
             secClass = _res$data.secClass,
             lastClass = _res$data.lastClass;
-        _this3.options.firstClass = firstClass;
-        _this3.options.secClass = secClass;
-        _this3.options.lastClass = lastClass;
+        _this4.options.firstClass = firstClass;
+        _this4.options.secClass = secClass;
+        _this4.options.lastClass = lastClass;
         $('.my-select').selectpicker();
       });
     },
@@ -2562,10 +2570,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     handleDelete: function handleDelete() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.deleteConfirm().then(function () {
-        var uri = "/api/pushs/".concat(_this4.id);
+        var uri = "/api/pushs/".concat(_this5.id);
         _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](uri).then(function () {
           Swal.fire({
             title: '推播已刪除'
@@ -25154,23 +25162,40 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.handleOpenRecord(pushesItem.id)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    推播紀錄\n                                  "
+                            pushesItem.type === 0
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-light btn-circle btn-icon",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleEdit(pushesItem.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-pen" })]
                                 )
-                              ]
-                            )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleOpenRecord(
+                                          pushesItem.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    推播紀錄\n                                  "
+                                    )
+                                  ]
+                                )
                           ])
                         ])
                       }),
@@ -25322,9 +25347,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("推播內容：")
-                ]),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c("textarea", {
@@ -25356,9 +25379,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("跳轉位址：")
-                ]),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c(
@@ -25508,9 +25529,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("推播時間：\n\t\t\t\t\t\t\t")
-                ]),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
                   _c("div", { staticClass: "kt-radio-inline" }, [
@@ -25606,7 +25625,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(1)
+                            _vm._m(4)
                           ])
                         ]),
                         _vm._v(" "),
@@ -25735,6 +25754,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "breadcrumb-item" }, [
       _c("a", { attrs: { href: "/pushs" } }, [_vm._v("推播")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("推播內容：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("跳轉位址：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("推播時間：")
     ])
   },
   function() {

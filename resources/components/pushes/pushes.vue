@@ -101,11 +101,15 @@
 																	<div>{{ pushesItem.last_class }}</div>
 																</td>
                                 <td>
-																	<!-- <button type="button" class="btn btn-light btn-circle btn-icon"
-                                    @click="handleEdit(pushesItem.id)">
-                                    <i class="fa fa-pen"></i>
-                                  </button> -->
-																	<button type="button" class="btn btn-primary"
+																	<button
+																		v-if="pushesItem.type === 0"
+																		type="button" class="btn btn-light btn-circle btn-icon"
+																		@click="handleEdit(pushesItem.id)">
+																		<i class="fa fa-pen"></i>
+																	</button>
+																	<button
+																		v-else
+																		type="button" class="btn btn-primary"
                                     @click="handleOpenRecord(pushesItem.id)">
                                     推播紀錄
                                   </button>

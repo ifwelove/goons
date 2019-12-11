@@ -21,7 +21,8 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">推播內容：</label>
+              <label class="col-lg-3 col-form-label">
+								<span class="text-danger">*</span>推播內容：</label>
               <div class="col-lg-6">
 								<textarea class="form-control" placeholder="限100字" maxlength="100"
                   v-model="form.sub_title" required></textarea>
@@ -29,7 +30,8 @@
             </div>
 
 						<div class="form-group row">
-              <label class="col-lg-3 col-form-label">跳轉位址：</label>
+              <label class="col-lg-3 col-form-label">
+								<span class="text-danger">*</span>跳轉位址：</label>
               <div class="col-lg-6">
 								<select id="firstClass" class="my-select selectpicker w-auto mr-2"
 									title="請先選擇區域"
@@ -72,8 +74,7 @@
             </div>
 
 						<div class="form-group row">
-              <label class="col-lg-3 col-form-label">推播時間：
-							</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>推播時間：</label>
               <div class="col-6">
 								<div class="kt-radio-inline">
 									<label class="kt-radio">
@@ -195,15 +196,15 @@ export default {
 
   computed: {
     isEmpty () {
-			const validateForm = {
-				...this.form
+			const requiedFields = ['sub_title', 'status', 'firstClass']
+
+			if (this.form.status !== 1) {
+				requiedFields.push('start_date')
 			}
 
-			// 因為立即發布不需要填時間
-			if (validateForm.status === 1) {
-				delete validateForm.start_date
-			}
-      return Object.values(validateForm).some(v => v === '')
+			return requiedFields
+				.map(field => this.form[field])
+				.some(v => v === '')
 		},
 
 		lastClassOptions () {
