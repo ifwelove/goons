@@ -11,7 +11,6 @@
                           <input type="text"
                             class="form-control"
 														id="datepicker"
-                            v-model="daterange"
                             placeholder="請選擇日期"
                           />
                           <div class="input-group-append">
@@ -23,7 +22,7 @@
 
 												<div class="kt-input-icon kt-input-icon--right w-auto mr-2">
 													<input type="text" class="form-control" placeholder="搜尋標題、消息內容" id="generalSearch"
-														v-model="filters.title">
+														v-model="filters.keyword">
 													<span class="kt-input-icon__icon kt-input-icon__icon--right">
 														<span><i class="fa fa-search"></i></span>
 													</span>
@@ -102,9 +101,17 @@
 																	<div>{{ pushesItem.last_class }}</div>
 																</td>
                                 <td>
-																	<button type="button" class="btn btn-light btn-circle btn-icon"
-                                    @click="handleEdit(newsItem.id)">
-                                    <i class="fa fa-pen"></i>
+																	<button
+																		v-if="pushesItem.type === 0"
+																		type="button" class="btn btn-light btn-circle btn-icon"
+																		@click="handleEdit(pushesItem.id)">
+																		<i class="fa fa-pen"></i>
+																	</button>
+																	<button
+																		v-else
+																		type="button" class="btn btn-primary"
+                                    @click="handleOpenRecord(pushesItem.id)">
+                                    推播紀錄
                                   </button>
                                 </td>
                               </tr>
@@ -142,13 +149,12 @@ export default {
     return {
 			pushes: [],
       status: [],
-      daterange: null,
       filters: {
 				status: '',
-				title: '',
+				keyword: '',
         page: '',
         perPage: '',
-        date: ''
+        start_date: ''
       },
       pagination: {
         from: null,
@@ -168,9 +174,8 @@ export default {
     $('#datepicker').datepicker({
 			format: "yyyy/mm/dd",
 			autoclose: true
-		}).on('changeDate', (e) => {
-			console.log(e)
-      this.filters.date = format(new Date(e.date), 'yyyy/MM/dd')
+		}).on('changeDate', e => {
+      this.filters.start_date = format(new Date(e.date), 'yyyy-MM-dd')
     });
 
   },
@@ -217,7 +222,36 @@ export default {
 
     handleEdit (id) {
       location.assign(location.origin + `/pushs/${id}/edit`)
-    },
+		},
+
+		handleOpenRecord (id) {
+
+			const push = this.pushes.find(e => e.id === id)
+
+			Swal.fire({
+				html:
+					`<div style="display: flex;">
+						<span>標題：</span>${push.title}
+					</div>
+
+					<div style="display: flex; align-items: center;">
+						<span>推播時間：</span> ${format(new Date(push.start_date), 'yyyy/MM/dd hh:mm')}
+						<span class="badge badge-pill badge-success" style="margin-left: 12px;">${push.type === 1 ? '已發佈' : '預約中'}</span>
+					</div>
+
+					<div style="display: flex;">
+						<span>跳轉位址：</span>
+						<div>${push.first_class}</div>
+						<div>${push.sec_class}</div>
+						<div>${push.last_class}</div>
+					</div>
+
+					<div style="display: flex;">
+						<span>推播內容：</span>${push.sub_title}
+					</div>`,
+        confirmButtonText: '返回'
+      })
+		},
 
     handleSearch () {
       this.getPushes()
@@ -227,15 +261,13 @@ export default {
 		handleResetSearch () {
       this.filters = {
         status: '',
-				title: '',
+				keyword: '',
         page: '',
         perPage: '',
-        start_date: '',
-        end_date: ''
+        start_date: ''
       }
-      this.daterange = null
 
-      $('.my-select').selectpicker('val', '');
+      $('#datepicker').datepicker('update', '');
       this.getPushes()
 		},
 

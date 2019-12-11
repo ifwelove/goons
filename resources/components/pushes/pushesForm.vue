@@ -21,7 +21,8 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">推播內容：</label>
+              <label class="col-lg-3 col-form-label">
+								<span class="text-danger">*</span>推播內容：</label>
               <div class="col-lg-6">
 								<textarea class="form-control" placeholder="限100字" maxlength="100"
                   v-model="form.sub_title" required></textarea>
@@ -29,7 +30,8 @@
             </div>
 
 						<div class="form-group row">
-              <label class="col-lg-3 col-form-label">跳轉位址：</label>
+              <label class="col-lg-3 col-form-label">
+								<span class="text-danger">*</span>跳轉位址：</label>
               <div class="col-lg-6">
 								<select id="firstClass" class="my-select selectpicker w-auto mr-2"
 									title="請先選擇區域"
@@ -72,8 +74,7 @@
             </div>
 
 						<div class="form-group row">
-              <label class="col-lg-3 col-form-label">推播時間：
-							</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>推播時間：</label>
               <div class="col-6">
 								<div class="kt-radio-inline">
 									<label class="kt-radio">
@@ -134,7 +135,9 @@
                         aria-hidden="true"></span>
                         新增</button>
                     <button v-else type="button" class="btn btn-success"
-                      @click="handleSave">
+                      @click="handleSave"
+											:class="{'disabled': isEmpty}"
+                      :disabled="isEmpty">
                       <span
                         :class="{'spinner-border spinner-border-sm': isSubmitting}"
                         role="status"
@@ -193,15 +196,15 @@ export default {
 
   computed: {
     isEmpty () {
-			const validateForm = {
-				...this.form
+			const requiedFields = ['sub_title', 'status', 'firstClass']
+
+			if (this.form.status !== 1) {
+				requiedFields.push('start_date')
 			}
 
-			// 因為立即發布不需要填時間
-			if (validateForm.status === 1) {
-				delete validateForm.start_date
-			}
-      return Object.values(validateForm).some(v => v === '')
+			return requiedFields
+				.map(field => this.form[field])
+				.some(v => v === '')
 		},
 
 		lastClassOptions () {
@@ -235,10 +238,10 @@ export default {
   },
 
 	updated () {
+		console.log('updated')
+
 		$('.my-select').selectpicker();
-		$('#firstClass').selectpicker('render')
-		$('#secClass').selectpicker('render')
-		$('#lastClass').selectpicker('render')
+		$('.selectpicker').selectpicker('refresh');
 	},
 
   methods: {
@@ -256,8 +259,6 @@ export default {
 				console.log(JSON.parse(url))
 
 				const { firstClass, secClass, lastClass } = JSON.parse(url)
-
-				console.log(firstClass)
 
 				$('#firstClass').val(firstClass);
 				$('#secClass').val(secClass);
@@ -363,7 +364,7 @@ export default {
     deleteConfirm () {
       return new Promise((resolve, reject) => {
         Swal.fire({
-          title: `確定要刪除嗎？若刪除此消息將無法回復。`,
+          title: `確定要刪除嗎？若刪除此推播將無法回復。`,
           showCancelButton: true,
           confirmButtonText: '確定刪除',
           cancelButtonText: '返回',
@@ -383,7 +384,7 @@ export default {
           axios.delete(uri)
           .then(() => {
             Swal.fire({
-              title: '消息已刪除'
+              title: '推播已刪除'
             })
             .then(() => {
               location.assign(location.origin + '/pushs')
