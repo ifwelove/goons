@@ -134,7 +134,9 @@
                         aria-hidden="true"></span>
                         新增</button>
                     <button v-else type="button" class="btn btn-success"
-                      @click="handleSave">
+                      @click="handleSave"
+											:class="{'disabled': isEmpty}"
+                      :disabled="isEmpty">
                       <span
                         :class="{'spinner-border spinner-border-sm': isSubmitting}"
                         role="status"
@@ -235,10 +237,10 @@ export default {
   },
 
 	updated () {
+		console.log('updated')
+
 		$('.my-select').selectpicker();
-		$('#firstClass').selectpicker('render')
-		$('#secClass').selectpicker('render')
-		$('#lastClass').selectpicker('render')
+		$('.selectpicker').selectpicker('refresh');
 	},
 
   methods: {
@@ -256,8 +258,6 @@ export default {
 				console.log(JSON.parse(url))
 
 				const { firstClass, secClass, lastClass } = JSON.parse(url)
-
-				console.log(firstClass)
 
 				$('#firstClass').val(firstClass);
 				$('#secClass').val(secClass);
@@ -363,7 +363,7 @@ export default {
     deleteConfirm () {
       return new Promise((resolve, reject) => {
         Swal.fire({
-          title: `確定要刪除嗎？若刪除此消息將無法回復。`,
+          title: `確定要刪除嗎？若刪除此推播將無法回復。`,
           showCancelButton: true,
           confirmButtonText: '確定刪除',
           cancelButtonText: '返回',
@@ -383,7 +383,7 @@ export default {
           axios.delete(uri)
           .then(() => {
             Swal.fire({
-              title: '消息已刪除'
+              title: '推播已刪除'
             })
             .then(() => {
               location.assign(location.origin + '/pushs')
