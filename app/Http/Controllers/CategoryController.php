@@ -91,11 +91,9 @@ class CategoryController extends Controller
 
     public function programDescriptionApi(Request $request)
     {
-        $input = $request->only(['programID', 'programType', 'categoryId']);
+        $input = $request->only(['programID', 'programType']);
         $id = $input['programID'];
         $type = $input['programType'];
-        $categoryId = $input['categoryId'];
-        $category = Category::find($id);
         switch ($type){
             case 0:
                 break;
@@ -108,30 +106,15 @@ class CategoryController extends Controller
         switch ($type) {
             case 0:
                 //節目
-                $program = Program::find($id);
-                if (is_null($program)) {
-                    $category = Category::find($categoryId);
-                } else {
-                    $category = Category::find($program->categories);
-                }
+                $category = Category::find($id);
                 break;
             case 1:
                 //新約
-                $program = BibleNewProgram::find($id);
-                if (is_null($program)) {
-                    $category = BibleNewCategory::find($categoryId);
-                } else {
-                    $category = BibleNewCategory::find($program->categories);
-                }
+                $category = BibleNewCategory::find($id);
                 break;
             case 2:
                 //舊約
-                $program = BibleProgram::find($id);
-                if (is_null($program)) {
-                    $category = BibleCategory::find($categoryId);
-                } else {
-                    $category = BibleCategory::find($program->categories);
-                }
+                $category = BibleCategory::find($id);
                 break;
         };
         CategoryResource::withoutWrapping();
