@@ -253,7 +253,7 @@ export default {
 
     setPage (page) {
       this.filters.page = page
-      this.getPrograms()
+      this.getNews()
     }
   }
 
