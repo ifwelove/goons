@@ -31,7 +31,7 @@ class Categories extends JsonResource
         $week     = $weekList[Carbon::create($this->start_date)->dayOfWeek];
         $format   = 'Y/m/d (' . $week . ')';
         $result   = [
-            'id'          => (string) $id,
+            'id'          => (string) $this->category->id,
             'title'       => $this->category->title,
             'subTitle'    => $this->title,
             //            'date'        => $this->start_date,
@@ -39,7 +39,7 @@ class Categories extends JsonResource
             'dateFormat'  => ($this->start_date) != '' ? Carbon::create($this->start_date)
                 ->format($format) : 0,
             'imageURL'    => config('app.url') . $this->category->image,
-            'categoryId'  => (string) $this->category->id,
+//            'categoryId'  => (string) $this->category->id,
             'programType' => $request->programType,
         ];
 
