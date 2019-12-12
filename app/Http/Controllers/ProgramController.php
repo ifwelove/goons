@@ -142,51 +142,84 @@ class ProgramController extends Controller
         switch ($type) {
             case 0:
                 //節目
-                $program = Program::find($id);
                 if (is_null($page)) {
-                    $programs = Program::with('category')->where('categories', $program->categories)
+                    $programs = Program::with('category')->where('categories', $id)
                         ->get();
+                    $category = Category::find($id);
+                    if (!is_null($category)) {
+                        $programName = $category->title;
+                    } else {
+                        $programName = '';
+                    }
                     ProgramsBibleCollection::wrap('list');
 
-                    return new ProgramsBibleCollection($programs);
+                    return new ProgramsBibleCollection($programs, $programName);
                 } else {
-                    $programs = Program::with('category')->where('categories', $program->categories)
+                    $programs = Program::with('category')->where('categories', $id)
                         ->paginate(15);
+                    $category = Category::find($id);
+                    if (!is_null($category)) {
+                        $programName = $category->title;
+                    } else {
+                        $programName = '';
+                    }
                     ProgramsCollection::wrap('list');
 
-                    return new ProgramsCollection($programs);
+                    return new ProgramsCollection($programs, $programName);
                 }
             case 1:
                 //新約
-                $program = BibleNewProgram::find($id);
                 if (is_null($page)) {
-                    $programs = BibleNewProgram::with('category')->where('categories', $program->categories)
+                    $programs = BibleNewProgram::with('category')->where('categories', $id)
                         ->get();
+                    $category = BibleNewCategory::find($id);
+                    if (!is_null($category)) {
+                        $programName = $category->title;
+                    } else {
+                        $programName = '';
+                    }
                     ProgramsBibleCollection::wrap('list');
 
-                    return new ProgramsBibleCollection($programs);
+                    return new ProgramsBibleCollection($programs, $programName);
                 } else {
-                    $programs = BibleNewProgram::with('category')->where('categories', $program->categories)
+                    $programs = BibleNewProgram::with('category')->where('categories', $id)
                         ->paginate(15);
+                    $category = BibleNewCategory::find($id);
+                    if (!is_null($category)) {
+                        $programName = $category->title;
+                    } else {
+                        $programName = '';
+                    }
                     ProgramsCollection::wrap('list');
 
-                    return new ProgramsCollection($programs);
+                    return new ProgramsCollection($programs, $programName);
                 }
             case 2:
                 //舊約
-                $program = BibleProgram::find($id);
                 if (is_null($page)) {
-                    $programs = BibleProgram::with('category')->where('categories', $program->categories)
+                    $programs = BibleProgram::with('category')->where('categories', $id)
                         ->get();
+                    $category = BibleCategory::find($id);
+                    if (!is_null($category)) {
+                        $programName = $category->title;
+                    } else {
+                        $programName = '';
+                    }
                     ProgramsBibleCollection::wrap('list');
 
-                    return new ProgramsBibleCollection($programs);
+                    return new ProgramsBibleCollection($programs, $programName);
                 } else {
-                    $programs = BibleProgram::with('category')->where('categories', $program->categories)
+                    $programs = BibleProgram::with('category')->where('categories', $id)
                         ->paginate(15);
+                    $category = BibleCategory::find($id);
+                    if (!is_null($category)) {
+                        $programName = $category->title;
+                    } else {
+                        $programName = '';
+                    }
                     ProgramsCollection::wrap('list');
 
-                    return new ProgramsCollection($programs);
+                    return new ProgramsCollection($programs, $programName);
                 }
         };
     }

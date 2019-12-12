@@ -21539,7 +21539,7 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.programsList, function(programItem) {
                       return _c("tr", { key: programItem.id }, [
-                        _c("td", [_vm._v(_vm._s(programItem.id))]),
+                        _c("td", [_vm._v(_vm._s(programItem.sort))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(programItem.title))]),
                         _vm._v(" "),

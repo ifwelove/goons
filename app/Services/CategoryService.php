@@ -50,6 +50,7 @@ class CategoryService
         file_put_contents($imageUrl, $contents);
 
         $category->image = $basePath . $image;
+        $category->sort = 999;
         $category->save();
 
         return $category;

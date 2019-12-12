@@ -9,13 +9,13 @@ class ProgramsCollection extends ResourceCollection
     private $pagination;
     private $programName;
 
-    public function __construct($resource)
+    public function __construct($resource, $programName = '')
     {
         $this->pagination = [
             'page'  => $resource->currentPage(),
             'totalPage'  => $resource->lastPage(),
         ];
-        $this->programName = $resource->first()->toArray()['category']['title'];
+        $this->programName = $programName;
         $resource = $resource->getCollection();
 
         parent::__construct($resource);

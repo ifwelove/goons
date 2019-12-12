@@ -67,7 +67,7 @@
                             </thead>
                             <tbody>
                               <tr v-for="programItem in programsList" :key="programItem.id">
-                                <td>{{ programItem.id }}</td>
+                                <td>{{ programItem.sort }}</td>
                                 <td>{{ programItem.title }}</td>
                                 <td>
 																	<img :src="programItem.image" alt="" style="width: 100px; height: 100px; object-fit: cover;">

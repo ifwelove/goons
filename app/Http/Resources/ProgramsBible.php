@@ -31,7 +31,7 @@ class ProgramsBible extends JsonResource
         }
 
         return [
-            'id'        => (string) $this->id,
+            'id'        => (string) $text . $this->id,
             'title'     => $this->title,
             'subTitle'  => $this->sub_title,
             'host'      => $this->anchor,

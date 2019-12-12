@@ -85,10 +85,10 @@
             <div class="kt-form__actions">
               <div class="row">
                 <div class="col-2">
-                  <button v-if="isEdit" class="btn btn-success" @click="handleDelete">刪除</button>
+                  <button v-if="isEdit" type="button" class="btn btn-success" @click="handleDelete">刪除</button>
                 </div>
                 <div class="col-10 text-right">
-                  <button class="btn btn-secondary" @click="handleCancel">取消</button>
+                  <button type="button" class="btn btn-secondary" @click="handleCancel">取消</button>
                   <template>
                     <button v-if="!isEdit"
                       type="button"
