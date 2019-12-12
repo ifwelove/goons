@@ -11,6 +11,15 @@ class ShareController extends Controller
 {
     public function linkShow(Request $request, $programType, $categoryId, $programId)
     {
+        switch ($programType){
+            case 0:
+                break;
+            case 1:
+            case 2:
+            $programId = str_replace('n', '', $programId);
+            $programId = str_replace('o', '', $programId);
+                break;
+        }
         switch ($programType) {
             case 0:
                 //節目
@@ -31,7 +40,7 @@ class ShareController extends Controller
                 break;
         };
 
-        return view('share.show')->with([
+        return view('share.link_show')->with([
                 'programType' => $programType,
                 'categoryId'  => $categoryId,
                 'programId'  => $programId,
@@ -43,6 +52,15 @@ class ShareController extends Controller
 
     public function show(Request $request, $programType, $categoryId, $programId)
     {
+        switch ($programType){
+            case 0:
+                break;
+            case 1:
+            case 2:
+                $programId = str_replace('n', '', $programId);
+                $programId = str_replace('o', '', $programId);
+                break;
+        }
         switch ($programType) {
             case 0:
                 //節目

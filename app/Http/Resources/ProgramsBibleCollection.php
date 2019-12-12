@@ -8,10 +8,9 @@ class ProgramsBibleCollection extends ResourceCollection
 {
     private $programName;
 
-    public function __construct($resource)
+    public function __construct($resource, $programName = '')
     {
-        $this->programName = $resource->first()
-            ->toArray()['category']['title'];
+        $this->programName = $programName;
 
         parent::__construct($resource);
     }

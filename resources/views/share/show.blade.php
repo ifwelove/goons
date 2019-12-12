@@ -26,15 +26,15 @@
     if (useragent.indexOf('iphone') != -1) {
         setTimeout(function () {
             window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
-        }, 3000);
+        }, 10000);
     } else if (useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1) {
         setTimeout(function () {
             window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
-        }, 3000);
+        }, 10000);
     } else if (useragent.indexOf('android') != -1) {
         setTimeout(function () {
             window.location.replace("market://details?id=tw.com.taishinbank.ccapp");
-        }, 3000);
+        }, 10000);
     } else {
         // PC
     }
