@@ -21950,6 +21950,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-success",
+                              attrs: { type: "button" },
                               on: { click: _vm.handleDelete }
                             },
                             [_vm._v("刪除")]
@@ -21965,6 +21966,7 @@ var render = function() {
                           "button",
                           {
                             staticClass: "btn btn-secondary",
+                            attrs: { type: "button" },
                             on: { click: _vm.handleCancel }
                           },
                           [_vm._v("取消")]

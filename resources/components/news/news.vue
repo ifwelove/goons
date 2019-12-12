@@ -79,7 +79,7 @@
                                 <th>上架日期</th>
                                 <th>下架日期</th>
                                 <th>標題</th>
-                                <th style="width: 30%;">消息內容</th>
+<!--                                <th style="width: 30%;">消息內容</th>-->
                                 <th>自動推播</th>
                                 <th></th>
                             </tr>
@@ -96,9 +96,9 @@
                                 <td>{{ formatDate(newsItem.end_date) }}</td>
                                 <td style="width: 10%">
 																	<div class="truncate-two-line">{{ newsItem.title }}</div>
-                                <td style="width: 30%">
-																	<div class="truncate-two-line" v-html="newsItem.description"></div>
-																</td>
+<!--                                <td style="width: 30%">-->
+<!--																	<div class="truncate-two-line" v-html="newsItem.description"></div>-->
+<!--																</td>-->
                                 <td>
 																	<span v-if="newsItem.status === '已推播'"
 																		class="badge badge-pill badge-primary">{{ newsItem.status }}</span>

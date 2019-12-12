@@ -25041,15 +25041,6 @@ var render = function() {
                               _vm._v(_vm._s(newsItem.title))
                             ])
                           ]),
-                          _c("td", { staticStyle: { width: "30%" } }, [
-                            _c("div", {
-                              staticClass: "truncate-two-line",
-                              domProps: {
-                                innerHTML: _vm._s(newsItem.description)
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
                           _c("td", [
                             newsItem.status === "已推播"
                               ? _c(
@@ -25139,8 +25130,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("標題")]),
         _vm._v(" "),
-        _c("th", { staticStyle: { width: "30%" } }, [_vm._v("消息內容")]),
-        _vm._v(" "),
         _c("th", [_vm._v("自動推播")]),
         _vm._v(" "),
         _c("th")
@@ -25209,7 +25198,7 @@ var render = function() {
                     attrs: {
                       type: "text",
                       placeholder: "限50個字",
-                      maxlength: "30",
+                      maxlength: "50",
                       required: ""
                     },
                     domProps: { value: _vm.form.title },
