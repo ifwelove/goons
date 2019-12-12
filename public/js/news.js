@@ -2183,7 +2183,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     setPage: function setPage(page) {
       this.filters.page = page;
-      this.getPrograms();
+      this.getNews();
     }
   }
 });
