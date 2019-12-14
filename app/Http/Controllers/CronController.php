@@ -79,7 +79,7 @@ class CronController extends Controller
             'firstClass' => "A",
             'secClass'   => (string) $news->id,
         ];
-        Device::chunk(50, function ($devices) use ($option, $notification, $data) {
+        Device::where('DevicereceiveNoti', 1)->chunk(50, function ($devices) use ($option, $notification, $data) {
             foreach ($devices as $device) {
                 $dataBuilder = new PayloadDataBuilder();
                 $dataBuilder->addData($data);
@@ -125,7 +125,7 @@ class CronController extends Controller
         $option       = $optionBuilder->build();
         $notification = $notificationBuilder->build();
         $data         = json_decode($push->url, true);
-        Device::chunk(50, function ($devices) use ($option, $notification, $data) {
+        Device::where('DevicereceiveNoti', 1)->where('DevicereceiveNoti', 1)->chunk(50, function ($devices) use ($option, $notification, $data) {
             foreach ($devices as $device) {
                 $dataBuilder = new PayloadDataBuilder();
                 $dataBuilder->addData($data);
