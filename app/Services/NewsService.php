@@ -12,7 +12,7 @@ class NewsService
     {
     }
 
-    public function newsPaginate($perPage = null, $title = null, $status = null, $start_date = null, $end_date = null)
+    public function newsPaginate($perPage = null, $title = null, $status = null, $start_date = null, $end_date = null, $column = null, $sort = nulls)
     {
         if (is_null($perPage)) {
             $perPage = 10;
@@ -35,17 +35,26 @@ class NewsService
                 $query->where('start_date', '>=', Carbon::now());
                 break;
         }
-        if (!is_null($start_date) && !is_null($end_date)) {
-            $query->where('start_date', '>=', Carbon::parse($start_date)->startOfDay());
-            $query->where('start_date', '<=', Carbon::parse($end_date)->startOfDay());
+        if (! is_null($start_date) && ! is_null($end_date)) {
+            $query->where('start_date', '>=', Carbon::parse($start_date)
+                ->startOfDay());
+            $query->where('start_date', '<=', Carbon::parse($end_date)
+                ->startOfDay());
         } else {
             $query->when(! is_null($start_date), function ($q) use ($start_date) {
-                return $q->where('start_date', '>=', Carbon::parse($start_date)->startOfDay())
-                    ->Where('start_date', '<=', Carbon::parse($start_date)->endOfDay());
+                return $q->where('start_date', '>=', Carbon::parse($start_date)
+                    ->startOfDay())
+                    ->Where('start_date', '<=', Carbon::parse($start_date)
+                        ->endOfDay());
             });
         }
-        $news = $query->orderBy('id', 'desc')
-            ->paginate($perPage);
+        if (is_null($column) or is_null($sort)) {
+            $news = $query->orderBy('id', 'desc')
+                ->paginate($perPage);
+        } else {
+            $news = $query->orderBy($column, $sort)
+                ->paginate($perPage);
+        }
 
         return $news;
     }
