@@ -45,8 +45,16 @@
                             <tr>
                                 <th>#</th>
                                 <th>上下架狀態</th>
-                                <th>上架日期</th>
-                                <th>下架日期</th>
+                                <th style="cursor: pointer;"
+                                  @click="handleSort('start_date')">
+                                  上架日期
+                                  <i class="fa fa-sort"></i>
+                                </th>
+                                <th style="cursor: pointer;"
+                                  @click="handleSort('end_date')">
+                                  下架日期
+                                  <i class="fa fa-sort"></i>
+                                </th>
                                 <th>單集節目名稱</th>
                                 <th>主持人</th>
                                 <th>音檔位址</th>
@@ -116,6 +124,10 @@ export default {
         page: '',
         perPage: ''
       },
+      sort: {
+        sort: '',
+        column: ''
+      },
       pagination: {
         from: null,
         to: null,
@@ -139,7 +151,8 @@ export default {
       const params = {
         category: this.category,
         ...{page: this.filters.page || ''},
-        ...{perPage: this.filters.perPage || ''}
+        ...{perPage: this.filters.perPage || ''},
+        ...this.sort
       }
 
       const uri = `/api/programs`
@@ -194,7 +207,17 @@ export default {
     setPage (page) {
       this.filters.page = page
       this.getPrograms()
-    }
+    },
+
+    handleSort (field) {
+      if (this.sort.column === field) {
+        this.sort.sort = this.sort.sort === 'asc' ? 'desc' : 'asc'
+      } else {
+        this.sort.sort = 'asc'
+      }
+      this.sort.column = field
+      this.getPrograms()
+    },
   }
 
 }
