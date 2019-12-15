@@ -40,7 +40,7 @@ class ProgramsBible extends JsonResource
             'length'    => is_null($this->duration) ? "" : $this->duration,
             'playerURL' => str_replace(' ', '%20', str_replace('s//o', 's/o', $this->url)),
             'shareURL'  => config('app.link_url') . '/' . $request->programType . '/' . $this->categories . '/' . $text . $this->id,
-            'shareText' => $this->title . '一起來收聽吧',
+            'shareText' => '快來聽聽看「' . $this->category->title . ' ' . $this->title . '」請先下載ＡＰＰ，讓您收聽節目笑咪咪～',
         ];
     }
 }
