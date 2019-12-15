@@ -27,8 +27,10 @@ class ProgramController extends Controller
     {
         $perPage    = $request->get('perPage', null);
         $category   = $request->get('category', null);
+        $sort = $request->get('sort', null);
+        $column = $request->get('column', null);
         $categories = Category::all();
-        $programs   = $this->programService->programPaginate($perPage, $category);
+        $programs   = $this->programService->programPaginate($perPage, $category, $column, $sort);
         $programs->appends($request->query())
             ->links();
         $result               = [];

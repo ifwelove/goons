@@ -12,7 +12,7 @@ class NewsService
     {
     }
 
-    public function newsPaginate($perPage = null, $title = null, $status = null, $start_date = null, $end_date = null, $column = null, $sort = nulls)
+    public function newsPaginate($perPage = null, $title = null, $status = null, $start_date = null, $end_date = null, $column = null, $sort = null)
     {
         if (is_null($perPage)) {
             $perPage = 10;
