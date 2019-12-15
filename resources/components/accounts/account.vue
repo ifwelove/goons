@@ -54,13 +54,22 @@
                                 <td>{{ account.name }}</td>
                                 <td>{{ account.email }}</td>
                                 <td>
-                                  <span class="kt-switch">
+                                  <span v-if="account.status == 1" class="kt-switch">
                                     <label style="margin-bottom: 0">
                                     <input
                                       type="checkbox"
-                                      :checked="account.status"
-                                      name=""
+                                      :name="account.id"
+                                      checked
                                       @change="handleToggleStatus(account)">
+                                    <span style="padding: 4px;"></span>
+                                    </label>
+                                  </span>
+                                    <span v-else class="kt-switch">
+                                    <label style="margin-bottom: 0">
+                                    <input
+                                            type="checkbox"
+                                            :name="account.id"
+                                            @change="handleToggleStatus(account)">
                                     <span style="padding: 4px;"></span>
                                     </label>
                                   </span>
@@ -177,9 +186,15 @@ export default {
     },
 
     handleToggleStatus (account) {
-      const toggleStatus = account.status ? 0 : 1
-
+      const toggleStatus = (account.status == 1) ? '0' : '1'
       const uri = `/api/accounts/${account.id}/status`
+        _.map(this.accounts, function (item) {
+            if (account.id == item.id) {
+                item.status = (item.status == 1) ? '0' : '1';
+            }
+
+            return item;
+        });
       axios.put(uri, {
         status: toggleStatus
       })
