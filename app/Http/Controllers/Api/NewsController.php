@@ -27,7 +27,6 @@ class NewsController extends Controller
         $status     = $request->get('status', null);
         $title      = $request->get('title', null);
         $start_date = $request->get('start_date', null);
-        $end_date = $request->get('end_date', null);
         $sort = $request->get('sort', null);
         $column = $request->get('column', null);
         $end_date = $request->get('end_date', null);

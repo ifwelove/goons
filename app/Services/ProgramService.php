@@ -11,7 +11,7 @@ class ProgramService
     {
     }
 
-    public function programPaginate($perPage = null, $category = null)
+    public function programPaginate($perPage = null, $category = null, $column = null, $sort = null)
     {
         if (is_null($perPage)) {
             $perPage = 10;
@@ -20,8 +20,13 @@ class ProgramService
         $query->when(! is_null($category), function ($q) use ($category) {
             return $q->where('categories', $category);
         });
-        $programs = $query->orderBy('id', 'desc')
-            ->paginate($perPage);
+        if (is_null($column) or is_null($sort)) {
+            $programs = $query->orderBy('id', 'desc')
+                ->paginate($perPage);
+        } else {
+            $programs = $query->orderBy($column, $sort)
+                ->paginate($perPage);
+        }
 
         return $programs;
     }
