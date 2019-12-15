@@ -1933,10 +1933,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2051,6 +2059,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: '',
         perPage: ''
       },
+      sort: {
+        sort: '',
+        column: ''
+      },
       pagination: {
         from: null,
         to: null,
@@ -2080,7 +2092,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: this.filters.page || ''
       }, {}, {
         perPage: this.filters.perPage || ''
-      });
+      }, {}, this.sort);
 
       var uri = "/api/programs";
       axios.get(uri, {
@@ -2131,6 +2143,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setPage: function setPage(page) {
       this.filters.page = page;
       this.getPrograms();
+    },
+    handleSort: function handleSort(field) {
+      if (this.sort.column === field) {
+        this.sort.sort = this.sort.sort === 'asc' ? 'desc' : 'asc';
+      } else {
+        this.sort.sort = 'asc';
+      }
+
+      this.sort.column = field;
+      this.getPrograms();
     }
   }
 });
@@ -2151,7 +2173,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/utils/axios */ "./resources/js/utils/axios.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -3709,7 +3731,7 @@ var MILLISECONDS_IN_MINUTE = 60000;
 
 function getTimezoneOffsetInMilliseconds(dirtyDate) {
   var date = new Date(dirtyDate.getTime());
-  var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
+  var baseTimezoneOffset = date.getTimezoneOffset();
   date.setSeconds(0, 0);
   var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
   return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
@@ -4539,7 +4561,6 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  *   see: https://git.io/fxCyr
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `date` must not be Invalid Date
  * @throws {RangeError} `options.locale` must contain `localize` property
  * @throws {RangeError} `options.locale` must contain `formatLong` property
  * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
@@ -24867,7 +24888,57 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "table-responsive" }, [
                 _c("table", { staticClass: "table table-centered mb-0" }, [
-                  _vm._m(0),
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("#")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("上下架狀態")]),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticStyle: { cursor: "pointer" },
+                          on: {
+                            click: function($event) {
+                              return _vm.handleSort("start_date")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                上架日期\n                                "
+                          ),
+                          _c("i", { staticClass: "fa fa-sort" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticStyle: { cursor: "pointer" },
+                          on: {
+                            click: function($event) {
+                              return _vm.handleSort("end_date")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                下架日期\n                                "
+                          ),
+                          _c("i", { staticClass: "fa fa-sort" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("單集節目名稱")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("主持人")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("音檔位址")]),
+                      _vm._v(" "),
+                      _c("th")
+                    ])
+                  ]),
                   _vm._v(" "),
                   _vm.isShowList
                     ? _c(
@@ -24939,32 +25010,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("上下架狀態")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("上架日期")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("下架日期")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("單集節目名稱")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("主持人")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("音檔位址")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37888,7 +37934,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/programs.js */"./resources/js/components/programs.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/programs.js */"./resources/js/components/programs.js");
 
 
 /***/ })

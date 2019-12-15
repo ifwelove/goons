@@ -1933,10 +1933,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -2173,6 +2174,12 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
     setPage: function setPage(page) {
       this.filters.page = page;
       this.getProgramsList();
+    },
+    isTop: function isTop(item) {
+      return item.sort === 1;
+    },
+    isBottom: function isBottom(item) {
+      return item.sort === this.pagination.total;
     }
   }
 });
@@ -2190,7 +2197,7 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 __webpack_require__.r(__webpack_exports__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -21573,7 +21580,8 @@ var render = function() {
                                   staticClass: "btn btn-secondary",
                                   attrs: {
                                     type: "button",
-                                    disabled: _vm.isSearching
+                                    disabled:
+                                      _vm.isSearching || _vm.isTop(programItem)
                                   },
                                   on: {
                                     click: function($event) {
@@ -21590,7 +21598,8 @@ var render = function() {
                                   staticClass: "btn btn-secondary",
                                   attrs: {
                                     type: "button",
-                                    disabled: _vm.isSearching
+                                    disabled:
+                                      _vm.isSearching || _vm.isTop(programItem)
                                   },
                                   on: {
                                     click: function($event) {
@@ -21607,7 +21616,9 @@ var render = function() {
                                   staticClass: "btn btn-secondary",
                                   attrs: {
                                     type: "button",
-                                    disabled: _vm.isSearching
+                                    disabled:
+                                      _vm.isSearching ||
+                                      _vm.isBottom(programItem)
                                   },
                                   on: {
                                     click: function($event) {
@@ -21624,7 +21635,9 @@ var render = function() {
                                   staticClass: "btn btn-secondary",
                                   attrs: {
                                     type: "button",
-                                    disabled: _vm.isSearching
+                                    disabled:
+                                      _vm.isSearching ||
+                                      _vm.isBottom(programItem)
                                   },
                                   on: {
                                     click: function($event) {
@@ -21645,11 +21658,52 @@ var render = function() {
                               { staticStyle: { "margin-bottom": "0" } },
                               [
                                 _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: programItem.status,
+                                      expression: "programItem.status"
+                                    }
+                                  ],
                                   attrs: { type: "checkbox", name: "" },
-                                  domProps: { checked: programItem.status },
+                                  domProps: {
+                                    checked: programItem.status,
+                                    checked: Array.isArray(programItem.status)
+                                      ? _vm._i(programItem.status, null) > -1
+                                      : programItem.status
+                                  },
                                   on: {
                                     click: function($event) {
                                       return _vm.handleToggleStatus(programItem)
+                                    },
+                                    change: function($event) {
+                                      var $$a = programItem.status,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              programItem,
+                                              "status",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              programItem,
+                                              "status",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(programItem, "status", $$c)
+                                      }
                                     }
                                   }
                                 }),
@@ -34473,7 +34527,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
 
 
 /***/ })
