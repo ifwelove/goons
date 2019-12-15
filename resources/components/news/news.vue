@@ -76,8 +76,16 @@
                             <tr>
                                 <th>No.</th>
                                 <th>上下架狀態</th>
-                                <th>上架日期</th>
-                                <th>下架日期</th>
+                                <th style="cursor: pointer;"
+                                  @click="handleSort('start_date')">
+                                  上架日期
+                                  <i class="fa fa-sort"></i>
+                                </th>
+                                <th style="cursor: pointer;"
+                                  @click="handleSort('end_date')">
+                                  下架日期
+                                  <i class="fa fa-sort"></i>
+                                </th>
                                 <th>標題</th>
 <!--                                <th style="width: 30%;">消息內容</th>-->
                                 <th>自動推播</th>
@@ -154,13 +162,17 @@ export default {
         start_date: '',
         end_date: ''
       },
+      sort: {
+        sort: '',
+        column: ''
+      },
       pagination: {
         from: null,
         to: null,
         total: null,
         per_page: null,
         current_page: 1
-      },
+      }
     }
   },
 
@@ -185,7 +197,8 @@ export default {
 
     getNews (isFirst= false) {
       const params = {
-				...this.filters
+        ...this.filters,
+        ...this.sort
       }
 
       const uri = `/api/news`
@@ -240,7 +253,17 @@ export default {
 
       $('.my-select').selectpicker('val', '');
       this.getNews()
-		},
+    },
+
+    handleSort (field) {
+      if (this.sort.column === field) {
+        this.sort.sort = this.sort.sort === 'asc' ? 'desc' : 'asc'
+      } else {
+        this.sort.sort = 'asc'
+      }
+      this.sort.column = field
+      this.getNews()
+    },
 
     handleAddnews () {
       location.assign(location.origin + `/news/create`)

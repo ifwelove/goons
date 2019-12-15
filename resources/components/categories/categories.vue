@@ -76,20 +76,20 @@
                                 <td>
 																	<div class="btn-group" role="group" aria-label="Basic example">
 																		<button type="button" class="btn btn-secondary"
-                                      :disabled="isSearching"
+                                      :disabled="isSearching || isTop(programItem)"
                                       @click="handleSort(programItem, 'top')">置頂</button>
 																		<button type="button" class="btn btn-secondary"
-                                       :disabled="isSearching"
+                                       :disabled="isSearching || isTop(programItem)"
                                       @click="handleSort(programItem, 'add')">
 																			<i class="fas fa-arrow-up"></i>
 																		</button>
 																		<button type="button" class="btn btn-secondary"
-                                       :disabled="isSearching"
+                                       :disabled="isSearching || isBottom(programItem)"
                                       @click="handleSort(programItem, 'sub')">
 																			<i class="fas fa-arrow-down"></i>
 																		</button>
 																		<button type="button" class="btn btn-secondary"
-                                       :disabled="isSearching"
+                                       :disabled="isSearching || isBottom(programItem)"
                                       @click="handleSort(programItem, 'down')">置底</button>
 																	</div>
 																</td>
@@ -98,6 +98,7 @@
                                     <label style="margin-bottom: 0">
                                     <input
                                       type="checkbox"
+                                      v-model="programItem.status"
                                       :checked="programItem.status"
                                       name=""
                                       @click="handleToggleStatus(programItem)">
@@ -246,6 +247,14 @@ export default {
     setPage (page) {
       this.filters.page = page
       this.getProgramsList()
+    },
+
+    isTop (item) {
+      return item.sort === 1
+    },
+
+    isBottom (item) {
+      return item.sort === this.pagination.total
     }
   }
 

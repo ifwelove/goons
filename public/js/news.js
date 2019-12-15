@@ -1933,10 +1933,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2089,6 +2097,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         start_date: '',
         end_date: ''
       },
+      sort: {
+        sort: '',
+        column: ''
+      },
       pagination: {
         from: null,
         to: null,
@@ -2123,7 +2135,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-      var params = _objectSpread({}, this.filters);
+      var params = _objectSpread({}, this.filters, {}, this.sort);
 
       var uri = "/api/news";
       axios.get(uri, {
@@ -2174,6 +2186,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       $('.my-select').selectpicker('val', '');
       this.getNews();
     },
+    handleSort: function handleSort(field) {
+      if (this.sort.column === field) {
+        this.sort.sort = this.sort.sort === 'asc' ? 'desc' : 'asc';
+      } else {
+        this.sort.sort = 'asc';
+      }
+
+      this.sort.column = field;
+      this.getNews();
+    },
     handleAddnews: function handleAddnews() {
       location.assign(location.origin + "/news/create");
     },
@@ -2204,7 +2226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/utils/axios */ "./resources/js/utils/axios.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2376,14 +2398,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
-    $('.summernote').summernote({
-      height: 300,
-      callbacks: {
-        onChange: function onChange(contents, $editable) {
-          _this.form.description = contents;
-        }
-      }
-    });
+    if (!this.isEdit) {
+      this.initEditor();
+    }
+
     this.$nextTick(function () {
       $('#datepicker_start, #datepicker_end').datetimepicker({
         format: "yyyy/mm/dd hh:ii",
@@ -2403,8 +2421,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: {
-    getNews: function getNews() {
+    initEditor: function initEditor() {
       var _this2 = this;
+
+      $('.summernote').summernote({
+        height: 300,
+        popover: {
+          image: []
+        },
+        callbacks: {
+          onChange: function onChange(contents, $editable) {
+            _this2.form.description = contents;
+          }
+        }
+      });
+    },
+    getNews: function getNews() {
+      var _this3 = this;
 
       var uri = "/api/news/".concat(this.id, "/edit");
       _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(uri).then(function (res) {
@@ -2414,14 +2447,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             start_date = _res$data$news.start_date,
             end_date = _res$data$news.end_date,
             title = _res$data$news.title;
-        _this2.form = {
+        _this3.form = {
           auto_push: auto_push,
           description: description,
           start_date: start_date,
           end_date: end_date,
           title: title
         };
-        $('.summernote').summernote('pasteHTML', description);
+        _this3.form.description = description;
+
+        _this3.$nextTick(function () {
+          _this3.initEditor();
+        });
       });
     },
     handleResetDate: function handleResetDate(field) {
@@ -2478,10 +2515,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     handleDelete: function handleDelete() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.deleteConfirm().then(function () {
-        var uri = "/api/news/".concat(_this3.id);
+        var uri = "/api/news/".concat(_this4.id);
         _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](uri).then(function () {
           Swal.fire({
             title: '消息已刪除'
@@ -3733,7 +3770,7 @@ var MILLISECONDS_IN_MINUTE = 60000;
 
 function getTimezoneOffsetInMilliseconds(dirtyDate) {
   var date = new Date(dirtyDate.getTime());
-  var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
+  var baseTimezoneOffset = date.getTimezoneOffset();
   date.setSeconds(0, 0);
   var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
   return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
@@ -4563,7 +4600,6 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  *   see: https://git.io/fxCyr
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `date` must not be Invalid Date
  * @throws {RangeError} `options.locale` must contain `localize` property
  * @throws {RangeError} `options.locale` must contain `formatLong` property
  * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
@@ -24985,7 +25021,55 @@ var render = function() {
                     staticStyle: { "word-break": "break-all" }
                   },
                   [
-                    _vm._m(2),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v("No.")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("上下架狀態")]),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function($event) {
+                                return _vm.handleSort("start_date")
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                  上架日期\n                                  "
+                            ),
+                            _c("i", { staticClass: "fa fa-sort" })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function($event) {
+                                return _vm.handleSort("end_date")
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                  下架日期\n                                  "
+                            ),
+                            _c("i", { staticClass: "fa fa-sort" })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("標題")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("自動推播")]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -25113,28 +25197,6 @@ var staticRenderFns = [
       { staticClass: "kt-input-icon__icon kt-input-icon__icon--right" },
       [_c("span", [_c("i", { staticClass: "fa fa-search" })])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("No.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("上下架狀態")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("上架日期")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("下架日期")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("標題")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("自動推播")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -25383,7 +25445,22 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+                  _vm._v("消息內容：")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-6" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "summernote",
+                      domProps: { innerHTML: _vm._s(_vm.form.description) }
+                    },
+                    [_vm._v(_vm._s(_vm.form.description))]
+                  )
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "kt-portlet__foot" }, [
@@ -25504,20 +25581,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "input-group-append" }, [
       _c("span", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "fa fa-calendar-alt glyphicon-th" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-        _vm._v("消息內容：")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-6" }, [
-        _c("div", { staticClass: "summernote" })
       ])
     ])
   }
@@ -37989,7 +38052,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/news.js */"./resources/js/components/news.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/news.js */"./resources/js/components/news.js");
 
 
 /***/ })

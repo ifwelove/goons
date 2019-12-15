@@ -80,7 +80,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">消息內容：</label>
               <div class="col-lg-6">
-								<div class="summernote"></div>
+								<div class="summernote" v-html="form.description">{{ form.description }}</div>
               </div>
             </div>
           </div>
@@ -168,14 +168,11 @@ export default {
   },
 
   mounted () {
-		$('.summernote').summernote({
-			height: 300,
-			callbacks: {
-				onChange: (contents, $editable) => {
-					this.form.description = contents
-				}
-			}
-		})
+
+    if (!this.isEdit) {
+      this.initEditor()
+    }
+
 
 		this.$nextTick(() => {
 
@@ -203,6 +200,20 @@ export default {
   },
 
   methods: {
+    initEditor () {
+      $('.summernote').summernote({
+        height: 300,
+        popover: {
+          image: []
+        },
+        callbacks: {
+          onChange: (contents, $editable) => {
+            this.form.description = contents
+          }
+        }
+      })
+    },
+
     getNews () {
       const uri = `/api/news/${this.id}/edit`
       axios.get(uri)
@@ -210,8 +221,11 @@ export default {
 				const { auto_push, description, start_date, end_date, title } = res.data.news
 				this.form = {
 					auto_push, description, start_date, end_date, title
-				}
-				$('.summernote').summernote('pasteHTML', description);
+        }
+        this.form.description = description
+        this.$nextTick(() => {
+          this.initEditor()
+        })
       })
     },
 
