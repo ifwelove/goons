@@ -176,11 +176,9 @@ export default {
   },
 
   mounted () {
-
     if (!this.isEdit) {
       this.initEditor()
     }
-
 
 		this.$nextTick(() => {
 
@@ -243,6 +241,10 @@ export default {
 
     handleCreate () {
       this.isSubmitting = true
+
+      if (!this.form.end_date) {
+        this.form.end_date = format(addDays(new Date(this.form.start_date), 365), 'yyyy/MM/dd hh:mm')
+      }
 
       const uri = `/api/news`
       axios.post(uri, {

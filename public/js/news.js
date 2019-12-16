@@ -2073,10 +2073,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -2113,6 +2109,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.getNews(true);
   },
+  updated: function updated() {
+    $('.my-select').selectpicker('refresh');
+  },
   mounted: function mounted() {
     var _this = this;
 
@@ -2145,7 +2144,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (isFirst) {
           _this2.status = data.status;
-          $('.my-select').selectpicker();
         }
 
         _this2.news = data.news.data;
@@ -2471,6 +2469,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     handleCreate: function handleCreate() {
       this.isSubmitting = true;
+
+      if (!this.form.end_date) {
+        this.form.end_date = Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(date_fns_addDays__WEBPACK_IMPORTED_MODULE_1__["default"])(new Date(this.form.start_date), 365), 'yyyy/MM/dd hh:mm');
+      }
+
       var uri = "/api/news";
       _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post(uri, _objectSpread({}, this.form)).then(function () {
         Swal.fire({

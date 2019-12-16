@@ -2103,6 +2103,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.getPushes(true);
   },
+  updated: function updated() {
+    $('.my-select').selectpicker('refresh');
+  },
   mounted: function mounted() {
     var _this = this;
 
@@ -2134,7 +2137,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (isFirst) {
           _this2.status = data.status;
-          $('.my-select').selectpicker();
         }
 
         _this2.pushes = data.pushs.data;
