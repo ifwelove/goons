@@ -88,9 +88,9 @@ class PushController extends Controller
             ->get();
         $push          = $this->pushService->pushFind($id);
         $secClassData  = [
-                'B' => ['title' => '新約'],
-                'C' => ['title' => '舊約'],
-                'A' => ['title' => '節目']
+                'B' => ['title' => '新約', 'id' => 'B'],
+                'C' => ['title' => '舊約', 'id' => 'C'],
+                'A' => ['title' => '節目', 'id' => 'A']
             ] + $news->toArray();
 
         return response()->json([
@@ -119,9 +119,9 @@ class PushController extends Controller
         $newCategories = BibleNewCategory::select('title', 'id')
             ->get();
         $secClassData  = [
-                'B' => ['title' => '新約'],
-                'C' => ['title' => '舊約'],
-                'A' => ['title' => '節目']
+                'B' => ['title' => '新約', 'id' => 'B'],
+                'C' => ['title' => '舊約', 'id' => 'C'],
+                'A' => ['title' => '節目', 'id' => 'A']
             ] + $news->toArray();
 
         return response()->json([

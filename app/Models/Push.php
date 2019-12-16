@@ -93,24 +93,21 @@ class Push extends Model
         $text = '';
         switch ($data['secClass']) {
             case 'A':
-                $program = Program::with('category')
-                    ->find($data['lastClass']);
+                $program = Category::find($data['lastClass']);
                 if (!is_null($program)) {
-                    $text    = $program->category->title;
+                    $text    = $program->title;
                 }
                 break;
             case 'B':
-                $program = BibleNewProgram::with('category')
-                    ->find($data['lastClass']);
+                $program = BibleNewCategory::find($data['lastClass']);
                 if (!is_null($program)) {
-                    $text    = $program->category->title;
+                    $text    = $program->title;
                 }
                 break;
             case 'C':
-                $program = BibleProgram::with('category')
-                    ->find($data['lastClass']);
+                $program = BibleCategory::find($data['lastClass']);
                 if (!is_null($program)) {
-                    $text    = $program->category->title;
+                    $text    = $program->title;
                 }
                 break;
         }

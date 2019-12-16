@@ -39,7 +39,7 @@
 									<option
 										v-for="(item, index) in options.firstClass"
 										:key="index"
-										:value="item.id"
+										:value="index"
 										>{{ item }}
 									</option>
 								</select>
