@@ -47,7 +47,7 @@
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">指定上架日期：</label>
-              <div class="col-6">
+              <div class="col-10 col-lg-6">
                 <div class="input-group date">
                   <input type="text" class="form-control" readonly=""
                     v-model="form.start_date"
@@ -60,14 +60,14 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-2 col-lg-3">
                 <button type="button" class="btn btn-success"
                   @click="handleResetDate('start_date')">清除</button>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">指定下架日期：</label>
-              <div class="col-6">
+              <div class="col-10 col-lg-6">
                  <div class="input-group date">
                   <input type="text" class="form-control" id="datepicker_end"
                     placeholder="請選擇日期"
@@ -79,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-2 col-lg-3">
                 <button type="button" class="btn btn-success"
                   @click="handleResetDate('end_date')">清除</button>
               </div>

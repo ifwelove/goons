@@ -29,7 +29,7 @@
                       type="button" class="btn btn-primary"
                       @click="handleAddPrograms">新增節目</button>
                 </div>
-                <h2 class="page-title">節目單集列表</h2>
+                <h2 class="page-title">節目內容管理</h2>
             </div>
         </div>
     </div>
@@ -140,6 +140,12 @@ export default {
 
   created () {
     this.getPrograms(true)
+  },
+
+
+  updated () {
+		$('.my-select').selectpicker();
+		$('.my-select').selectpicker('refresh');
   },
 
   methods: {
