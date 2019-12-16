@@ -238,8 +238,6 @@ export default {
   },
 
 	updated () {
-		console.log('updated')
-
 		$('.my-select').selectpicker();
 		$('.selectpicker').selectpicker('refresh');
 	},

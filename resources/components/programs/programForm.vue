@@ -204,7 +204,8 @@ export default {
   },
 
   updated () {
-    $('#selectpicker').selectpicker('render');
+		$('.my-select').selectpicker();
+		$('#selectpicker').selectpicker('refresh');
   },
 
   methods: {
