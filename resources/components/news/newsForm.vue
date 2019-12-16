@@ -157,7 +157,15 @@ export default {
 
   computed: {
     isEmpty () {
-      return Object.values(this.form).some(v => v === '')
+      const requiedFields = [
+        'title',
+				'description',
+				'auto_push',
+				'start_date'
+      ]
+      return requiedFields
+				.map(field => this.form[field])
+				.some(v => v === '')
     }
   },
 

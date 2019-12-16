@@ -1933,7 +1933,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2226,7 +2226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/utils/axios */ "./resources/js/utils/axios.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2385,7 +2385,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     isEmpty: function isEmpty() {
-      return Object.values(this.form).some(function (v) {
+      var _this = this;
+
+      var requiedFields = ['title', 'description', 'auto_push', 'start_date'];
+      return requiedFields.map(function (field) {
+        return _this.form[field];
+      }).some(function (v) {
         return v === '';
       });
     }
@@ -2396,7 +2401,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     if (!this.isEdit) {
       this.initEditor();
@@ -2412,17 +2417,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         startDate: new Date()
       });
       $('#datepicker_start').on('changeDate', function () {
-        _this.form.start_date = $('#datepicker_start').datetimepicker('getFormattedDate');
-        _this.form.end_date = Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(date_fns_addDays__WEBPACK_IMPORTED_MODULE_1__["default"])(new Date(_this.form.start_date), 365), 'yyyy/MM/dd hh:mm');
+        _this2.form.start_date = $('#datepicker_start').datetimepicker('getFormattedDate');
+        _this2.form.end_date = Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(date_fns_addDays__WEBPACK_IMPORTED_MODULE_1__["default"])(new Date(_this2.form.start_date), 365), 'yyyy/MM/dd hh:mm');
       });
       $('#datepicker_end').on('changeDate', function () {
-        _this.form.end_date = $('#datepicker_end').datetimepicker('getFormattedDate');
+        _this2.form.end_date = $('#datepicker_end').datetimepicker('getFormattedDate');
       });
     });
   },
   methods: {
     initEditor: function initEditor() {
-      var _this2 = this;
+      var _this3 = this;
 
       $('.summernote').summernote({
         height: 300,
@@ -2431,13 +2436,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         callbacks: {
           onChange: function onChange(contents, $editable) {
-            _this2.form.description = contents;
+            _this3.form.description = contents;
           }
         }
       });
     },
     getNews: function getNews() {
-      var _this3 = this;
+      var _this4 = this;
 
       var uri = "/api/news/".concat(this.id, "/edit");
       _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(uri).then(function (res) {
@@ -2447,17 +2452,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             start_date = _res$data$news.start_date,
             end_date = _res$data$news.end_date,
             title = _res$data$news.title;
-        _this3.form = {
+        _this4.form = {
           auto_push: auto_push,
           description: description,
           start_date: start_date,
           end_date: end_date,
           title: title
         };
-        _this3.form.description = description;
+        _this4.form.description = description;
 
-        _this3.$nextTick(function () {
-          _this3.initEditor();
+        _this4.$nextTick(function () {
+          _this4.initEditor();
         });
       });
     },
@@ -2515,10 +2520,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     handleDelete: function handleDelete() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.deleteConfirm().then(function () {
-        var uri = "/api/news/".concat(_this4.id);
+        var uri = "/api/news/".concat(_this5.id);
         _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](uri).then(function () {
           Swal.fire({
             title: '消息已刪除'
@@ -3770,7 +3775,7 @@ var MILLISECONDS_IN_MINUTE = 60000;
 
 function getTimezoneOffsetInMilliseconds(dirtyDate) {
   var date = new Date(dirtyDate.getTime());
-  var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
+  var baseTimezoneOffset = date.getTimezoneOffset();
   date.setSeconds(0, 0);
   var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
   return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
@@ -4600,7 +4605,6 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  *   see: https://git.io/fxCyr
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `date` must not be Invalid Date
  * @throws {RangeError} `options.locale` must contain `localize` property
  * @throws {RangeError} `options.locale` must contain `formatLong` property
  * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
@@ -38053,7 +38057,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/news.js */"./resources/js/components/news.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/news.js */"./resources/js/components/news.js");
 
 
 /***/ })

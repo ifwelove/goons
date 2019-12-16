@@ -1933,10 +1933,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2109,8 +2118,17 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       location.assign(location.origin + '/accounts/create');
     },
     handleToggleStatus: function handleToggleStatus(account) {
-      var toggleStatus = account.status ? 0 : 1;
+      var toggleStatus = account.status == 1 ? '0' : '1';
       var uri = "/api/accounts/".concat(account.id, "/status");
+
+      _.map(this.accounts, function (item) {
+        if (account.id == item.id) {
+          item.status = item.status == 1 ? '0' : '1';
+        }
+
+        return item;
+      });
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, {
         status: toggleStatus
       }).then(function (res) {});
@@ -21436,25 +21454,54 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(account.email))]),
                         _vm._v(" "),
                         _c("td", [
-                          _c("span", { staticClass: "kt-switch" }, [
-                            _c(
-                              "label",
-                              { staticStyle: { "margin-bottom": "0" } },
-                              [
-                                _c("input", {
-                                  attrs: { type: "checkbox", name: "" },
-                                  domProps: { checked: account.status },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.handleToggleStatus(account)
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("span", { staticStyle: { padding: "4px" } })
-                              ]
-                            )
-                          ])
+                          account.status == 1
+                            ? _c("span", { staticClass: "kt-switch" }, [
+                                _c(
+                                  "label",
+                                  { staticStyle: { "margin-bottom": "0" } },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "checkbox",
+                                        name: account.id,
+                                        checked: ""
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.handleToggleStatus(account)
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticStyle: { padding: "4px" }
+                                    })
+                                  ]
+                                )
+                              ])
+                            : _c("span", { staticClass: "kt-switch" }, [
+                                _c(
+                                  "label",
+                                  { staticStyle: { "margin-bottom": "0" } },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "checkbox",
+                                        name: account.id
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.handleToggleStatus(account)
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticStyle: { padding: "4px" }
+                                    })
+                                  ]
+                                )
+                              ])
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -34500,9 +34547,9 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
-__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
+__webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 
 /***/ })

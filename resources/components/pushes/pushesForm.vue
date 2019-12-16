@@ -38,8 +38,8 @@
 									v-model="form.firstClass">
 									<option
 										v-for="(item, index) in options.firstClass"
-										:key="item"
-										:value="index"
+										:key="index"
+										:value="item.id"
 										>{{ item }}
 									</option>
 								</select>
@@ -51,9 +51,9 @@
 									v-model="form.secClass"
 									@change="handleSecClass">
 									<option
-										v-for="(item, key) in options.secClass"
-										:key="key"
-										:value="key"
+										v-for="(item, index) in options.secClass"
+										:key="index"
+										:value="item.id"
 										>{{ item.title }}
 									</option>
 								</select>
@@ -66,7 +66,7 @@
 									<option
 										v-for="(item, index) in lastClassOptions"
 										:key="index"
-										:value="index"
+										:value="item.id"
 										>{{ item.title }}
 									</option>
 								</select>
@@ -238,8 +238,6 @@ export default {
   },
 
 	updated () {
-		console.log('updated')
-
 		$('.my-select').selectpicker();
 		$('.selectpicker').selectpicker('refresh');
 	},
