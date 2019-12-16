@@ -170,6 +170,10 @@ export default {
     this.getPushes(true)
   },
 
+  updated () {
+    $('.my-select').selectpicker('refresh');
+  },
+
   mounted () {
     $('#datepicker').datepicker({
 			format: "yyyy/mm/dd",
@@ -199,7 +203,6 @@ export default {
 
 				if (isFirst) {
 					this.status = data.status
-					$('.my-select').selectpicker();
 				}
 
 				this.pushes = data.pushs.data
