@@ -80,11 +80,16 @@ class PushService
 
         }
         $push            = new Push;
+        $status = $request->get('status', 0);
+        if ($status) {
+            $push->start_date = Carbon::now();
+        } else {
+            $push->start_date = $request->get('start_date', "");
+        }
         $push->title     = $request->get('title', "");
         $push->sub_title = $request->get('sub_title', "");
-        $push->status    = $request->get('status', 0);
+        $push->status    = $status;
         $push->url        = json_encode($data);
-        $push->start_date = $request->get('start_date', "");
         $push->save();
 
         return $push;

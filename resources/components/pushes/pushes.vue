@@ -86,8 +86,8 @@
                               <tr v-for="pushesItem in pushes" :key="pushesItem.id">
                                 <td>{{ pushesItem.id }}</td>
                                 <td>
-                                  <span v-if="pushesItem.type === 1" class="badge badge-pill badge-success">已發佈</span>
-                                  <span v-if="pushesItem.type === 0" class="badge badge-pill badge-primary">預約中</span>
+                                  <span v-if="pushesItem.type == '1'" class="badge badge-pill badge-success">已發佈</span>
+                                  <span v-if="pushesItem.type == '0'" class="badge badge-pill badge-primary">預約中</span>
                                 </td>
                                 <td>{{ formatDate(pushesItem.start_date) }}</td>
                                 <td style="width: 10%">
@@ -196,7 +196,6 @@ export default {
       })
       .then((res) => {
 				const { data } = res
-
 				if (isFirst) {
 					this.status = data.status
 					$('.my-select').selectpicker();
