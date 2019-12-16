@@ -1933,10 +1933,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2153,8 +2168,17 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       location.assign(location.origin + '/categories/create');
     },
     handleToggleStatus: function handleToggleStatus(programItem) {
-      var toggleStatus = programItem.status ? 0 : 1;
+      var toggleStatus = programItem.status == 1 ? '0' : '1';
       var uri = "/api/categories/".concat(programItem.id, "/status");
+
+      _.map(this.programsList, function (item) {
+        if (programItem.id == item.id) {
+          item.status = item.status == 1 ? '0' : '1';
+        }
+
+        return item;
+      });
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, {
         status: toggleStatus
       }).then(function (res) {});
@@ -2197,7 +2221,7 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 __webpack_require__.r(__webpack_exports__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2475,7 +2499,7 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "\n.table td[data-v-1d59486e] {\n  vertical-align: middle;\n}\n", ""]);
+exports.push([module.i, "\n.table td[data-v-1d59486e] {\n    vertical-align: middle;\n}\n", ""]);
 
 
 
@@ -21494,7 +21518,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: { click: _vm.handleSearch }
                       },
-                      [_vm._v("查詢")]
+                      [_vm._v("查詢\n                                ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -21504,7 +21528,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: { click: _vm.handleSearchReset }
                       },
-                      [_vm._v("清除")]
+                      [_vm._v("清除\n                                ")]
                     )
                   ])
                 ])
@@ -21521,7 +21545,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.handleAddPrograms }
                 },
-                [_vm._v("新增節目")]
+                [_vm._v("新增節目\n                        ")]
               )
             ]),
             _vm._v(" "),
@@ -21589,7 +21613,11 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("置頂")]
+                                [
+                                  _vm._v(
+                                    "置頂\n                                            "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -21645,73 +21673,69 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("置底")]
+                                [
+                                  _vm._v(
+                                    "置底\n                                            "
+                                  )
+                                ]
                               )
                             ]
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", [
-                          _c("span", { staticClass: "kt-switch" }, [
-                            _c(
-                              "label",
-                              { staticStyle: { "margin-bottom": "0" } },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: programItem.status,
-                                      expression: "programItem.status"
-                                    }
-                                  ],
-                                  attrs: { type: "checkbox", name: "" },
-                                  domProps: {
-                                    checked: programItem.status,
-                                    checked: Array.isArray(programItem.status)
-                                      ? _vm._i(programItem.status, null) > -1
-                                      : programItem.status
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.handleToggleStatus(programItem)
-                                    },
-                                    change: function($event) {
-                                      var $$a = programItem.status,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = null,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              programItem,
-                                              "status",
-                                              $$a.concat([$$v])
-                                            )
-                                        } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              programItem,
-                                              "status",
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
+                          programItem.status == 1
+                            ? _c("span", { staticClass: "kt-switch" }, [
+                                _c(
+                                  "label",
+                                  { staticStyle: { "margin-bottom": "0" } },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "checkbox",
+                                        name: programItem.id,
+                                        checked: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleToggleStatus(
+                                            programItem
+                                          )
                                         }
-                                      } else {
-                                        _vm.$set(programItem, "status", $$c)
                                       }
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("span", { staticStyle: { padding: "4px" } })
-                              ]
-                            )
-                          ])
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticStyle: { padding: "4px" }
+                                    })
+                                  ]
+                                )
+                              ])
+                            : _c("span", { staticClass: "kt-switch" }, [
+                                _c(
+                                  "label",
+                                  { staticStyle: { "margin-bottom": "0" } },
+                                  [
+                                    _c("input", {
+                                      attrs: {
+                                        type: "checkbox",
+                                        name: programItem.id
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.handleToggleStatus(
+                                            programItem
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticStyle: { padding: "4px" }
+                                    })
+                                  ]
+                                )
+                              ])
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -34527,7 +34551,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
 
 
 /***/ })
