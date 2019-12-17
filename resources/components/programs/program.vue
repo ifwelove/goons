@@ -65,9 +65,12 @@
                               <tr v-for="program in programs" :key="program.id">
                                 <td>{{ program.id }}</td>
                                 <td>
-                                  <span class="badge badge-pill badge-primary">{{ program.status }}</span>
-                                  <!-- <span class="badge badge-pill badge-primary">Primary</span> -->
-                                  <!-- <span class="badge badge-pill badge-primary">Primary</span> -->
+                                  <span
+                                    v-if="program.status === '已上架'"
+                                    class="badge badge-pill badge-primary">{{ program.status }}</span>
+                                  <span
+                                    v-if="program.status === '已下架'"
+                                    class="badge badge-pill badge-warning">{{ program.status }}</span>
                                 </td>
                                 <td>{{ formatDate(program.start_date) }}</td>
                                 <td>{{ formatDate(program.end_date) }}</td>
