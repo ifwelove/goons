@@ -32,8 +32,8 @@ class Programs extends JsonResource
 
         return [
             'id'        => (string) $text . $this->id,
-            'title'     => $this->title,
-            'subTitle'  => $this->sub_title,
+            'title'     => str_replace($this->categories, '', $this->title),
+            'subTitle'  => str_replace($this->category->title, '', $this->sub_title),
             'host'      => $this->anchor,
             //            'date' => $this->start_date,
             'date'      => Carbon::create($this->start_date)->timestamp,
