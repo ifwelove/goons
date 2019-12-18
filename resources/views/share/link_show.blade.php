@@ -24,7 +24,7 @@
     var useragent = navigator.userAgent;
     useragent = useragent.toLowerCase();
     {{--setTimeout(function () {--}}
-    {{--    window.location.replace("https://febctw.url.tw/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}");--}}
+    {{--    window.location.replace("https://febctw.com/{{ $programType }}/{{ $categoryId }}/{{ $program['id'] }}");--}}
     {{--}, 3000);--}}
     if (useragent.indexOf('iphone') != -1) {
         // setTimeout(function () {
@@ -43,8 +43,24 @@
     }
 </script>
 <body>
-<a href="https://febctw.url.tw/{{ $programType }}/{{ $categoryId }}/{{ $programId }}">點擊</a>
-<a href="https://febctw.url.tw/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}">點擊</a>
+<a href="https://febctw.com/{{ $programType }}/{{ $categoryId }}/{{ $programId }}">點擊</a>
+<a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}">點擊</a>
 </body>
-
+{{--<script--}}
+{{--        src="https://code.jquery.com/jquery-3.4.1.min.js"--}}
+{{--        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="--}}
+{{--        crossorigin="anonymous"></script>--}}
+<script>
+    // $(document).ready(function () {
+    //     var txt;
+    //     var r = confirm("Press a button!");
+    //     if (r == true) {
+    //         $('#aaa').get(0).click();
+    //         txt = "You pressed OK!";
+    //     } else {
+    //         txt = "You pressed Cancel!";
+    //     }
+    //     // $('#aaa').get(0).click();
+    // });
+</script>
 </html>
