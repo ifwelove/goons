@@ -2199,6 +2199,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     setPerPage: function setPerPage(perPage) {
       this.filters.perPage = perPage;
+      this.filters.page = 1;
       this.getNews();
     },
     setPage: function setPage(page) {
@@ -2228,6 +2229,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -25533,7 +25536,11 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-success",
-                                attrs: { type: "button" },
+                                class: { disabled: _vm.isEmpty },
+                                attrs: {
+                                  type: "button",
+                                  disabled: _vm.isEmpty
+                                },
                                 on: { click: _vm.handleSave }
                               },
                               [

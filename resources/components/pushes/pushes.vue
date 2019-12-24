@@ -86,8 +86,8 @@
                               <tr v-for="pushesItem in pushes" :key="pushesItem.id">
                                 <td>{{ pushesItem.id }}</td>
                                 <td>
-                                  <span v-if="pushesItem.type == '0'" class="badge badge-pill badge-success">已發佈</span>
-                                  <span v-if="pushesItem.type == '1'" class="badge badge-pill badge-primary">預約中</span>
+                                  <span v-if="pushesItem.status == '1'" class="badge badge-pill badge-success">已發佈</span>
+                                  <span v-if="pushesItem.status == '0'" class="badge badge-pill badge-primary">預約中</span>
                                 </td>
                                 <td>{{ formatDate(pushesItem.start_date) }}</td>
                                 <td style="width: 10%">
@@ -102,7 +102,7 @@
 																</td>
                                 <td>
 																	<button
-																		v-if="pushesItem.type === 1"
+																		v-if="Number(pushesItem.status) == 0"
 																		type="button" class="btn btn-light btn-circle btn-icon"
 																		@click="handleEdit(pushesItem.id)">
 																		<i class="fa fa-pen"></i>
@@ -228,7 +228,7 @@ export default {
 
 		handleOpenRecord (id) {
 
-			const push = this.pushes.find(e => e.id === id)
+			const push = this.pushes.find(e => e.id == id)
 
 			Swal.fire({
 				html:
@@ -242,7 +242,7 @@ export default {
             <div>
               <div>推播時間：</div>
               <div>${format(new Date(push.start_date), 'yyyy/MM/dd hh:mm')}
-                <span class="badge badge-pill badge-success" style="margin-left: 12px;">${push.type === 0 ? '已發佈' : '預約中'}</span>
+                <span class="badge badge-pill badge-success" style="margin-left: 12px;">${Number(push.status) === 1 ? '已發佈' : '預約中'}</span>
               </div>
             </div>
 
