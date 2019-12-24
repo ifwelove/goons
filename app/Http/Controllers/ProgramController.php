@@ -102,20 +102,21 @@ class ProgramController extends Controller
 
     public function parser()
     {
-        ini_set('memory_limit', '2048M');
-        ignore_user_abort(true);
-        set_time_limit(1200);
+//        ini_set('memory_limit', '2048M');
+//        ignore_user_abort(true);
+//        set_time_limit(1200);
+//
+//        //        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+//        //        $contents = file_get_contents($fileName);
+//        //        Storage::disk('local')->put('public/bh-8787.mp3', $contents);
+//        //        dump(1);
+//
+//        $fileNamea = storage_path('app/public/bh-7878.mp3');
+//        $fileName  = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
+//        $result    = file_put_contents($fileNamea, fopen($fileName, 'r'));
+//        dump($result);
+//        dump(1);
 
-        //        $fileName = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-        //        $contents = file_get_contents($fileName);
-        //        Storage::disk('local')->put('public/bh-8787.mp3', $contents);
-        //        dump(1);
-
-        $fileNamea = storage_path('app/public/bh-7878.mp3');
-        $fileName  = 'http://media.feearadio.net/downloads/program/BH/bh-191108.mp3';
-        $result    = file_put_contents($fileNamea, fopen($fileName, 'r'));
-        dump($result);
-        dump(1);
         //        $fileNameb = storage_path('app/public/bh-191110.mp3');
         //        $audio     = new Mp3Info($fileNameb, true);
         //        dump($audio);
@@ -143,7 +144,8 @@ class ProgramController extends Controller
             case 0:
                 //節目
                 if (is_null($page)) {
-                    $programs = Program::with('category')->where('categories', $id)
+                    $programs = Program::with('category')->where('start_date', '<', Carbon::now())
+                        ->where('end_date', '>', Carbon::now())->where('categories', $id)
                         ->get();
                     $category = Category::find($id);
                     if (!is_null($category)) {
@@ -155,7 +157,8 @@ class ProgramController extends Controller
 
                     return new ProgramsBibleCollection($programs, $programName);
                 } else {
-                    $programs = Program::with('category')->where('categories', $id)
+                    $programs = Program::with('category')->where('start_date', '<', Carbon::now())
+                        ->where('end_date', '>', Carbon::now())->where('categories', $id)
                         ->paginate(15);
                     $category = Category::find($id);
                     if (!is_null($category)) {

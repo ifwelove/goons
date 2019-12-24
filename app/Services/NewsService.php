@@ -49,7 +49,7 @@ class NewsService
             });
         }
         if (is_null($column) or is_null($sort)) {
-            $news = $query->orderBy('id', 'desc')
+            $news = $query->orderBy('start_date', 'desc')
                 ->paginate($perPage);
         } else {
             $news = $query->orderBy($column, $sort)

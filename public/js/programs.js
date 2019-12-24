@@ -2045,6 +2045,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -24963,6 +24966,17 @@ var render = function() {
                                     {
                                       staticClass:
                                         "badge badge-pill badge-primary"
+                                    },
+                                    [_vm._v(_vm._s(program.status))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              program.status === "預約中"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge badge-pill badge-success"
                                     },
                                     [_vm._v(_vm._s(program.status))]
                                   )
