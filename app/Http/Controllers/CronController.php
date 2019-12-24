@@ -88,7 +88,7 @@ class CronController extends Controller
             }
         });
         $news->type = 1;
-//        $news->save();
+        $news->save();
         Log::info([$news->id]);
 
         return response()->json();
