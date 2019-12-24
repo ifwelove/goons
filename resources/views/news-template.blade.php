@@ -25,8 +25,13 @@
             color: #FF785C;
             line-height: 20px;
             font-weight: bold;
+        }
+
+        #template-date p{
             padding-left: 20px;
             padding-right: 20px;
+            padding-bottom: 20px;
+            margin: 0;
         }
 
         #template-title {
@@ -34,8 +39,13 @@
             color: #0A0B0E;
             line-height: 28px;
             font-weight: bold;
+        }
+
+        #template-title p{
             padding-left: 20px;
             padding-right: 20px;
+            padding-bottom: 20px;
+            margin: 0;
         }
 
         #template-content {
@@ -58,9 +68,10 @@
             font-weight: normal;
         }
 
-        #template-content p, #template-content b, #template-content span {
+        #template-content p, #template-content > b, #template-content span {
             padding-left: 20px;
             padding-right: 20px;
+            margin: 0;
         }
 
         #template-content a {
@@ -76,8 +87,8 @@
 <body>
 <div class="container-fluid p-0">
     <div class="row" id="template-body">
-        <div class="col-12" id="template-date">{{ $dateFormat }}</div>
-        <div class="col-12" id="template-title">{{ $title }}</div>
+        <div class="col-12" id="template-date"><p>{{ $dateFormat }}</p></div>
+        <div class="col-12" id="template-title"><p>{{ $title }}</p></div>
         <div class="col-12" id="template-content">{!! $description !!}</div>
     </div>
 </div>
