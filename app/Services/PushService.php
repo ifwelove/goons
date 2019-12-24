@@ -38,7 +38,7 @@ class PushService
                 ->Where('start_date', '<=', Carbon::parse($start_date)
                     ->endOfDay());
         });
-        $push = $query->orderBy('id', 'desc')
+        $push = $query->orderBy('start_date', 'desc')
             ->paginate($perPage);
 
         return $push;

@@ -15,7 +15,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">標題：</label>
               <div class="col-lg-6">
-                <input type="text" class="form-control" placeholder="限50個字" maxlength="30" required
+                <input type="text" class="form-control" placeholder="限50個字" maxlength="50" required
                   v-model="form.title" >
               </div>
             </div>
