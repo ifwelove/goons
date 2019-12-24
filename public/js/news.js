@@ -2353,6 +2353,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -25533,7 +25535,11 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-success",
-                                attrs: { type: "button" },
+                                class: { disabled: _vm.isEmpty },
+                                attrs: {
+                                  type: "button",
+                                  disabled: _vm.isEmpty
+                                },
                                 on: { click: _vm.handleSave }
                               },
                               [

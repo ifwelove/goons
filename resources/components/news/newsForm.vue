@@ -105,6 +105,8 @@
                         aria-hidden="true"></span>
                         新增</button>
                     <button v-else type="button" class="btn btn-success"
+                      :class="{'disabled': isEmpty}"
+                      :disabled="isEmpty"
                       @click="handleSave">
                       <span
                         :class="{'spinner-border spinner-border-sm': isSubmitting}"
