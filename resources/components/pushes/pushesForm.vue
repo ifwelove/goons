@@ -32,44 +32,50 @@
 						<div class="form-group row">
               <label class="col-lg-3 col-form-label">
 								<span class="text-danger">*</span>跳轉位址：</label>
-              <div class="col-lg-6">
-								<select id="firstClass" class="my-select selectpicker w-auto mr-2"
-									title="請先選擇區域"
-									v-model="form.firstClass">
-									<option
-										v-for="(item, index) in options.firstClass"
-										:key="index"
-										:value="index"
-										>{{ item }}
-									</option>
-								</select>
-								<select
-									id="secClass"
-									v-if="form.firstClass"
-									class="my-select selectpicker w-auto mr-2"
-									title="請先選擇區域"
-									v-model="form.secClass"
-									@change="handleSecClass">
-									<option
-										v-for="(item, index) in options.secClass"
-										:key="index"
-										:value="item.id"
-										>{{ item.title }}
-									</option>
-								</select>
-								<select
-									id="lastClass"
-									v-if="form.secClass"
-									class="my-select selectpicker w-auto mr-2"
-									title="請先選擇區域"
-									v-model="form.lastClass">
-									<option
-										v-for="(item, index) in lastClassOptions"
-										:key="index"
-										:value="item.id"
-										>{{ item.title }}
-									</option>
-								</select>
+              <div class="col-lg-6 d-flex">
+								<div>
+									<select id="firstClass" class="my-select my-select-1 w-auto mr-2"
+										title="請先選擇區域"
+										v-model="form.firstClass">
+										<option
+											v-for="(item, index) in options.firstClass"
+											:key="index"
+											:value="index"
+											>{{ item }}
+										</option>
+									</select>
+								</div>
+
+								<div v-if="secClassOptions.length">
+									<select
+										id="secClass"
+										class="my-select my-select-2 w-auto mr-2"
+										title="請先選擇區域"
+										v-model="form.secClass"
+										@change="handleSecClass">
+										<option
+											v-for="(item, index) in secClassOptions"
+											:key="index"
+											:value="item.id"
+											>{{ item.title }}
+										</option>
+									</select>
+								</div>
+
+								<div v-if="lastClassOptions.length">
+									<select
+										id="lastClass"
+										class="my-select my-select-3 w-auto mr-2"
+										title="請先選擇區域"
+										v-model="form.lastClass">
+										<option
+											v-for="(item, index) in lastClassOptions"
+											:key="index"
+											:value="item.id"
+											>{{ item.title }}
+										</option>
+									</select>
+								</div>
               </div>
             </div>
 
@@ -207,8 +213,36 @@ export default {
 				.some(v => v === '')
 		},
 
+		secClassOptions () {
+			if (!this.form.firstClass) {
+				return []
+			}
+			const firstClass = this.options.firstClass[this.form.firstClass]
+			const news = Object.values(this.options.secClass).filter(e => e.title !== '舊約' && e.title !== '新約' && e.title !== '節目')
+			const notNews = Object.values(this.options.secClass).filter(e => e.title === '舊約' || e.title === '新約' || e.title === '節目')
+
+			if (firstClass === '聯絡我們' || firstClass === '首頁') {
+				return []
+			}
+
+			if (firstClass === '最新消息') {
+				return news
+			}
+
+			if (firstClass === '音頻') {
+				return notNews
+			}
+
+			return []
+		},
+
 		lastClassOptions () {
-			return this.options.lastClass[this.form.secClass]
+			const firstClass = this.options.firstClass[this.form.firstClass]
+			if (firstClass === '聯絡我們' || firstClass === '首頁' || !this.form.secClass) {
+				return []
+			}
+
+			return this.options.lastClass[this.form.secClass] || []
 		}
   },
 
@@ -233,13 +267,18 @@ export default {
 				this.form.start_date = $('#datepicker_start').datetimepicker('getFormattedDate')
 			});
 
-    })
+		})
+
+		$('.my-select-1').on('changed.bs.select', (e, clickedIndex, isSelected, previousValue) => {
+				this.form.secClass = ''
+				this.form.lastClass = ''
+		});
 
   },
 
 	updated () {
 		$('.my-select').selectpicker();
-		$('.selectpicker').selectpicker('refresh');
+		$('.my-select').selectpicker('refresh');
 	},
 
   methods: {
@@ -253,8 +292,6 @@ export default {
 					status,
 					start_date,
 					url  } = res.data.push
-
-				console.log(JSON.parse(url))
 
 				const { firstClass, secClass, lastClass } = JSON.parse(url)
 
