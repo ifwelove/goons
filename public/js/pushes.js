@@ -1933,7 +1933,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Pagination */ "./resources/components/Pagination.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2165,7 +2165,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return e.id === id;
       });
       Swal.fire({
-        html: "<div style=\"display: flex;\">\n\t\t\t\t\t\t<span>\u6A19\u984C\uFF1A</span>".concat(push.title, "\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div style=\"display: flex; align-items: center;\">\n\t\t\t\t\t\t<span>\u63A8\u64AD\u6642\u9593\uFF1A</span> ").concat(Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(new Date(push.start_date), 'yyyy/MM/dd hh:mm'), "\n\t\t\t\t\t\t<span class=\"badge badge-pill badge-success\" style=\"margin-left: 12px;\">").concat(push.type === 1 ? '已發佈' : '預約中', "</span>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div style=\"display: flex;\">\n\t\t\t\t\t\t<span>\u8DF3\u8F49\u4F4D\u5740\uFF1A</span>\n\t\t\t\t\t\t<div>").concat(push.first_class, "</div>\n\t\t\t\t\t\t<div>").concat(push.sec_class, "</div>\n\t\t\t\t\t\t<div>").concat(push.last_class, "</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div style=\"display: flex;\">\n\t\t\t\t\t\t<span>\u63A8\u64AD\u5167\u5BB9\uFF1A</span>").concat(push.sub_title, "\n\t\t\t\t\t</div>"),
+        html: "\n          <div style=\"text-align: left\">\n            <div>\n              <div>\u6A19\u984C\uFF1A</div>\n              <div>".concat(push.title, "</div>\n            </div>\n\n            <div>\n              <div>\u63A8\u64AD\u6642\u9593\uFF1A</div>\n              <div>").concat(Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(new Date(push.start_date), 'yyyy/MM/dd hh:mm'), "\n                <span class=\"badge badge-pill badge-success\" style=\"margin-left: 12px;\">").concat(push.type === 0 ? '已發佈' : '預約中', "</span>\n              </div>\n            </div>\n\n            <div>\n              <div>\u8DF3\u8F49\u4F4D\u5740\uFF1A</div>\n              <div>").concat(push.first_class, "</div>\n              <div>").concat(push.sec_class, "</div>\n              <div>").concat(push.last_class, "</div>\n            </div>\n\n            <div>\n              <div>\u63A8\u64AD\u5167\u5BB9\uFF1A</div>\n              <div>").concat(push.sub_title, "</div>\n            </div>\n          </div>"),
         confirmButtonText: '返回'
       });
     },
@@ -2214,10 +2214,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/utils/axios */ "./resources/js/utils/axios.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2426,8 +2432,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return v === '';
       });
     },
+    secClassOptions: function secClassOptions() {
+      if (!this.form.firstClass) {
+        return [];
+      }
+
+      var firstClass = this.options.firstClass[this.form.firstClass];
+      var news = Object.values(this.options.secClass).filter(function (e) {
+        return e.title !== '舊約' && e.title !== '新約' && e.title !== '節目';
+      });
+      var notNews = Object.values(this.options.secClass).filter(function (e) {
+        return e.title === '舊約' || e.title === '新約' || e.title === '節目';
+      });
+
+      if (firstClass === '聯絡我們' || firstClass === '首頁') {
+        return [];
+      }
+
+      if (firstClass === '最新消息') {
+        return news;
+      }
+
+      if (firstClass === '音頻') {
+        return notNews;
+      }
+
+      return [];
+    },
     lastClassOptions: function lastClassOptions() {
-      return this.options.lastClass[this.form.secClass];
+      var firstClass = this.options.firstClass[this.form.firstClass];
+
+      if (firstClass === '聯絡我們' || firstClass === '首頁' || !this.form.secClass) {
+        return [];
+      }
+
+      return this.options.lastClass[this.form.secClass] || [];
     }
   },
   created: function created() {
@@ -2450,10 +2489,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.form.start_date = $('#datepicker_start').datetimepicker('getFormattedDate');
       });
     });
+    $('.my-select-1').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+      _this2.form.secClass = '';
+      _this2.form.lastClass = '';
+    });
   },
   updated: function updated() {
     $('.my-select').selectpicker();
-    $('.selectpicker').selectpicker('refresh');
+    $('.my-select').selectpicker('refresh');
   },
   methods: {
     getPushs: function getPushs() {
@@ -2467,7 +2510,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status = _res$data$push.status,
             start_date = _res$data$push.start_date,
             url = _res$data$push.url;
-        console.log(JSON.parse(url));
 
         var _JSON$parse = JSON.parse(url),
             firstClass = _JSON$parse.firstClass,
@@ -3849,7 +3891,7 @@ var MILLISECONDS_IN_MINUTE = 60000;
 
 function getTimezoneOffsetInMilliseconds(dirtyDate) {
   var date = new Date(dirtyDate.getTime());
-  var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
+  var baseTimezoneOffset = date.getTimezoneOffset();
   date.setSeconds(0, 0);
   var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
   return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
@@ -4679,7 +4721,6 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  *   see: https://git.io/fxCyr
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `date` must not be Invalid Date
  * @throws {RangeError} `options.locale` must contain `localize` property
  * @throws {RangeError} `options.locale` must contain `formatLong` property
  * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
@@ -25112,7 +25153,7 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(pushesItem.id))]),
                           _vm._v(" "),
                           _c("td", [
-                            pushesItem.type == "1"
+                            pushesItem.type == "0"
                               ? _c(
                                   "span",
                                   {
@@ -25123,7 +25164,7 @@ var render = function() {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            pushesItem.type == "0"
+                            pushesItem.type == "1"
                               ? _c(
                                   "span",
                                   {
@@ -25164,7 +25205,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", [
-                            pushesItem.type === 0
+                            pushesItem.type === 1
                               ? _c(
                                   "button",
                                   {
@@ -25383,67 +25424,124 @@ var render = function() {
               _c("div", { staticClass: "form-group row" }, [
                 _vm._m(2),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.firstClass,
-                          expression: "form.firstClass"
+                _c("div", { staticClass: "col-lg-6 d-flex" }, [
+                  _c("div", [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.firstClass,
+                            expression: "form.firstClass"
+                          }
+                        ],
+                        staticClass: "my-select my-select-1 w-auto mr-2",
+                        attrs: { id: "firstClass", title: "請先選擇區域" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "firstClass",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      ],
-                      staticClass: "my-select selectpicker w-auto mr-2",
-                      attrs: { id: "firstClass", title: "請先選擇區域" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.form,
-                            "firstClass",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    _vm._l(_vm.options.firstClass, function(item, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: index } },
-                        [_vm._v(_vm._s(item) + "\n\t\t\t\t\t\t\t\t\t")]
-                      )
-                    }),
-                    0
-                  ),
+                      },
+                      _vm._l(_vm.options.firstClass, function(item, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: index } },
+                          [_vm._v(_vm._s(item) + "\n\t\t\t\t\t\t\t\t\t\t")]
+                        )
+                      }),
+                      0
+                    )
+                  ]),
                   _vm._v(" "),
-                  _vm.form.firstClass
-                    ? _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.secClass,
-                              expression: "form.secClass"
+                  _vm.secClassOptions.length
+                    ? _c("div", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.secClass,
+                                expression: "form.secClass"
+                              }
+                            ],
+                            staticClass: "my-select my-select-2 w-auto mr-2",
+                            attrs: { id: "secClass", title: "請先選擇區域" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "secClass",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                _vm.handleSecClass
+                              ]
                             }
-                          ],
-                          staticClass: "my-select selectpicker w-auto mr-2",
-                          attrs: { id: "secClass", title: "請先選擇區域" },
-                          on: {
-                            change: [
-                              function($event) {
+                          },
+                          _vm._l(_vm.secClassOptions, function(item, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: item.id } },
+                              [
+                                _vm._v(
+                                  _vm._s(item.title) + "\n\t\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.lastClassOptions.length
+                    ? _c("div", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.lastClass,
+                                expression: "form.lastClass"
+                              }
+                            ],
+                            staticClass: "my-select my-select-3 w-auto mr-2",
+                            attrs: { id: "lastClass", title: "請先選擇區域" },
+                            on: {
+                              change: function($event) {
                                 var $$selectedVal = Array.prototype.filter
                                   .call($event.target.options, function(o) {
                                     return o.selected
@@ -25454,78 +25552,28 @@ var render = function() {
                                   })
                                 _vm.$set(
                                   _vm.form,
-                                  "secClass",
+                                  "lastClass",
                                   $event.target.multiple
                                     ? $$selectedVal
                                     : $$selectedVal[0]
                                 )
-                              },
-                              _vm.handleSecClass
-                            ]
-                          }
-                        },
-                        _vm._l(_vm.options.secClass, function(item, index) {
-                          return _c(
-                            "option",
-                            { key: index, domProps: { value: item.id } },
-                            [
-                              _vm._v(
-                                _vm._s(item.title) + "\n\t\t\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.form.secClass
-                    ? _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.lastClass,
-                              expression: "form.lastClass"
+                              }
                             }
-                          ],
-                          staticClass: "my-select selectpicker w-auto mr-2",
-                          attrs: { id: "lastClass", title: "請先選擇區域" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "lastClass",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(_vm.lastClassOptions, function(item, index) {
-                          return _c(
-                            "option",
-                            { key: index, domProps: { value: item.id } },
-                            [
-                              _vm._v(
-                                _vm._s(item.title) + "\n\t\t\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
+                          },
+                          _vm._l(_vm.lastClassOptions, function(item, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: item.id } },
+                              [
+                                _vm._v(
+                                  _vm._s(item.title) + "\n\t\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
                     : _vm._e()
                 ])
               ]),
@@ -25918,7 +25966,7 @@ function normalizeComponent (
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.11
+ * Vue.js v2.6.10
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -27884,7 +27932,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   isUsingMicroTask = true;
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   // Fallback to setImmediate.
-  // Technically it leverages the (macro) task queue,
+  // Techinically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = function () {
     setImmediate(flushCallbacks);
@@ -27973,7 +28021,7 @@ var initProxy;
     warn(
       "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
       'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
-      'prevent conflicts with Vue internals. ' +
+      'prevent conflicts with Vue internals' +
       'See: https://vuejs.org/v2/api/#data',
       target
     );
@@ -28833,7 +28881,7 @@ function bindDynamicKeys (baseObj, values) {
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
     } else if (key !== '' && key !== null) {
-      // null is a special value for explicitly removing a binding
+      // null is a speical value for explicitly removing a binding
       warn(
         ("Invalid value for dynamic directive argument (expected string or null): " + key),
         this
@@ -29328,12 +29376,6 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if (isDef(data) && isDef(data.nativeOn)) {
-        warn(
-          ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
-          context
-        );
-      }
       vnode = new VNode(
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
@@ -29459,7 +29501,7 @@ function renderMixin (Vue) {
     // render self
     var vnode;
     try {
-      // There's no need to maintain a stack because all render fns are called
+      // There's no need to maintain a stack becaues all render fns are called
       // separately from one another. Nested component's render fns are called
       // when parent component is patched.
       currentRenderingInstance = vm;
@@ -31358,7 +31400,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.11';
+Vue.version = '2.6.10';
 
 /*  */
 
@@ -32031,7 +32073,7 @@ function createPatchFunction (backend) {
     }
   }
 
-  function removeVnodes (vnodes, startIdx, endIdx) {
+  function removeVnodes (parentElm, vnodes, startIdx, endIdx) {
     for (; startIdx <= endIdx; ++startIdx) {
       var ch = vnodes[startIdx];
       if (isDef(ch)) {
@@ -32142,7 +32184,7 @@ function createPatchFunction (backend) {
       refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
     } else if (newStartIdx > newEndIdx) {
-      removeVnodes(oldCh, oldStartIdx, oldEndIdx);
+      removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
     }
   }
 
@@ -32234,7 +32276,7 @@ function createPatchFunction (backend) {
         if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
       } else if (isDef(oldCh)) {
-        removeVnodes(oldCh, 0, oldCh.length - 1);
+        removeVnodes(elm, oldCh, 0, oldCh.length - 1);
       } else if (isDef(oldVnode.text)) {
         nodeOps.setTextContent(elm, '');
       }
@@ -32463,7 +32505,7 @@ function createPatchFunction (backend) {
 
         // destroy old node
         if (isDef(parentElm)) {
-          removeVnodes([oldVnode], 0, 0);
+          removeVnodes(parentElm, [oldVnode], 0, 0);
         } else if (isDef(oldVnode.tag)) {
           invokeDestroyHook(oldVnode);
         }
@@ -35169,7 +35211,7 @@ var startTagOpen = new RegExp(("^<" + qnameCapture));
 var startTagClose = /^\s*(\/?)>/;
 var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
 var doctype = /^<!DOCTYPE [^>]+>/i;
-// #7298: escape - to avoid being passed as HTML comment when inlined in page
+// #7298: escape - to avoid being pased as HTML comment when inlined in page
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 
@@ -35454,7 +35496,7 @@ function parseHTML (html, options) {
 /*  */
 
 var onRE = /^@|^v-on:/;
-var dirRE = /^v-|^@|^:|^#/;
+var dirRE = /^v-|^@|^:/;
 var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
 var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
 var stripParensRE = /^\(|\)$/g;
@@ -36078,7 +36120,7 @@ function processSlotContent (el) {
           if (el.parent && !maybeComponent(el.parent)) {
             warn$2(
               "<template v-slot> can only appear at the root level inside " +
-              "the receiving component",
+              "the receiving the component",
               el
             );
           }
@@ -36641,7 +36683,7 @@ function isDirectChildOfTemplateFor (node) {
 
 /*  */
 
-var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/;
+var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
 var fnInvokeRE = /\([^)]*?\);*$/;
 var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
@@ -37410,8 +37452,6 @@ function checkNode (node, warn) {
           var range = node.rawAttrsMap[name];
           if (name === 'v-for') {
             checkFor(node, ("v-for=\"" + value + "\""), warn, range);
-          } else if (name === 'v-slot' || name[0] === '#') {
-            checkFunctionParameterExpression(value, (name + "=\"" + value + "\""), warn, range);
           } else if (onRE.test(name)) {
             checkEvent(value, (name + "=\"" + value + "\""), warn, range);
           } else {
@@ -37431,9 +37471,9 @@ function checkNode (node, warn) {
 }
 
 function checkEvent (exp, text, warn, range) {
-  var stripped = exp.replace(stripStringRE, '');
-  var keywordMatch = stripped.match(unaryOperatorsRE);
-  if (keywordMatch && stripped.charAt(keywordMatch.index - 1) !== '$') {
+  var stipped = exp.replace(stripStringRE, '');
+  var keywordMatch = stipped.match(unaryOperatorsRE);
+  if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
     warn(
       "avoid using JavaScript unary operator as property name: " +
       "\"" + (keywordMatch[0]) + "\" in expression " + (text.trim()),
@@ -37485,19 +37525,6 @@ function checkExpression (exp, text, warn, range) {
         range
       );
     }
-  }
-}
-
-function checkFunctionParameterExpression (exp, text, warn, range) {
-  try {
-    new Function(exp, '');
-  } catch (e) {
-    warn(
-      "invalid function parameter expression: " + (e.message) + " in\n\n" +
-      "    " + exp + "\n\n" +
-      "  Raw expression: " + (text.trim()) + "\n",
-      range
-    );
   }
 }
 
@@ -38302,7 +38329,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/pushes.js */"./resources/js/components/pushes.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/pushes.js */"./resources/js/components/pushes.js");
 
 
 /***/ })

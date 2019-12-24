@@ -86,8 +86,8 @@
                               <tr v-for="pushesItem in pushes" :key="pushesItem.id">
                                 <td>{{ pushesItem.id }}</td>
                                 <td>
-                                  <span v-if="pushesItem.type == '1'" class="badge badge-pill badge-success">已發佈</span>
-                                  <span v-if="pushesItem.type == '0'" class="badge badge-pill badge-primary">預約中</span>
+                                  <span v-if="pushesItem.type == '0'" class="badge badge-pill badge-success">已發佈</span>
+                                  <span v-if="pushesItem.type == '1'" class="badge badge-pill badge-primary">預約中</span>
                                 </td>
                                 <td>{{ formatDate(pushesItem.start_date) }}</td>
                                 <td style="width: 10%">
@@ -102,7 +102,7 @@
 																</td>
                                 <td>
 																	<button
-																		v-if="pushesItem.type === 0"
+																		v-if="pushesItem.type === 1"
 																		type="button" class="btn btn-light btn-circle btn-icon"
 																		@click="handleEdit(pushesItem.id)">
 																		<i class="fa fa-pen"></i>
@@ -232,25 +232,32 @@ export default {
 
 			Swal.fire({
 				html:
-					`<div style="display: flex;">
-						<span>標題：</span>${push.title}
-					</div>
+          `
+          <div style="text-align: left">
+            <div>
+              <div>標題：</div>
+              <div>${push.title}</div>
+            </div>
 
-					<div style="display: flex; align-items: center;">
-						<span>推播時間：</span> ${format(new Date(push.start_date), 'yyyy/MM/dd hh:mm')}
-						<span class="badge badge-pill badge-success" style="margin-left: 12px;">${push.type === 1 ? '已發佈' : '預約中'}</span>
-					</div>
+            <div>
+              <div>推播時間：</div>
+              <div>${format(new Date(push.start_date), 'yyyy/MM/dd hh:mm')}
+                <span class="badge badge-pill badge-success" style="margin-left: 12px;">${push.type === 0 ? '已發佈' : '預約中'}</span>
+              </div>
+            </div>
 
-					<div style="display: flex;">
-						<span>跳轉位址：</span>
-						<div>${push.first_class}</div>
-						<div>${push.sec_class}</div>
-						<div>${push.last_class}</div>
-					</div>
+            <div>
+              <div>跳轉位址：</div>
+              <div>${push.first_class}</div>
+              <div>${push.sec_class}</div>
+              <div>${push.last_class}</div>
+            </div>
 
-					<div style="display: flex;">
-						<span>推播內容：</span>${push.sub_title}
-					</div>`,
+            <div>
+              <div>推播內容：</div>
+              <div>${push.sub_title}</div>
+            </div>
+          </div>`,
         confirmButtonText: '返回'
       })
 		},
