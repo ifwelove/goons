@@ -2199,6 +2199,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     setPerPage: function setPerPage(perPage) {
       this.filters.perPage = perPage;
+      this.filters.page = 1;
       this.getNews();
     },
     setPage: function setPage(page) {
