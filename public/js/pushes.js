@@ -2162,10 +2162,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     handleOpenRecord: function handleOpenRecord(id) {
       var push = this.pushes.find(function (e) {
-        return e.id === id;
+        return e.id == id;
       });
       Swal.fire({
-        html: "\n          <div style=\"text-align: left\">\n            <div>\n              <div>\u6A19\u984C\uFF1A</div>\n              <div>".concat(push.title, "</div>\n            </div>\n\n            <div>\n              <div>\u63A8\u64AD\u6642\u9593\uFF1A</div>\n              <div>").concat(Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(new Date(push.start_date), 'yyyy/MM/dd hh:mm'), "\n                <span class=\"badge badge-pill badge-success\" style=\"margin-left: 12px;\">").concat(push.type === 0 ? '已發佈' : '預約中', "</span>\n              </div>\n            </div>\n\n            <div>\n              <div>\u8DF3\u8F49\u4F4D\u5740\uFF1A</div>\n              <div>").concat(push.first_class, "</div>\n              <div>").concat(push.sec_class, "</div>\n              <div>").concat(push.last_class, "</div>\n            </div>\n\n            <div>\n              <div>\u63A8\u64AD\u5167\u5BB9\uFF1A</div>\n              <div>").concat(push.sub_title, "</div>\n            </div>\n          </div>"),
+        html: "\n          <div style=\"text-align: left\">\n            <div>\n              <div>\u6A19\u984C\uFF1A</div>\n              <div>".concat(push.title, "</div>\n            </div>\n\n            <div>\n              <div>\u63A8\u64AD\u6642\u9593\uFF1A</div>\n              <div>").concat(Object(date_fns_format__WEBPACK_IMPORTED_MODULE_0__["default"])(new Date(push.start_date), 'yyyy/MM/dd hh:mm'), "\n                <span class=\"badge badge-pill badge-success\" style=\"margin-left: 12px;\">").concat(Number(push.status) === 1 ? '已發佈' : '預約中', "</span>\n              </div>\n            </div>\n\n            <div>\n              <div>\u8DF3\u8F49\u4F4D\u5740\uFF1A</div>\n              <div>").concat(push.first_class, "</div>\n              <div>").concat(push.sec_class, "</div>\n              <div>").concat(push.last_class, "</div>\n            </div>\n\n            <div>\n              <div>\u63A8\u64AD\u5167\u5BB9\uFF1A</div>\n              <div>").concat(push.sub_title, "</div>\n            </div>\n          </div>"),
         confirmButtonText: '返回'
       });
     },
@@ -25153,7 +25153,7 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(pushesItem.id))]),
                           _vm._v(" "),
                           _c("td", [
-                            pushesItem.type == "0"
+                            pushesItem.status == "1"
                               ? _c(
                                   "span",
                                   {
@@ -25164,7 +25164,7 @@ var render = function() {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            pushesItem.type == "1"
+                            pushesItem.status == "0"
                               ? _c(
                                   "span",
                                   {
@@ -25205,7 +25205,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", [
-                            pushesItem.type === 1
+                            Number(pushesItem.status) == 0
                               ? _c(
                                   "button",
                                   {
