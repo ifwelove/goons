@@ -25373,7 +25373,7 @@ var render = function() {
                     attrs: {
                       type: "text",
                       placeholder: "限50個字",
-                      maxlength: "30",
+                      maxlength: "50",
                       required: ""
                     },
                     domProps: { value: _vm.form.title },

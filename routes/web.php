@@ -10,9 +10,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Carbon\Carbon;
 
-//Route::get('test', function () {
-//});
+Route::get('iframe/news/{id}', function (\Illuminate\Support\Facades\Request $request, $id) {
+    $news = \App\Models\News::find($id);
+//    view('news-template')
+//        ->with([
+//            'dateFormat' => Carbon::create($news->start_date)->format('Y/m/d'),
+//            'description' => $news->description,
+//            'title' => $news->title,
+//        ])
+//        ->render();
+
+    return view('news-template')->with([
+        'dateFormat' => Carbon::create($news->start_date)->format('Y/m/d'),
+        'description' => $news->description,
+        'title' => $news->title,
+    ]);
+});
 // Auth::routes();
 Auth::routes(['register' => false]);
 

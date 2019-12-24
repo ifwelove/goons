@@ -68,6 +68,9 @@
                                   <span
                                     v-if="program.status === '已上架'"
                                     class="badge badge-pill badge-primary">{{ program.status }}</span>
+                                    <span
+                                    v-if="program.status === '預約中'"
+                                    class="badge badge-pill badge-success">{{ program.status }}</span>
                                   <span
                                     v-if="program.status === '已下架'"
                                     class="badge badge-pill badge-warning">{{ program.status }}</span>
