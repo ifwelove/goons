@@ -12,9 +12,9 @@ class ShareController extends Controller
 {
     public function linkShow(Request $request, $programType, $categoryId, $programId)
     {
-        Log::info([time()]);
-        Log::info($request->header('User-Agent'));
-        Log::info($request->header('Referer'));
+//        Log::info([time()]);
+//        Log::info($request->header('User-Agent'));
+//        Log::info($request->header('Referer'));
         switch ($programType){
             case 0:
                 break;
@@ -56,9 +56,9 @@ class ShareController extends Controller
 
     public function show(Request $request, $programType, $categoryId, $programId)
     {
-        Log::info([time()]);
-        Log::info($request->header('User-Agent'));
-        Log::info($request->header('Referer'));
+//        Log::info([time()]);
+//        Log::info($request->header('User-Agent'));
+//        Log::info($request->header('Referer'));
         switch ($programType){
             case 0:
                 break;

@@ -76,7 +76,9 @@
                         role="status"
                         aria-hidden="true"></span>
                       新增</button>
-                    <button v-else type="button" class="btn btn-success" @click="handleSave">
+                    <button v-else type="button" class="btn btn-success" @click="handleSave"
+                            :class="{'disabled': isEmpty}"
+                            :disabled="isEmpty">
                       <span
                         :class="{'spinner-border spinner-border-sm': isSubmitting}"
                         role="status"

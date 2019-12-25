@@ -10,10 +10,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
+
         img {
             width: 100% !important;
         }
-
+        .container-fluid {
+            padding-right:0;
+            padding-left:0;
+            margin-right:auto;
+            margin-left:auto
+        }
         #template-body {
             font-family: Microsoft JhengHei !important;
         }
@@ -27,10 +33,10 @@
             font-weight: bold;
         }
 
-        #template-date p{
+        #template-date p {
             padding-left: 20px;
             padding-right: 20px;
-            padding-bottom: 20px;
+            padding-bottom: 4px;
             margin: 0;
         }
 
@@ -41,7 +47,7 @@
             font-weight: bold;
         }
 
-        #template-title p{
+        #template-title p {
             padding-left: 20px;
             padding-right: 20px;
             padding-bottom: 20px;
@@ -56,7 +62,7 @@
             word-break: break-all;
         }
 
-        #template-content img{
+        #template-content img {
             padding-top: 20px;
             padding-bottom: 20px;
         }
@@ -86,7 +92,7 @@
 
 <body>
 <div class="container-fluid p-0">
-    <div class="row" id="template-body">
+    <div class="row no-gutters" id="template-body">
         <div class="col-12" id="template-date"><p>{{ $dateFormat }}</p></div>
         <div class="col-12" id="template-title"><p>{{ $title }}</p></div>
         <div class="col-12" id="template-content">{!! $description !!}</div>
