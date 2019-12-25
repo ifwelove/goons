@@ -87,8 +87,8 @@ Route::group(['prefix' => 'accounts', 'middleware' => ['auth', 'role:account']],
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', 'DashboardController@logout');
-    Route::get('home', 'DashboardController@index');
-    Route::get('/', 'DashboardController@index');
+    Route::get('home', 'CategoryController@index');
+    Route::get('/', 'CategoryController@index');
 });
 
 Route::group(['middleware' => ['auth', 'role:program']], function() {

@@ -53,7 +53,7 @@ class AccountController extends Controller
             'password.regex'    => '密碼限英數字',
         ];
         $this->validate($request, [
-            'email'    => 'required|max:50|regex:/^[A-Za-z0-9]+$/u',
+            'email'    => 'required|unique:users,email|max:50|regex:/^[A-Za-z0-9]+$/u',
             'name'     => 'required|max:50|regex:/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]+$/u',
             'password' => 'required|min:6|max:12|regex:/^[A-Za-z0-9]+$/u',
         ], $message);

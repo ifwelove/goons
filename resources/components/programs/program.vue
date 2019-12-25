@@ -173,8 +173,7 @@ export default {
       })
       .then((res) => {
         const { data } = res
-        this.categories = data.categories.filter(category => category.status === 1)
-
+        this.categories = data.categories.filter(category => category.status == '1')
         if (!isFirst) {
           this.programs = data.programs.data
         }

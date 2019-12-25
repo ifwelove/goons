@@ -234,26 +234,26 @@ export default {
 				html:
           `
           <div style="text-align: left">
-            <div>
+            <div style="margin-bottom: 16px;">
               <div>標題：</div>
               <div>${push.title}</div>
             </div>
 
-            <div>
+            <div style="margin-bottom: 16px;">
               <div>推播時間：</div>
               <div>${format(new Date(push.start_date), 'yyyy/MM/dd hh:mm')}
                 <span class="badge badge-pill badge-success" style="margin-left: 12px;">${Number(push.status) === 1 ? '已發佈' : '預約中'}</span>
               </div>
             </div>
 
-            <div>
+            <div style="margin-bottom: 16px;">
               <div>跳轉位址：</div>
               <div>${push.first_class}</div>
               <div>${push.sec_class}</div>
               <div>${push.last_class}</div>
             </div>
 
-            <div>
+            <div style="margin-bottom: 16px;">
               <div>推播內容：</div>
               <div>${push.sub_title}</div>
             </div>

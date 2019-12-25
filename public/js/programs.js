@@ -2110,7 +2110,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (res) {
         var data = res.data;
         _this.categories = data.categories.filter(function (category) {
-          return category.status === 1;
+          return category.status == '1';
         });
 
         if (!isFirst) {
