@@ -74,9 +74,9 @@
             font-weight: normal;
         }
 
-        #template-content p, #template-content > b, #template-content span {
-            padding-left: 20px;
-            padding-right: 20px;
+        #template-content p{
+            padding-left: 20px !important;
+            padding-right: 20px !important;
             margin: 0;
         }
 

@@ -26,10 +26,10 @@ class PushService
             case null:
                 break;
             case 0:
-                $query->where('status', 0);
+                $query->where('type', 0);
                 break;
             case 1:
-                $query->where('status', 1);
+                $query->where('type', 1);
                 break;
         }
         $query->when(! is_null($start_date), function ($q) use ($start_date) {

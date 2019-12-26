@@ -44,31 +44,49 @@
     }
 </script>
 <body>
-<div class="container-fluid bg-gray-200">
-    <div class="row no-gutters">
-        <div class="col-12">
-            <div style="height: calc(100vh - 164px);"
-                 class="d-flex justify-content-center align-content-center flex-wrap">
-                <div>
-                    <img src="{{ asset('images/appicon.png') }}" class="rounded mx-auto d-block">
-                    <div class="pt-3">精彩內容分享給您</div>
-                </div>
-            </div>
-            <div class="fixed-bottom text-center" style="padding-bottom: 60px;padding-left: 20px;padding-right: 20px;">
-                <a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}" role="button"
-                   aria-pressed="true" class="mb-3 btn btn-primary btn-lg btn-block"
-                   style="background-color: #ff785c;border-color: #ff785c;">
-                    <span class="d-inline-flex">開啟遠東廣播 APP</span>
-                </a>
-                <a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}" role="button"
-                   aria-pressed="true" class="btn btn-outline-primary btn-lg btn-block"
-                   style="background-color: #ffffff;border-color: #a1a6b3;color: #a1a6b3">
-                    <span class="d-inline-flex">下載遠東廣播 APP</span>
-                </a>
-            </div>
-        </div>
+<div class="fixed-top d-flex align-items-center justify-content-center" style="height: 100vh !important;">
+    <div style="margin-bottom: 160px;">
+        <img src="{{ asset('images/appicon.png') }}" class="rounded mx-auto d-block">
+        <div class="pt-3">精彩內容分享給您</div>
     </div>
 </div>
+<div class="fixed-bottom text-center" style="padding-bottom: 60px;padding-left: 20px;padding-right: 20px;">
+    <a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}" role="button"
+       aria-pressed="true" class="mb-3 btn btn-primary btn-lg btn-block"
+       style="background-color: #ff785c;border-color: #ff785c;">
+        <span class="d-inline-flex">開啟遠東廣播 APP</span>
+    </a>
+    <a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}" role="button"
+       aria-pressed="true" class="btn btn-outline-primary btn-lg btn-block"
+       style="background-color: #ffffff;border-color: #a1a6b3;color: #a1a6b3">
+        <span class="d-inline-flex">下載遠東廣播 APP</span>
+    </a>
+</div>
+{{--<div class="container-fluid bg-gray-200">--}}
+{{--    <div class="row no-gutters">--}}
+{{--        <div class="col-12">--}}
+{{--            <div style="height: calc(100vh - 164px);"--}}
+{{--                 class="d-flex justify-content-center align-content-center flex-wrap">--}}
+{{--                <div>--}}
+{{--                    <img src="{{ asset('images/appicon.png') }}" class="rounded mx-auto d-block">--}}
+{{--                    <div class="pt-3">精彩內容分享給您</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="fixed-bottom text-center" style="padding-bottom: 60px;padding-left: 20px;padding-right: 20px;">--}}
+{{--                <a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}" role="button"--}}
+{{--                   aria-pressed="true" class="mb-3 btn btn-primary btn-lg btn-block"--}}
+{{--                   style="background-color: #ff785c;border-color: #ff785c;">--}}
+{{--                    <span class="d-inline-flex">開啟遠東廣播 APP</span>--}}
+{{--                </a>--}}
+{{--                <a href="https://febctw.com/share/{{ $programType }}/{{ $categoryId }}/{{ $programId }}" role="button"--}}
+{{--                   aria-pressed="true" class="btn btn-outline-primary btn-lg btn-block"--}}
+{{--                   style="background-color: #ffffff;border-color: #a1a6b3;color: #a1a6b3">--}}
+{{--                    <span class="d-inline-flex">下載遠東廣播 APP</span>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 </body>
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"

@@ -146,6 +146,7 @@ class ProgramController extends Controller
                 if (is_null($page)) {
                     $programs = Program::with('category')->where('start_date', '<', Carbon::now())
                         ->where('end_date', '>', Carbon::now())->where('categories', $id)
+                        ->orderBy('start_date', 'desc')
                         ->get();
                     $category = Category::find($id);
                     if (!is_null($category)) {

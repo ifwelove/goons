@@ -2431,6 +2431,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this3 = this;
 
       $('.summernote').summernote({
+        lang: 'zh-TW',
+        toolbar: [['style', ['bold']], ['para', ['ul']], ['insert', ['link', 'picture']]],
         height: 300,
         popover: {
           image: []

@@ -80,7 +80,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">消息內容：</label>
               <div class="col-lg-6">
-								<div class="summernote" v-html="form.description">{{ form.description }}</div>
+                <div class="summernote" v-html="form.description">{{ form.description }}</div>
               </div>
             </div>
           </div>
@@ -210,6 +210,12 @@ export default {
   methods: {
     initEditor () {
       $('.summernote').summernote({
+        lang: 'zh-TW',
+        toolbar: [
+          ['style', ['bold']],
+          ['para', ['ul']],
+          ['insert', ['link', 'picture']],
+        ],
         height: 300,
         popover: {
           image: []

@@ -3,11 +3,8 @@
        <ul class="list-unstyled topnav-menu float-right mb-0">
 
            <li class="dropdown notification-list">
-               <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+               <a class="nav-link nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                    <img src="{{ URL::asset('assets/images/users/user.jpg') }}" alt="user-image" class="rounded-circle">
-                   <span class="pro-user-name ml-1">
-{{--                   {{ Auth::user()->username }}--}}
-                   </span>
                </a>
            </li>
 
