@@ -42,6 +42,7 @@ class AccountController extends Controller
     {
         $message = [
             'email.required'    => '帳號為必填',
+            'email.unique'      => '此帳號已有人使用',
             'email.max'         => '帳號限制50字',
             'email.regex'       => '帳號限英數字',
             'name.required'     => '姓名為必填',
@@ -78,15 +79,15 @@ class AccountController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $message = [
-            'email.required'    => '帳號為必填',
-            'email.max'         => '帳號限制50字',
-            'email.regex'       => '帳號限英數字',
-            'name.required'     => '姓名為必填',
-            'name.max'          => '姓名限制50字',
-            'name.regex'        => '帳號限中英數字',
-            'password.min'      => '密碼限制6字',
-            'password.max'      => '密碼限制12字',
-            'password.regex'    => '密碼限英數字',
+            'email.required' => '帳號為必填',
+            'email.max'      => '帳號限制50字',
+            'email.regex'    => '帳號限英數字',
+            'name.required'  => '姓名為必填',
+            'name.max'       => '姓名限制50字',
+            'name.regex'     => '帳號限中英數字',
+            'password.min'   => '密碼限制6字',
+            'password.max'   => '密碼限制12字',
+            'password.regex' => '密碼限英數字',
         ];
         $this->validate($request, [
             'email'    => 'required|max:50|regex:/^[A-Za-z0-9]+$/u',

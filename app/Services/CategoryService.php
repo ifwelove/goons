@@ -48,9 +48,11 @@ class CategoryService
         $destinationPath = public_path($basePath);
         $imageUrl        = $destinationPath . $image;
         file_put_contents($imageUrl, $contents);
-
+        $total = Category::all();
+        $sort = $total->count();
+        $sort++;
         $category->image = $basePath . $image;
-        $category->sort = 999;
+        $category->sort = $sort;
         $category->save();
 
         return $category;
