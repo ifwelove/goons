@@ -94,8 +94,9 @@
                       type="button"
                       class="btn btn-success"
                       @click="handleCreate"
-                      :class="{'disabled': errors > 0}"
-                      :disabled="errors > 0">
+                      :class="{'disabled': isEmpty}"
+                      :disabled="isEmpty"
+                    >
                       <span
                         :class="{'spinner-border spinner-border-sm': isSubmitting}"
                         role="status"
@@ -106,8 +107,8 @@
                       type="button"
                       class="btn btn-success"
                       @click="handleSave"
-                      :class="{'disabled': errors > 0}"
-                      :disabled="errors > 0">
+                      :class="{'disabled': isEmpty}"
+                      :disabled="isEmpty">
                       <span
                         :class="{'spinner-border spinner-border-sm': isSubmitting}"
                         role="status"
@@ -127,6 +128,7 @@
 </template>
 
 <script>
+import { isArray } from 'util'
 export default {
   props: {
     isEdit: {
@@ -147,6 +149,20 @@ export default {
       },
       isSubmitting: false,
       errors: $('.parsley-error').length
+    }
+  },
+
+  computed: {
+    isEmpty () {
+      const requiedFields = [
+        'name',
+				'email',
+				'password',
+				'roles'
+      ]
+      return requiedFields
+				.map(field => typeof this.form[field] === 'object' ? this.form[field].length : this.form[field])
+				.some(v => !v)
     }
   },
 
