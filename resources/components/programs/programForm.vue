@@ -2,7 +2,7 @@
 <div class="container-fluid mt-5">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/programs">節目管理</a></li>
+      <li class="breadcrumb-item"><a href="/programs">節目內容管理</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ isEdit ? '編輯' : '新增'}}</li>
     </ol>
   </nav>
