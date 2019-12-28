@@ -33,7 +33,7 @@
                    {{--                   <span class="logo-lg-text-light">{{ env('APP_NAME') }}</span>--}}
                </span>
                <span class="logo-sm">
-                   <span class="logo-sm-text-dark">X</span>
+                   <span class="logo-sm-text-dark"></span>
 {{--                                      <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="24">--}}
                </span>
            </a>

@@ -27,17 +27,6 @@ File: Main Css File
 @import "custom/structure/right-sidebar";
 @import "custom/structure/layouts";
 
-//Components
-@import "custom/components/helper";
-@import "custom/components/social";
-@import "custom/components/widgets";
-@import "custom/components/custom-checkbox";
-@import "custom/components/custom-radio";
-@import "custom/components/ribbons";
-@import "custom/components/print";
-@import "custom/components/preloader";
-
-
 // Plugins
 @import "custom/plugins/waves";
 @import "custom/plugins/slimscroll";
@@ -54,7 +43,7 @@ File: Main Css File
 @import "custom/plugins/datepicker";
 @import "custom/plugins/daterange";
 @import "custom/plugins/parsley";
-@import "custom/plugins/summernote";
+// @import "custom/plugins/summernote";
 @import "custom/plugins/form-wizard";
 @import "custom/plugins/quilljs-editor";
 @import "custom/plugins/dropzone";
