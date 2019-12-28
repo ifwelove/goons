@@ -1875,52 +1875,6 @@ body.boxed-layout.enlarged .footer {
   border-color: #1abc9c;
 }
 
-@font-face {
-  font-family: "summernote";
-  font-style: normal;
-  font-weight: normal;
-  src: url(/fonts/summernote.eot?a52b483f848b87d49a85f0c58ca28699);
-  src: url(/fonts/summernote.eot?a52b483f848b87d49a85f0c58ca28699) format("embedded-opentype"), url(/fonts/summernote.woff?f9b5d834b2fea5a2b440074e662c2281) format("woff"), url(/fonts/summernote.ttf?ad2ecd48a495cc67b3b33764bee90f14) format("truetype");
-}
-
-.note-editor.note-frame {
-  border: 1px solid #ced4da;
-  box-shadow: none;
-  margin: 0;
-}
-
-.note-editor.note-frame .note-statusbar {
-  background-color: #fcfcfc;
-  border-top: 1px solid #f7f7f7;
-}
-
-.note-editor.note-frame .note-editable {
-  border: none;
-}
-
-.note-status-output {
-  display: none;
-}
-
-.note-editable {
-  border: 1px solid #ced4da;
-  border-radius: 0.2rem;
-  padding: 0.45rem 0.9rem;
-}
-
-.note-editable p:last-of-type {
-  margin-bottom: 0;
-}
-
-.note-popover .popover-content .note-color .dropdown-menu,
-.card-header.note-toolbar .note-color .dropdown-menu {
-  min-width: 344px;
-}
-
-.note-toolbar {
-  z-index: 1;
-}
-
 .form-wizard-header .nav-item {
   margin: 0 0.5em;
   text-align: left;
