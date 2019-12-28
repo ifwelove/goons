@@ -2289,6 +2289,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2308,7 +2312,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         roles: []
       },
       isSubmitting: false,
-      errors: $('.parsley-error').length
+      errors: {
+        email: ''
+      }
     };
   },
   computed: {
@@ -2331,9 +2337,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   mounted: function mounted() {
     $('.createForm').parsley();
   },
-  updated: function updated() {
-    this.errors = $('.parsley-error').length;
-  },
   methods: {
     setForm: function setForm() {
       var _this$account = this.account,
@@ -2352,6 +2355,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       };
     },
     handleCreate: function handleCreate() {
+      var _this2 = this;
+
       var instance = $('.createForm').parsley();
       if (!instance.isValid()) return;
       this.isSubmitting = true;
@@ -2368,6 +2373,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }).then(function () {
           location.assign(location.origin + '/accounts');
         });
+      })["catch"](function (err) {
+        var errors = err.response.data.errors;
+
+        if (errors.email.length) {
+          _this2.errors.email = errors.email;
+        }
+      })["finally"](function () {
+        return _this2.isSubmitting = false;
       });
     },
     handleSave: function handleSave() {
@@ -2416,10 +2429,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       });
     },
     handleDelete: function handleDelete() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.deleteConfirm().then(function () {
-        var uri = "/api/accounts/".concat(_this2.account.id);
+        var uri = "/api/accounts/".concat(_this3.account.id);
         axios["delete"](uri).then(function () {
           Swal.fire({
             title: '帳號已刪除'
@@ -22431,37 +22444,57 @@ var render = function() {
                     _vm._v("帳號：")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-6" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.email,
-                          expression: "form.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        placeholder: "限英數字",
-                        "data-parsley-pattern": "^(\\d|\\w)+$",
-                        "data-parsley-trigger": "change",
-                        "data-parsley-pattern-message": "限英數字",
-                        "data-parsley-required-message": "必填欄位",
-                        required: ""
-                      },
-                      domProps: { value: _vm.form.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _c(
+                    "div",
+                    { staticClass: "col-lg-6" },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.email,
+                            expression: "form.email"
                           }
-                          _vm.$set(_vm.form, "email", $event.target.value)
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "限英數字",
+                          "data-parsley-pattern": "^(\\d|\\w)+$",
+                          "data-parsley-trigger": "change",
+                          "data-parsley-pattern-message": "限英數字",
+                          "data-parsley-required-message": "必填欄位",
+                          required: ""
+                        },
+                        domProps: { value: _vm.form.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "email", $event.target.value)
+                          }
                         }
-                      }
-                    })
-                  ])
+                      }),
+                      _vm._v(" "),
+                      _vm._l(_vm.errors.email, function(msg) {
+                        return _c(
+                          "div",
+                          {
+                            key: msg,
+                            staticStyle: {
+                              color: "red",
+                              "margin-top": "2px",
+                              "font-weight": "400"
+                            }
+                          },
+                          [_vm._v(_vm._s(msg))]
+                        )
+                      })
+                    ],
+                    2
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [

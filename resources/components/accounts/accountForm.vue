@@ -36,6 +36,10 @@
                   data-parsley-required-message="必填欄位"
                   required
                   v-model="form.email">
+                  <div
+                    v-for="msg in errors.email"
+                    :key="msg"
+                    style="color: red; margin-top: 2px; font-weight: 400;">{{ msg }}</div>
               </div>
             </div>
             <div class="form-group row">
@@ -148,7 +152,9 @@ export default {
         roles: []
       },
       isSubmitting: false,
-      errors: $('.parsley-error').length
+      errors: {
+        email: '',
+      }
     }
   },
 
@@ -174,10 +180,6 @@ export default {
 
   mounted () {
     $('.createForm').parsley()
-  },
-
-  updated () {
-    this.errors = $('.parsley-error').length
   },
 
   methods: {
@@ -215,6 +217,14 @@ export default {
             location.assign(location.origin + '/accounts')
           })
       })
+      .catch(err => {
+        const { errors } = err.response.data
+
+        if (errors.email.length) {
+          this.errors.email = errors.email
+        }
+      })
+      .finally(() => this.isSubmitting = false)
     },
 
     handleSave () {
