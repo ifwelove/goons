@@ -2701,7 +2701,7 @@ body.boxed-layout.enlarged .footer {
 }
 
 .bootstrap-select .inner {
-  overflow-y: inherit !important;
+  overflow-y: auto !important;
 }
 
 .ms-container {

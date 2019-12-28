@@ -286,6 +286,7 @@ export default {
 
     setPerPage (perPage) {
       this.filters.perPage = perPage
+      this.filters.page = 1
       this.getPushes()
     },
 
