@@ -35385,9 +35385,9 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/debbyji/Project/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
-__webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-module.exports = __webpack_require__(/*! /Users/debbyji/Project/goons/resources/scss/app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
+__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 
 /***/ })
