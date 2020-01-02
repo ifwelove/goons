@@ -13,7 +13,7 @@
         <form class="kt-form kt-form--label-right">
           <div class="kt-portlet__body">
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">標題：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>標題：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限50個字" maxlength="50" required
                   v-model="form.title" >
@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">指定上架日期：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>指定上架日期：</label>
               <div class="col-6 col-lg-3">
                 <div class="input-group date">
                   <input type="text" class="form-control" readonly=""
@@ -61,7 +61,7 @@
             </div>
 
 						<div class="form-group row">
-              <label class="col-lg-3 col-form-label">自動推播：
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>自動推播：
 							</label>
               <div class="col-6">
 								<div class="kt-radio-inline">
@@ -78,8 +78,8 @@
 						</div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">消息內容：</label>
-              <div class="col-lg-6">
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>消息內容：</label>
+              <div class="col-lg-6" id="editor">
                 <div class="summernote" v-html="form.description">{{ form.description }}</div>
               </div>
             </div>
@@ -213,7 +213,7 @@ export default {
         lang: 'zh-TW',
         toolbar: [
           ['style', ['bold']],
-          ['para', ['ul']],
+          ['para', ['ol']],
           ['insert', ['link', 'picture']],
           ['cleaner',['cleaner']],
         ],
@@ -353,5 +353,7 @@ export default {
 </script>
 
 <style>
-
+#editor a {
+  text-decoration: underline !important;
+}
 </style>

@@ -8,7 +8,7 @@
           data-parsley-validate="">
           <div class="kt-portlet__body">
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">姓名：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>姓名：</label>
               <div class="col-lg-6">
                 <input
                   type="text"
@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">帳號：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>帳號：</label>
               <div class="col-lg-6">
                 <input
                   type="text"
@@ -43,7 +43,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">密碼：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>密碼：</label>
               <div class="col-lg-6">
                 <input
                   type="password"
@@ -60,7 +60,7 @@
               </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 col-form-label">權限管理：</label>
+                <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>權限管理：</label>
                 <div class="col-lg-6 kt-checkbox-list mt-2 pl-2">
                   <label class="kt-checkbox">
                         <input type="checkbox" v-model="form.roles" value="1"> 帳號管理
