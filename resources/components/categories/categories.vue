@@ -273,11 +273,11 @@
             },
 
             isTop(item) {
-                return item.sort === 1
+                return item.sort == 1
             },
 
             isBottom(item) {
-                return item.sort === this.pagination.total
+                return item.sort == this.pagination.total
             }
         }
 

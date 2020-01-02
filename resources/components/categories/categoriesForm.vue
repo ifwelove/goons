@@ -13,14 +13,14 @@
         <form class="categoriesForm kt-form kt-form--label-right" data-parsley-validate>
           <div class="kt-portlet__body">
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">節目名稱：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>節目名稱：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限10個字" maxlength="10"
                   v-model="form.title" required>
               </div>
             </div>
 						 <div class="form-group row">
-              <label class="col-lg-3 col-form-label">選擇圖片：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>選擇圖片：</label>
               <div class="col-lg-6">
 								<div
                   v-if="form.image"
@@ -43,14 +43,14 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">主持人：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>主持人：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限20個字" maxlength="20"
                 v-model="form.anchor" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">節目介紹：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>節目介紹：</label>
               <div class="col-lg-6">
                 <textarea class="form-control" placeholder="" maxlength="500"
                   v-model="form.sub_title" required></textarea>

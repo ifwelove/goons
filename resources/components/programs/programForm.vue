@@ -13,7 +13,7 @@
         <form class="kt-form kt-form--label-right">
           <div class="kt-portlet__body">
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">節目名稱：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>節目名稱：</label>
               <div class="col-lg-6">
                  <select id="selectpicker" class="my-select selectpicker w-auto mr-2"
                   v-model="form.categories">
@@ -25,28 +25,28 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">單集節目名稱：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>單集節目名稱：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限30個字" maxlength="30"
                   v-model="form.title">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">主持人：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>主持人：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="限15個字" maxlength="15"
                   v-model="form.anchor">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">音檔位址：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>音檔位址：</label>
               <div class="col-lg-6">
                 <input type="text" class="form-control" placeholder="http://"
                 v-model="form.url">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">指定上架日期：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>指定上架日期：</label>
               <div class="col-10 col-lg-6">
                 <div class="input-group date">
                   <input type="text" class="form-control" readonly=""
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">指定下架日期：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>指定下架日期：</label>
               <div class="col-10 col-lg-6">
                  <div class="input-group date">
                   <input type="text" class="form-control" id="datepicker_end"
@@ -85,7 +85,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">單集簡介：</label>
+              <label class="col-lg-3 col-form-label"><span class="text-danger">*</span>單集簡介：</label>
               <div class="col-lg-6">
                 <textarea class="form-control" placeholder="" maxlength="300"
                   v-model="form.sub_title"></textarea>
