@@ -2356,27 +2356,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2430,24 +2409,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     this.$nextTick(function () {
-      $('#datetimepicker6').datetimepicker();
-      $('#datetimepicker7').datetimepicker({
-        useCurrent: false //Important! See issue #1075
-
-      });
-      $("#datetimepicker6").on("dp.change", function (e) {
-        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-      });
-      $("#datetimepicker7").on("dp.change", function (e) {
-        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-      });
       $('#datepicker_start, #datepicker_end').datetimepicker({
         format: "yyyy/mm/dd hh:ii",
         autoclose: true
       });
       $('#datepicker_start').datetimepicker({
         format: "yyyy/mm/dd hh:ii",
-        disabledDates: [new Date(2020, 1 - 1, 21), "01/22/2020 00:53"],
         startDate: new Date()
       });
       $('#datepicker_start').on('changeDate', function () {
@@ -3879,7 +3846,7 @@ var MILLISECONDS_IN_MINUTE = 60000;
 
 function getTimezoneOffsetInMilliseconds(dirtyDate) {
   var date = new Date(dirtyDate.getTime());
-  var baseTimezoneOffset = date.getTimezoneOffset();
+  var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
   date.setSeconds(0, 0);
   var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
   return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
@@ -4709,6 +4676,7 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  *   see: https://git.io/fxCyr
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
+ * @throws {RangeError} `date` must not be Invalid Date
  * @throws {RangeError} `options.locale` must contain `localize` property
  * @throws {RangeError} `options.locale` must contain `formatLong` property
  * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
@@ -25416,10 +25384,6 @@ var render = function() {
               _c("div", { staticClass: "form-group row" }, [
                 _vm._m(2),
                 _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
                 _c("div", { staticClass: "col-6 col-lg-3" }, [
                   _c("div", { staticClass: "input-group date" }, [
                     _c("input", {
@@ -25449,7 +25413,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(5)
+                    _vm._m(3)
                   ])
                 ]),
                 _vm._v(" "),
@@ -25503,7 +25467,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(6)
+                    _vm._m(4)
                   ])
                 ]),
                 _vm._v(" "),
@@ -25525,7 +25489,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _vm._m(7),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
                   _c("div", { staticClass: "kt-radio-inline" }, [
@@ -25583,7 +25547,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _vm._m(8),
+                _vm._m(6),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -25714,52 +25678,6 @@ var staticRenderFns = [
     return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
       _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
       _vm._v("標題：")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-5" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c(
-          "div",
-          { staticClass: "input-group date", attrs: { id: "datetimepicker6" } },
-          [
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "input-group-addon" }, [
-              _c("span", { staticClass: "glyphicon glyphicon-calendar" })
-            ])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-5" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c(
-          "div",
-          { staticClass: "input-group date", attrs: { id: "datetimepicker7" } },
-          [
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "input-group-addon" }, [
-              _c("span", { staticClass: "glyphicon glyphicon-calendar" })
-            ])
-          ]
-        )
-      ])
     ])
   },
   function() {
@@ -38316,7 +38234,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/js/components/news.js */"./resources/js/components/news.js");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/news.js */"./resources/js/components/news.js");
 
 
 /***/ })
