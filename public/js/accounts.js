@@ -22400,9 +22400,7 @@ var render = function() {
             [
               _c("div", { staticClass: "kt-portlet__body" }, [
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("姓名：")
-                  ]),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("input", {
@@ -22440,9 +22438,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("帳號：")
-                  ]),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -22498,9 +22494,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("密碼：")
-                  ]),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("input", {
@@ -22538,9 +22532,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("權限管理：")
-                  ]),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -22906,7 +22898,44 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("姓名：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("帳號：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("密碼：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("權限管理：")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -35385,9 +35414,9 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
-__webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/scss/app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/js/components/accounts.js */"./resources/js/components/accounts.js");
+__webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/scss/bootstrap.scss */"./resources/scss/bootstrap.scss");
+module.exports = __webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/scss/app.scss */"./resources/scss/app.scss");
 
 
 /***/ })
