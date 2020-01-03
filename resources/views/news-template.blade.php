@@ -74,10 +74,17 @@
             font-weight: normal;
         }
 
-        #template-content p{
+        #template-content p, #template-content h4{
             padding-left: 20px !important;
             padding-right: 20px !important;
             margin: 0;
+        }
+
+        #template-content h4{
+            font-size: 18px;
+            color: #0A0B0E;
+            line-height: 25px;
+            font-weight: bold;
         }
 
         #template-content a {
