@@ -2193,6 +2193,7 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
     },
     setPerPage: function setPerPage(perPage) {
       this.filters.perPage = perPage;
+      this.filters.page = 1;
       this.getProgramsList();
     },
     setPage: function setPage(page) {
@@ -2200,10 +2201,10 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
       this.getProgramsList();
     },
     isTop: function isTop(item) {
-      return item.sort === 1;
+      return item.sort == 1;
     },
     isBottom: function isBottom(item) {
-      return item.sort === this.pagination.total;
+      return item.sort == this.pagination.total;
     }
   }
 });
@@ -21858,9 +21859,7 @@ var render = function() {
             [
               _c("div", { staticClass: "kt-portlet__body" }, [
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("節目名稱：")
-                  ]),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("input", {
@@ -21893,9 +21892,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("選擇圖片：")
-                  ]),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _vm.form.image
@@ -21949,9 +21946,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("主持人：")
-                  ]),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("input", {
@@ -21984,9 +21979,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                    _vm._v("節目介紹：")
-                  ]),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-lg-6" }, [
                     _c("textarea", {
@@ -22122,6 +22115,42 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "breadcrumb-item" }, [
       _c("a", { attrs: { href: "/categories" } }, [_vm._v("節目分類")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("節目名稱：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("選擇圖片：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("主持人：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("節目介紹：")
     ])
   }
 ]
@@ -34578,7 +34607,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
 
 
 /***/ })

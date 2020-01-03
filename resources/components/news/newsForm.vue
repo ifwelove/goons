@@ -190,7 +190,7 @@ export default {
 			});
 
 			$('#datepicker_start').datetimepicker({
-				format: "yyyy/mm/dd hh:ii",
+        format: "yyyy/mm/dd hh:ii",
 				startDate: new Date()
 			});
 
@@ -209,14 +209,41 @@ export default {
 
   methods: {
     initEditor () {
+
+      const buttonHeading = function (context) {
+
+        const ui = $.summernote.ui;
+        let isHeader = false
+        const button = ui.button({
+          contents: '<i class="fas fa-heading"></i>',
+          tooltip: '段落標題',
+          click: function () {
+            if (isHeader) {
+              $('.summernote').summernote('formatPara');
+            } else {
+              $('.summernote').summernote('formatH4');
+            }
+            isHeader = !isHeader
+          }
+        });
+
+        return button.render();
+      }
+
       $('.summernote').summernote({
         lang: 'zh-TW',
         toolbar: [
           ['style', ['bold']],
+          ['mybutton', ['heading']],
           ['para', ['ol']],
           ['insert', ['link', 'picture']],
-          ['cleaner',['cleaner']],
+          ['cleaner',['cleaner']]
         ],
+
+        buttons: {
+          heading: buttonHeading
+        },
+
         cleaner: {
           action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
           newline: '<br>', // Summernote's default is to use '<p><br></p>'

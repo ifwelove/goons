@@ -3745,7 +3745,7 @@ var MILLISECONDS_IN_MINUTE = 60000;
 
 function getTimezoneOffsetInMilliseconds(dirtyDate) {
   var date = new Date(dirtyDate.getTime());
-  var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
+  var baseTimezoneOffset = date.getTimezoneOffset();
   date.setSeconds(0, 0);
   var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
   return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
@@ -4575,7 +4575,6 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  *   see: https://git.io/fxCyr
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `date` must not be Invalid Date
  * @throws {RangeError} `options.locale` must contain `localize` property
  * @throws {RangeError} `options.locale` must contain `formatLong` property
  * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
@@ -25094,9 +25093,7 @@ var render = function() {
           _c("form", { staticClass: "kt-form kt-form--label-right" }, [
             _c("div", { staticClass: "kt-portlet__body" }, [
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("節目名稱：")
-                ]),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c(
@@ -25148,9 +25145,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("單集節目名稱：")
-                ]),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c("input", {
@@ -25182,9 +25177,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("主持人：")
-                ]),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c("input", {
@@ -25216,9 +25209,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("音檔位址：")
-                ]),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c("input", {
@@ -25246,9 +25237,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("指定上架日期：")
-                ]),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-10 col-lg-6" }, [
                   _c("div", { staticClass: "input-group date" }, [
@@ -25279,7 +25268,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(1)
+                    _vm._m(6)
                   ])
                 ]),
                 _vm._v(" "),
@@ -25301,9 +25290,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("指定下架日期：")
-                ]),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-10 col-lg-6" }, [
                   _c("div", { staticClass: "input-group date" }, [
@@ -25333,7 +25320,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _vm._m(8)
                   ])
                 ]),
                 _vm._v(" "),
@@ -25355,9 +25342,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-3 col-form-label" }, [
-                  _vm._v("單集簡介：")
-                ]),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-6" }, [
                   _c("textarea", {
@@ -25494,10 +25479,45 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c("span", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "fa fa-calendar-alt glyphicon-th" })
-      ])
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("節目名稱：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("單集節目名稱：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("主持人：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("音檔位址：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("指定上架日期：")
     ])
   },
   function() {
@@ -25508,6 +25528,34 @@ var staticRenderFns = [
       _c("span", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "fa fa-calendar-alt glyphicon-th" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("指定下架日期：")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fa fa-calendar-alt glyphicon-th" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-lg-3 col-form-label" }, [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")]),
+      _vm._v("單集簡介：")
     ])
   }
 ]
@@ -37999,7 +38047,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/programs.js */"./resources/js/components/programs.js");
+module.exports = __webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/js/components/programs.js */"./resources/js/components/programs.js");
 
 
 /***/ })
