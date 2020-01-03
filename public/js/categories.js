@@ -34607,7 +34607,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/debbyji/Documents/接案/201911 遠東福音會/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
+module.exports = __webpack_require__(/*! /Users/ponpon/ponpon/goods_test/goons/resources/js/components/categories.js */"./resources/js/components/categories.js");
 
 
 /***/ })
