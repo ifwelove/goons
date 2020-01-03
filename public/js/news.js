@@ -2451,7 +2451,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       $('.summernote').summernote({
         lang: 'zh-TW',
-        toolbar: [['style', ['bold']], ['mybutton', ['heading']], ['para', ['ol']], ['insert', ['link', 'picture']], ['cleaner', ['cleaner']]],
+        toolbar: [['style', ['bold']], ['mybutton', ['heading']], ['insert', ['link', 'picture']], ['cleaner', ['cleaner']]],
         buttons: {
           heading: buttonHeading
         },
