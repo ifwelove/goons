@@ -235,7 +235,6 @@ export default {
         toolbar: [
           ['style', ['bold']],
           ['mybutton', ['heading']],
-          ['para', ['ol']],
           ['insert', ['link', 'picture']],
           ['cleaner',['cleaner']]
         ],
