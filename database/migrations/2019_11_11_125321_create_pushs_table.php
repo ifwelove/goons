@@ -11,7 +11,7 @@ class CreatePushsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->softDeletes();
-			$table->string('title', 500);
+			$table->string('title', 500)->nullable();
 			$table->string('sub_title', 500);
 			$table->datetime('start_date')->nullable();
 			$table->datetime('end_date')->nullable();

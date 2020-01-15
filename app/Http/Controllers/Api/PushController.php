@@ -139,7 +139,7 @@ class PushController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $message = [
-            'title.max'          => '標題限制20字',
+//            'title.max'          => '標題限制20字',
 //            'title.required'     => '標題為必填',
             'sub_title.max'      => '推播內容限制100字',
             'sub_title.required' => '推播內容為必填',
