@@ -26,16 +26,16 @@
     useragent = useragent.toLowerCase();
     if (useragent.indexOf('iphone') != -1) {
         setTimeout(function () {
-            window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
-        }, 10000);
+            window.location.replace("https://itunes.apple.com/app/id1494094101");
+        }, 5000);
     } else if (useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1) {
         setTimeout(function () {
-            window.location.replace("itms-apps://itunes.apple.com/tw/app/apple-store/id1185371908?mt=8");
-        }, 10000);
+            window.location.replace("https://itunes.apple.com/app/id1494094101");
+        }, 5000);
     } else if (useragent.indexOf('android') != -1) {
         setTimeout(function () {
-            window.location.replace("market://details?id=tw.com.taishinbank.ccapp");
-        }, 10000);
+            window.location.replace("https://play.google.com/store/apps/details?id=feea.radio");
+        }, 5000);
     } else {
         // PC
     }
