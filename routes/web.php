@@ -112,9 +112,9 @@ Route::match(['get', 'head'], 'news/{news}', 'NewsController@show');
 Route::match(['get', 'head'], '{programType}/{categoryId}/{programId}', 'ShareController@linkShow');//分享的靜態頁面
 Route::match(['get', 'head'], 'share/{programType}/{categoryId}/{programId}', 'ShareController@show');//分享的靜態頁面
 
-Route::match(['get', 'head'], 'cron/mp3', 'CronController@mp3');//將節目音源長度0的做下載擷取長度
-Route::match(['get', 'head'], 'cron/news', 'CronController@news');//沒推播的新聞進行預約或立即推播
-Route::match(['get', 'head'], 'cron/pushs', 'CronController@pushs');//沒推播的進行推播
+//Route::match(['get', 'head'], 'cron/mp3', 'CronController@mp3');//將節目音源長度0的做下載擷取長度
+//Route::match(['get', 'head'], 'cron/news', 'CronController@news');//沒推播的新聞進行預約或立即推播
+//Route::match(['get', 'head'], 'cron/pushs', 'CronController@pushs');//沒推播的進行推播
 //Route::match(['get', 'head'], 'cron/push/curl', 'CronController@pushByCurl');
 //Route::match(['get', 'head'], 'cron/push/fcm', 'CronController@pushByFcm');
 Route::match(['get', 'head'], '.well-known/apple-app-site-association', 'DownloadController@iosJson');

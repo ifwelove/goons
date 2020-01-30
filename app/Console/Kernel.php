@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CronMp3Command;
+use App\Console\Commands\CronNewCommand;
+use App\Console\Commands\CronPushCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +16,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        CronPushCommand::class,
+        CronMp3Command::class,
+        CronNewCommand::class,
     ];
 
     /**

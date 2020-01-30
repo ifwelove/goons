@@ -23,15 +23,14 @@ class CronController extends Controller
 
     public function mp3()
     {
+        ini_set('memory_limit', '2048M');
+        ignore_user_abort(true);
+        set_time_limit(1200);
         $program = Program::whereNull('duration')
             ->first();
         if (is_null($program)) {
             return response()->json();
         }
-
-        ini_set('memory_limit', '2048M');
-        ignore_user_abort(true);
-        set_time_limit(1200);
 
         $formatUrl = str_replace(' ', '%20', str_replace('//o', '/o', $program->url));
         $aa        = explode('/', $formatUrl);
@@ -84,16 +83,17 @@ class CronController extends Controller
             'firstClass' => "A",
             'secClass'   => (string) $news->id,
         ];
-        Device::where('receiveNoti', 1)->chunk(50, function ($devices) use ($option, $notification, $data) {
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData($data);
+        $dataBuild = $dataBuilder->build();
+        $news->type = 1;
+        $news->save();
+        Device::where('receiveNoti', 1)->chunk(50, function ($devices) use ($option, $notification, $dataBuild) {
             foreach ($devices as $device) {
-                $dataBuilder = new PayloadDataBuilder();
-                $dataBuilder->addData($data);
-                $dataBuild = $dataBuilder->build();
                 FCM::sendTo($device->token, $option, $notification, $dataBuild);
             }
         });
-        $news->type = 1;
-        $news->save();
         Log::info([$news->id]);
 
         return response()->json();
@@ -130,16 +130,17 @@ class CronController extends Controller
         $option       = $optionBuilder->build();
         $notification = $notificationBuilder->build();
         $data         = json_decode($push->url, true);
-        Device::where('receiveNoti', 1)->chunk(50, function ($devices) use ($option, $notification, $data) {
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData($data);
+        $dataBuild = $dataBuilder->build();
+        $push->type = 1;
+        $push->save();
+        Device::where('receiveNoti', 1)->chunk(50, function ($devices) use ($option, $notification, $dataBuild) {
             foreach ($devices as $device) {
-                $dataBuilder = new PayloadDataBuilder();
-                $dataBuilder->addData($data);
-                $dataBuild = $dataBuilder->build();
                 FCM::sendTo($device->token, $option, $notification, $dataBuild);
             }
         });
-        $push->type = 1;
-        $push->save();
         Log::info([$push->id]);
 
         return response()->json();
