@@ -42,13 +42,18 @@ class CronController extends Controller
         } else {
             $fileLocal = storage_path('app/public/music/' . $fileName);
             $fileUrl   = $formatUrl;
-            $result    = file_put_contents($fileLocal, fopen($fileUrl, 'r'));
-            if ($result <= 0 && ! file_exists($fileLocal)) {
-            } else {
-                $audio             = new Mp3Info($fileLocal);
-                $program->duration = intval($audio->duration);
+            try {
+                $result    = file_put_contents($fileLocal, fopen($fileUrl, 'r'));
+                if ($result <= 0 && ! file_exists($fileLocal)) {
+                } else {
+                    $audio             = new Mp3Info($fileLocal);
+                    $program->duration = intval($audio->duration);
+                    $program->save();
+                    unlink($fileLocal);
+                }
+            } catch (\Exception $e) {
+                $program->duration = '0';
                 $program->save();
-                unlink($fileLocal);
             }
         }
         Log::info([$program->id]);
